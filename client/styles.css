@@ -1,0 +1,25 @@
+/*Login Stuff*/
+#login-buttons {
+	font-size:25px;
+}
+.or,
+.login-form {
+	display:none;
+}
+#login-sign-in-link {
+	position:absolute;
+	right:0;
+	cursor:pointer;
+}
+#login-dropdown-list {
+	  position: relative;
+  background: lightgray;
+  border-radius: 5px;
+  padding: 10px;
+}
+.login-close-text {
+	cursor:pointer;
+}
+.sign-in-text-facebook {
+	cursor:pointer;
+}
