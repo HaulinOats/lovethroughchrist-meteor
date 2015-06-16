@@ -1,0 +1,37 @@
+.account-searchable-container {
+	  display: table;
+  border: solid thin gray;
+  border-radius: 5px;
+  height: 35px;
+  overflow: hidden;
+  padding:0;
+  cursor:pointer;
+}
+.account-searchable-container span {
+	display: table-cell;
+  vertical-align: middle;
+  width: 50%;
+  text-align: center;
+}
+.searchable-switch {
+	  position: absolute;
+  height: 100%;
+  background: blue;
+  left: 0;
+}
+.switch-no {
+	left:50%;
+}
+.info-field {
+	padding: 1% 0%;
+  border-bottom: solid thin gray;
+  min-height: 55px;
+  padding-top:15px;
+}
+.info-field select,
+.info-field input {
+	min-height: 40px;
+}
+.info-field label {
+	margin-top:8px;
+}
