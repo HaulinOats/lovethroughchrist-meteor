@@ -1,0 +1,34 @@
+<template name="header">
+	<nav class="ltc-navbar navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a href="/"><img class="navbar-brand logo" src="/ltc-logo-long.svg" alt="Love Through Christ"></a>
+				<div class="nav pull-right">
+					<ul class="navigation-list visible-md visible-lg list-unstyled list-inline">
+					{{> navigation_links}}
+					</ul>
+					<button type="button" class="nav-small-menu-button visible-sm visible-xs" data-toggle="collapse" data-target="#ltc-small-menu">
+			          <i class="glyphicon glyphicon-menu-hamburger"></i>
+			        </button>
+				</div>
+			</div>
+		</div>
+	<div class="collapse" id="ltc-small-menu" aria-expanded="false">
+		<ul class="navigation-list navigation-list-small visible-xs visible-sm list-unstyled list-inline">
+      	{{> navigation_links}}
+      	</ul>
+    </div>
+	</nav>
+</template>
+
+<template name="navigation_links">
+	{{#if currentUser}}
+		<li><a href="/messages">Messages <i class="glyphicon glyphicon-envelope"></i></a></li>
+		<li><a href="/search">Search <i class="glyphicon glyphicon-search"></i></a></li>
+		<li><a href="/my-profile">My Profile <i class="glyphicon glyphicon-user"></i></a></li>
+		<li><a href="/my-account">Account <i class="glyphicon glyphicon-cog"></i></a></li>
+		<li class="facebook-logout">Sign Out <i class="glyphicon glyphicon-log-out"></i></li>
+	{{else}}
+		<li class="facebook-login"><img class="fb-login-button" src="fb_login.png"/></li>
+	{{/if}}
+</template>

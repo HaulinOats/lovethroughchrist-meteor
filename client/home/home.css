@@ -1,0 +1,59 @@
+/*Slider CSS*/
+.slider_container_outer {
+	background:lightgray;
+	position: relative;
+	height:600px;
+	overflow: hidden;
+}
+.slider_container_inner {
+	position:relative;
+	height:100%;
+	width:auto;
+	background:orange;
+	background-size: 100%;
+}
+.slider_container_inner_1 {
+	animation:sliderAnim 20s infinite;
+	background-image:url('/couple.jpg');
+}
+.slider_container_inner_2 {
+	background-image:url('/couple2.jpg');
+	background-position-y:20%;
+	
+}
+.slider_container_inner_3 {
+	background-image:url('/couple3.jpg');
+	background-position-y:30%;
+}
+
+/* Page CSS */
+.thin-blue-bar {
+	height:10px;
+	background:#5F9EA0;
+}
+.home-page-intro {
+	background:#5F9EA0;
+}
+.home-body-section {
+	text-align: center;
+	padding:2%;
+}
+.home-body-section:hover {
+	background:lightgray;
+	-webkit-transition: .5s background;
+	-o-transition: .5s background;
+	transition: .5s background;
+}
+.home-body-section i{
+	font-size:60px;
+}
+
+@keyframes sliderAnim {
+	0%  {margin-top:0px;}
+	32%  {margin-top:0px;}
+	33% {margin-top:-600px;}
+	65%  {margin-top:-600px;}
+	66%  {margin-top:-1200px;}
+	99% {margin-top:-1200px;}
+	100% {margin-top:0px;}
+}

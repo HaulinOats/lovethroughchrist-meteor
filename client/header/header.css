@@ -1,0 +1,99 @@
+/*Login Stuff*/
+#login-buttons {
+	font-size:22px;
+	margin-top:-30px;
+}
+.or,
+.login-form {
+	display:none;
+}
+#login-sign-in-link {
+	position:absolute;
+	right:0;
+	cursor:pointer;
+}
+#login-dropdown-list {
+	  position: absolute;
+  background: lightgray;
+  border-radius: 5px;
+  padding: 10px;
+    top: 0;
+  right: 0;
+}
+.login-close-text {
+	cursor:pointer;
+}
+.sign-in-text-facebook {
+	cursor:pointer;
+}
+#login-buttons-logout {
+	width:165px;
+}
+
+/*Nav Bar*/
+.nav {
+	margin-top: 8px;
+}
+.ltc-navbar {
+  margin-bottom: 0;
+  box-shadow: 0px -4px 14px 1px black;
+  z-index: 100;
+	background:white;
+}
+.logo {
+	padding-top:10px;
+	padding-left:0px;
+	  padding-bottom: 8px;
+	height:60px;
+}
+.navigation-list {
+	font-size:18px;
+	color:#5F9EA0;
+	margin-top:10px;
+}
+.navigation-list li {
+	cursor:pointer;
+}
+.navigation-list i{
+	font-size:20px;
+}
+.navigation-list a {
+	cursor:pointer;
+	-webkit-transition: .5s color;
+	-o-transition: .5s color;
+	transition: .5s color;
+	color:#5F9EA0;
+}
+.navigation-list a:hover {
+	text-decoration:none;
+	color:#E8BC4C;
+}
+.nav-small-menu-button {
+	background:lightgray;
+	 border-radius: 5px;
+  font-size: 28px;
+  padding: 3px 10px 0px 10px;
+  outline:none;
+
+}
+#ltc-small-menu {
+
+}
+.navigation-list-small li{
+	  display: block;
+  font-size: 24px;
+  padding: 1% 4%;
+}
+.navigation-list-small #login-buttons {
+	display:inline-block;
+}
+.navigation-list-small #login-sign-in-link {
+	position:relative;
+}
+.fb-login-button {
+	width: 150px;
+	margin-top: -3px;
+}
+.facebook-logout {
+	color:darkgray;
+}
