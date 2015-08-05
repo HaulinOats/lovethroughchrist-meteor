@@ -24,11 +24,12 @@
 }
 .switch-no {
 	left:50%;
+  background-color: rgb(255,70,70);
 }
 .info-field {
 	padding: 1% 0%;
   border-bottom: solid thin gray;
-  min-height: 55px;
+  min-height: 71px;
   padding-top:15px;
 }
 .info-field select,

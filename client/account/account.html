@@ -37,7 +37,6 @@
 				<label class="col-xs-4">State</label>
 				<input type="text" class="col-xs-4 pull-right account-state" value="{{currentUser.profile.state}}" fieldname="state" />
 			</div>
-			<div class="clearfix"></div>
 			<div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-4">Height</label>
 				<select class="col-xs-3 pull-right account-height" heightfield="inches">
@@ -51,6 +50,7 @@
 					{{/each}}
 				</select>
 			</div>
+			<div class="clearfix"></div>
 			<div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-3">Birthdate</label>
 				<select class="col-xs-3 pull-right account-birthdate" birthdatefield="year">
@@ -66,6 +66,14 @@
 				<select class="col-xs-3 pull-right account-birthdate" birthdatefield="month">
 					{{#each getProperties 'month'}}
 						<option value="{{this.option}}" selected="{{#if stringOptionMatch currentUser.profile.birthdate.month this.option}}selected{{/if}}">{{this.option}}</option>
+					{{/each}}
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 info-field">
+				<label class="col-xs-5">Political Affiliation</label>
+				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="politicalParty">
+					{{#each getProperties 'politicalParty'}}
+						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.politicalParty this.index}}selected{{/if}}">{{this.option}}</option>
 					{{/each}}
 				</select>
 			</div>
@@ -181,15 +189,6 @@
 				</select>
 			</div>
 			<div class="col-xs-12 col-sm-6 info-field">
-				<label class="col-xs-5">Political Affiliation</label>
-				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="politicalParty">
-					{{#each getProperties 'politicalParty'}}
-						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.politicalParty this.index}}selected{{/if}}">{{this.option}}</option>
-					{{/each}}
-				</select>
-			</div>
-			<div class="clearfix"></div>
-			<div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-5">Wants Kids Eventually</label>
 				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="wantsKids">
 					{{#each getProperties 'wantsKids'}}
@@ -197,6 +196,7 @@
 					{{/each}}
 				</select>
 			</div>
+			<div class="clearfix"></div>
 			<div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-5">Wants Pets Eventually</label>
 				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="wantsPets">
@@ -205,7 +205,6 @@
 					{{/each}}
 				</select>
 			</div>
-			<div class="clearfix"></div>
 			<div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-5">Searchable</label>
 				<div class="col-xs-2 pull-right account-searchable-container" fieldname="searchable">
@@ -214,9 +213,41 @@
 					<span>Yes</span>
 				</div>
 			</div>
+			<div class="clearfix"></div>
 		</div>
 		<div class="tab-pane fade" id="pref">
 			<h3>Preferences</h3>
+			<div class="col-xs-12 col-sm-6 info-field">
+				<label class="col-xs-5">Looking For</label>
+				<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="gender">
+					{{#each getProperties 'gender'}}
+						<option value="{{lowercase this.option}}" selected="{{#if stringOptionMatch currentUser.profile.preferences.gender this.option}}selected{{/if}}">{{this.option}}</option>
+					{{/each}}
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 info-field">
+				<label class="col-xs-5">Search Distance</label>
+				<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="searchDistance">
+					{{#each getProperties 'searchDistance'}}
+						<option value="{{this.option}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.searchDistance this.option}}selected{{/if}}">{{this.option}} Miles</option>
+					{{/each}}
+				</select>
+			</div>
+			<div class="clearfix"></div>
+			<div class="col-xs-12 col-sm-6 info-field">
+				<label class="col-xs-4">Age Range</label>
+				<input class="col-xs-3 pull-right pref-age" fieldname="max" type="number" min="19" max="99" value="{{currentUser.profile.preferences.age.max}}"/>
+				<input class="col-xs-3 pull-right pref-age" fieldname="min" type="number" min="18" max="98" value="{{currentUser.profile.preferences.age.min}}"/>
+			</div>
+			<div class="col-xs-12 col-sm-6 info-field">
+				<label class="col-xs-5">Search Distance</label>
+				<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="searchDistance">
+					{{#each getProperties 'searchDistance'}}
+						<option value="{{this.option}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.searchDistance this.option}}selected{{/if}}">{{this.option}} Miles</option>
+					{{/each}}
+				</select>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 		<div class="tab-pane fade" id="winks">
 			<h3>Winks</h3>

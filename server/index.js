@@ -13,30 +13,64 @@ ServiceConfiguration.configurations.upsert(
 Meteor.methods({
 	//Login
 	addUserFields:function(userId){
+		var user = Meteor.users.find(userId).fetch()[0],
+			prefGender = "female";
+
+		//set preference gender
+		if (user.services.facebook.gender === "female")
+			prefGender = "male";
+
 		Meteor.users.update(userId, {
-			$set: {
-				'profile.userFieldsSet':true,
-				'profile.height.feet':5,
-				'profile.height.inches':0,
-				'profile.birthdate.month':1,
-				'profile.birthdate.day':1,
-				'profile.birthdate.year':1915,
-				'profile.bodyType':0,
-				'profile.churchAttendance':0,
-				'profile.denomination':0,
-				'profile.drinks':0,
-				'profile.smokes':0,
-				'profile.education':0,
-				'profile.ethnicity':0,
-				'profile.eyeColor':0,
-				'profile.hairColor':0,
-				'profile.hasKids':0,
-				'profile.wantsKids':0,
-				'profile.hasPets':0,
-				'profile.petPreference':0,
-				'profile.wantsPets':0,
-				'profile.politicalParty':0,
-				'profile.searchable':false
+			$set: { 
+				"profile": {
+					"userFieldsSet":true,
+					"height":{
+						"feet":5,
+						"inches":0
+					},
+					"birthdate":{
+						"month":"Jan",
+						"day":1,
+						"year":1915
+					},
+					"bodyType":0,
+					"churchAttendance":0,
+					"denomination":0,
+					"drinks":0,
+					"smokes":0,
+					"education":0,
+					"ethnicity":0,
+					"eyeColor":0,
+					"hairColor":0,
+					"hasKids":0,
+					"wantsKids":0,
+					"hasPets":0,
+					"petPreference":0,
+					"wantsPets":0,
+					"politicalParty":0,
+					"searchable":false,
+					"preferences": {
+						"gender":prefGender,
+						"distance":100,
+						"age": {
+							"min":18,
+							"max":99
+						},
+						"education":0,
+						"churchAttendance":0,
+						"denomination":0,
+						"smokes":0,
+						"drinks":0,
+						"ethnicity":0,
+						"hasKids":0,
+						"language":0,
+						"petPreference":0,
+						"pets":0,
+						"politicalParty":0,
+						"wantsKids":0,
+						"wantsPets":0
+					}
+				}
 			}
 		})
 	},
@@ -55,21 +89,53 @@ Meteor.methods({
 			}
 		});
 	},
-	setAccountTextField:function(userId, fieldValue, fieldName){
+	setInfoTextField:function(userId, fieldValue, fieldName){
 		var user = Meteor.users.find(userId).fetch()[0];
 		user.profile[fieldName] = fieldValue;
 		Meteor.users.update(userId, {
 			$set:user
 		});
 	},
-	accountDropdownChange:function(userId, fieldname, option){
+	setAgeMinMax:function(userId, fieldValue, fieldName){
+		var user = Meteor.users.find(userId).fetch()[0];
+		user.profile.preferences.age[fieldName] = parseInt(fieldValue);
+		if (fieldName === "min") {
+			if (user.profile.preferences.age.max <= user.profile.preferences.age.min){
+				if (user.profile.preferences.age.max < 99)
+					user.profile.preferences.age.max = user.profile.preferences.age.min + 1;
+			}
+
+		} else if (fieldName === "max") {
+			if (user.profile.preferences.age.min >= user.profile.preferences.age.max) {
+				if (user.profile.preferences.age.min > 18)
+					user.profile.preferences.age.min = user.profile.preferences.age.max - 1;
+			}
+		}
+
+		Meteor.users.update(userId, {
+			$set:user
+		});
+	},
+	accountInfoChange:function(userId, fieldname, option){
 		var user = Meteor.users.find(userId).fetch()[0];
 		switch(fieldname){
 			case "gender":
-				Meteor.users.update(userId, {$set:{"services.facebook.gender":option}})
+				Meteor.users.update(userId, {$set:{"services.facebook.gender":option, "profile.gender":option}})
 				break;
 			default:
 				user.profile[fieldname] = parseInt(option);
+				Meteor.users.update(userId, {$set:user});
+				break;
+		}
+	},
+	accountPrefChange:function(userId, fieldname, option){
+		switch(fieldname){
+			case "gender":
+				Meteor.users.update(userId, {$set:{"preferences.gender":option}})
+				break;
+			default:
+				var user = Meteor.users.find(userId).fetch()[0];
+				user.profile.preferences[fieldname] = parseInt(option);
 				Meteor.users.update(userId, {$set:user});
 				break;
 		}

@@ -116,7 +116,7 @@ var accountFields = {
 	searchDistance: {
 		propertyName: 'searchDistance',
 		displayName: 'Search Distance',
-		options: ['Any Distance', '5 Miles', '10 Miles', '15 Miles', '20 Miles', '25 Miles', '30 Miles', '35 Miles', '40 Miles', '45 Miles', '50 Miles', '75 Miles', '100 Miles']
+		options: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 75, 100, 200]
 	}
 }
 
