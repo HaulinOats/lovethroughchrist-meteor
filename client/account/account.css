@@ -12,11 +12,14 @@
   vertical-align: middle;
   width: 50%;
   text-align: center;
+  -webkit-transition:.5s;
+  -o-transition:.5s;
+  transition:.5s;
 }
 .searchable-switch {
 	  position: absolute;
   height: 100%;
-  background: blue;
+  background: #5F9EA0;
   left: 0;
 }
 .switch-no {
