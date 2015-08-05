@@ -13,3 +13,12 @@ Router.route('/search', function () {
 Router.route('/messages', function () {
   this.render('messages_page');
 });
+
+//Router Pre-Hook
+Router.onBeforeAction(function () {
+  if (!Meteor.userId())
+    this.render('home_page');
+  else {
+    this.next();
+  }
+});

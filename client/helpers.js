@@ -1,9 +1,18 @@
-Template.registerHelper("checkForMatch", function (value) {
-
+Template.registerHelper("optionMatch", function (userValue, optionValue) {
+	if (userValue && optionValue) {
+		if (userValue.toLowerCase() === optionValue.toLowerCase())
+			return true;
+	}
 });
-Template.registerHelper("getProperties", function () {
-	
-    return {
+Template.registerHelper("capitalize", function(str){
+	if (str)
+		return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+});
+Template.registerHelper("lowercase", function(str){
+	return str.toLowerCase();
+});
+Template.registerHelper("getProperties", function (objIdx) {
+    var obj = {
 	    gender: {
 			propertyName: 'gender',
 			displayName: 'Gender',
@@ -108,5 +117,6 @@ Template.registerHelper("getProperties", function () {
 			displayName: 'Search Distance',
 			options: ['Any Distance', '5 Miles', '10 Miles', '15 Miles', '20 Miles', '25 Miles', '30 Miles', '35 Miles', '40 Miles', '45 Miles', '50 Miles', '75 Miles', '100 Miles']
 		}
-	}
+	};
+	return obj[objIdx].options;
 });
