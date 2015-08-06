@@ -34,7 +34,15 @@
 }
 .info-field select,
 .info-field input {
+  -webkit-appearance:none;
 	min-height: 40px;
+  border-radius:10px;
+}
+.info-field select {
+  background-position: 95%;
+  background-image: url('/down_arrow_select.png');
+  background-repeat: no-repeat;
+  background-size: 10% 50%;
 }
 .info-field label {
 	margin-top:8px;
