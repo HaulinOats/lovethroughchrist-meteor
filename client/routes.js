@@ -13,6 +13,14 @@ Router.route('/search', {
 Router.route('/messages', {
   template:'messages_page'
 });
+Router.route('/admin', {
+  template:'admin_page',
+  onBeforeAction:function(){
+    if (Meteor.user() && Meteor.user().services.facebook.email !== 'midgitsuu@gmail.com')
+      Router.go('/');
+    this.next();
+  }
+});
 
 //Router Pre-Hook
 Router.onBeforeAction(function () {

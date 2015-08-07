@@ -29,7 +29,7 @@
 .info-field {
 	padding: 1% 0%;
   border-bottom: solid thin gray;
-  min-height: 71px;
+  min-height: 75px;
   padding-top:15px;
 }
 .info-field select,
@@ -37,6 +37,7 @@
   -webkit-appearance:none;
 	min-height: 40px;
   border-radius:10px;
+  border:solid thin gray;
 }
 .info-field select {
   background-position: 95%;
@@ -46,4 +47,26 @@
 }
 .info-field label {
 	margin-top:8px;
+}
+.info-textarea {
+  margin-top:30px;
+}
+.info-textarea p{
+  font-size:20px;
+}
+.textarea-outer-container textarea{
+  position: relative;
+  width:100%;
+  min-height:150px;
+}
+.textarea-outer-container button{
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+    width: 8%;
+    height: 25%;
+    min-height: 35px;
+    min-width: 100px;
+    background-color: cadetblue;
+    color: white;
 }

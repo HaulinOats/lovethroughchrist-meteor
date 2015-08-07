@@ -47,5 +47,11 @@ Template.account_page.events({
 			Meteor.call('searchableSwitch', Meteor.userId());
 		else
 			alert('Must Set Zipcde');
+	},
+	'click .textarea-outer-container button':function(event){
+		var $textArea = $(event.currentTarget).siblings('textarea'),
+			textAreaVal = $textArea.val(),
+			fieldName   = $textArea.attr('fieldname');
+		Meteor.call('infoTextAreaSave', Meteor.userId(), fieldName, textAreaVal);
 	}
 });

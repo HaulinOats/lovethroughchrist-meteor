@@ -16,3 +16,11 @@ Template.header.events({
 		})
 	}
 });
+
+Template.navigation_links.helpers({
+	isAdmin:function(){
+		console.log('hi');
+		if (Meteor.user().services.facebook.email === 'midgitsuu@gmail.com')
+			return true;
+	}
+});

@@ -11,6 +11,106 @@ ServiceConfiguration.configurations.upsert(
 );
 
 Meteor.methods({
+	//Admin
+	seedUsers:function(){
+		function randomIntFromInterval(min,max){return Math.floor(Math.random()*(max-min+1)+min);}
+		for (var i = 0; i < 50; i++) {
+			var heightFeet   	 = randomIntFromInterval(3, 7),
+				heightInches 	 = randomIntFromInterval(0, 11),
+				bodyType	 	 = randomIntFromInterval(0, 8),
+				churchAttendance = randomIntFromInterval(0, 4),
+				denomination 	 = randomIntFromInterval(0, 10),
+				drinks 	 	     = randomIntFromInterval(0, 4),
+				smokes 	 	     = randomIntFromInterval(0, 4),
+				education 	 	 = randomIntFromInterval(0, 4),
+				ethnicity 	 	 = randomIntFromInterval(0, 8),
+				eyeColor 	 	 = randomIntFromInterval(0, 7),
+				hairColor 	 	 = randomIntFromInterval(0, 9),
+				hasKids 	 	 = randomIntFromInterval(0, 1),
+				wantsKids 	 	 = randomIntFromInterval(0, 2),
+				hasPets 	 	 = randomIntFromInterval(0, 1),
+				wantsPets 	 	 = randomIntFromInterval(0, 2),
+				petPreference 	 = randomIntFromInterval(0, 2),
+				politicalParty 	 = randomIntFromInterval(0, 6),
+				language 	     = randomIntFromInterval(0, 12),
+				ageMin 	 		 = randomIntFromInterval(18,30),
+				ageMax 	 		 = randomIntFromInterval(31,45),
+				pref_churchAttendance = randomIntFromInterval(0, 4),
+				pref_denomination 	  = randomIntFromInterval(0, 10),
+				pref_drinks 	 	  = randomIntFromInterval(0, 4),
+				pref_smokes 	 	  = randomIntFromInterval(0, 4),
+				pref_education 	 	  = randomIntFromInterval(0, 4),
+				pref_ethnicity 	 	  = randomIntFromInterval(0, 8),
+				pref_eyeColor 	 	  = randomIntFromInterval(0, 7),
+				pref_hairColor 	 	  = randomIntFromInterval(0, 9),
+				pref_hasKids 	 	  = randomIntFromInterval(0, 1),
+				pref_wantsKids 	 	  = randomIntFromInterval(0, 2),
+				pref_hasPets 	 	  = randomIntFromInterval(0, 1),
+				pref_wantsPets 	 	  = randomIntFromInterval(0, 2),
+				pref_petPreference 	  = randomIntFromInterval(0, 2),
+				pref_politicalParty   = randomIntFromInterval(0, 6),
+				pref_language   = randomIntFromInterval(0, 12);
+
+			Meteor.users.insert({
+				"profile": {
+					"userFieldsSet":true,
+					"height":{
+						"feet":heightFeet,
+						"inches":heightInches
+					},
+					"birthdate":{
+						"month":"Jan",
+						"day":1,
+						"year":1915
+					},
+					"bodyType":bodyType,
+					"churchAttendance":churchAttendance,
+					"denomination":denomination,
+					"drinks":drinks,
+					"smokes":smokes,
+					"education":education,
+					"ethnicity":ethnicity,
+					"eyeColor":eyeColor,
+					"hairColor":hairColor,
+					"hasKids":hasKids,
+					"wantsKids":wantsKids,
+					"hasPets":hasPets,
+					"petPreference":petPreference,
+					"wantsPets":wantsPets,
+					"politicalParty":politicalParty,
+					"searchable":true,
+					"preferences": {
+						"gender":"male",
+						"distance":100,
+						"age": {
+							"min":ageMin,
+							"max":ageMax
+						},
+						"education":pref_education,
+						"churchAttendance":pref_churchAttendance,
+						"denomination":pref_denomination,
+						"smokes":pref_smokes,
+						"drinks":pref_drinks,
+						"ethnicity":pref_ethnicity,
+						"hasKids":pref_hasKids,
+						"hasPets":pref_hasPets,
+						"language":pref_language,
+						"petPreference":pref_petPreference,
+						"politicalParty":pref_politicalParty,
+						"wantsKids":pref_wantsKids,
+						"wantsPets":pref_wantsPets
+					}
+				},
+				"services":{
+					"facebook": {
+						"gender":"female"
+					}
+				}
+			})
+		}
+		return Meteor.users.find().fetch();
+	},
+
 	//Login
 	addUserFields:function(userId){
 		var user = Meteor.users.find(userId).fetch()[0],
@@ -65,7 +165,7 @@ Meteor.methods({
 						"hasKids":0,
 						"language":0,
 						"petPreference":0,
-						"pets":0,
+						"hasPets":0,
 						"politicalParty":0,
 						"wantsKids":0,
 						"wantsPets":0
@@ -170,6 +270,13 @@ Meteor.methods({
 		user.profile.searchable = !user.profile.searchable;
 		Meteor.users.update(userId,{
 			$set:user
+		});
+	}, 
+	infoTextAreaSave:function(userId, fieldName, fieldValue){
+		var user = Meteor.users.find(userId).fetch()[0];
+		user.profile[fieldName] = fieldValue;
+		Meteor.users.update(userId, {
+			$set: user
 		});
 	}
 })
