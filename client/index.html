@@ -5,3 +5,141 @@
 <body class="container-fluid">
 	{{> header}}
 </body>
+
+<!-- General Templates -->
+<template name="preferences">
+	<h3>Preferences</h3>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Looking For</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="gender">
+			{{#each getProperties 'gender'}}
+				<option value="{{lowercase this.option}}" selected="{{#if stringOptionMatch currentUser.profile.preferences.gender this.option}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Search Distance</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="searchDistance">
+			{{#each getProperties 'searchDistance'}}
+				<option value="{{this.option}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.searchDistance this.option}}selected{{/if}}">{{this.option}} Miles</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-4">Age Range</label>
+		<input class="col-xs-3 pull-right pref-age" fieldname="max" type="number" min="19" max="99" value="{{currentUser.profile.preferences.age.max}}"/>
+		<input class="col-xs-3 pull-right pref-age" fieldname="min" type="number" min="18" max="98" value="{{currentUser.profile.preferences.age.min}}"/>
+	</div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Education</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="education">
+			{{#each getProperties 'education'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.education this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Church Attendance</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="churchAttendance">
+			{{#each getProperties 'churchAttendance'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.churchAttendance this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Denomination</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="denomination">
+			{{#each getProperties 'denomination'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.denomination this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Drinks</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="drinks">
+			{{#each getProperties 'drinks'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.drinks this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Smokes</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="smokes">
+			{{#each getProperties 'smokes'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.smokes this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Has Kids</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="hasKids">
+			{{#each getProperties 'hasKids'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.hasKids this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Wants Kids</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="wantsKids">
+			{{#each getProperties 'wantsKids'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.wantsKids this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Language</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="language">
+			{{#each getProperties 'language'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.language this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Ethnicity</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="ethnicity">
+			{{#each getProperties 'ethnicity'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.ethnicity this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Has Pets</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="hasPets">
+			{{#each getProperties 'hasPets'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.hasPets this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Wants Pets</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="wantsPets">
+			{{#each getProperties 'wantsPets'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.wantsPets this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Pet Preference</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="petPreference">
+			{{#each getProperties 'petPreference'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.petPreference this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Political Party</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="politicalParty">
+			{{#each getProperties 'politicalParty'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.politicalParty this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="clearfix"></div>
+</template>
