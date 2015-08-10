@@ -11,7 +11,7 @@
 	<div class="tab-content col-xs-12">
 		<!-- INFO -->
 		<div class="tab-pane fade active in" id="info">
-			<h3>{{currentUser.services.facebook.first_name}}'s Info</h3>
+			<h3>{{currentUser.profile.name.first}}'s Info</h3>
 			<div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-4">Zip Code (Required)</label>
 				<input class="col-xs-4 pull-right account-zipcode" value="{{currentUser.profile.zipcode}}" type="number" />
@@ -20,7 +20,7 @@
 				<label class="col-xs-4">Gender</label>
 				<select class="col-xs-4 pull-right account-gender-select account-single-dropdown" fieldname="gender">
 					{{#each getProperties 'gender'}}
-						<option value="{{lowercase this.option}}" selected="{{#if stringOptionMatch currentUser.services.facebook.gender this.option}}selected{{/if}}">{{this.option}}</option>
+						<option value="{{lowercase this.option}}" selected="{{#if stringOptionMatch currentUser.profile.gender this.option}}selected{{/if}}">{{this.option}}</option>
 					{{/each}}
 				</select>
 			</div>
@@ -66,7 +66,7 @@
 				</select>
 				<select class="col-xs-3 pull-right account-birthdate" birthdatefield="month">
 					{{#each getProperties 'month'}}
-						<option value="{{this.option}}" selected="{{#if stringOptionMatch currentUser.profile.birthdate.month this.option}}selected{{/if}}">{{this.option}}</option>
+						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.birthdate.month this.index}}selected{{/if}}">{{this.option}}</option>
 					{{/each}}
 				</select>
 			</div>

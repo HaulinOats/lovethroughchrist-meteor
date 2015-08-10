@@ -2,8 +2,8 @@ var accountInputTimeout;
 
 Template.account_page.helpers({
 	getUser:function(){
-		if(Meteor.user())
-			console.log(Meteor.user());
+		// if(Meteor.user())
+		// 	console.log(Meteor.user());
 	}
 });
 

@@ -1,0 +1,20 @@
+.search_page_single_user_outer {
+	margin:10px;
+	min-height: 200px;
+}
+.search_page_single_user_inner_left,
+.search_page_single_user_inner_right {
+	height:100%;
+}
+.search_page_single_user_inner_left img {
+	width:100%;
+}
+.search_page_title_bar h2{
+	font-size:22px;
+}
+.search_page_title_bar i {
+	font-size:20px;
+}
+.search_page_title_bar b {
+	margin-left:15px;
+}

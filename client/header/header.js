@@ -1,11 +1,15 @@
 Template.header.events({
 	'click .facebook-login':function(event){
-		Meteor.loginWithFacebook({requestPermissions:['user_friends', 'email', 'public_profile']},function(err){
+		Meteor.loginWithFacebook({requestPermissions:['user_friends', 'email', 'public_profile'], forceApprovalPrompt:true},function(err){
 			if (err)
 				throw new Meteor.Error("Facebook Login Failed");
 			else {
-				if (!Meteor.user().profile.userFieldsSet)
-					Meteor.call('addUserFields', Meteor.userId());
+				if (!Meteor.user().profile.userFieldsSet) {
+					FB.api("/me", function(fbData){
+						console.log(fbData);
+						Meteor.call('addUserFields', Meteor.userId(), fbData);
+		            });
+				}
 			}
 		});
 	},
@@ -19,7 +23,7 @@ Template.header.events({
 
 Template.navigation_links.helpers({
 	isAdmin:function(){
-		if (Meteor.user().services.facebook.email === 'midgitsuu@gmail.com')
+		if (Meteor.user() && Meteor.user().profile.email === 'midgitsuu@gmail.com')
 			return true;
 	}
 });

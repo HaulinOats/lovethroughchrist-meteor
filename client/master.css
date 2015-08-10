@@ -4,3 +4,9 @@ body {
 .spacer {
 	height:30px;
 }
+hr {
+	width:100%;
+	border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(95, 158, 160, 0), rgba(95, 158, 160, 0.75), rgba(95, 158, 160, 0));
+}

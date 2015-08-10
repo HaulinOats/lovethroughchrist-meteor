@@ -4,11 +4,15 @@ ServiceConfiguration.configurations.upsert(
   {
     $set:{
       appId: "485852571574726",
-      secret: "d52ce297e2f71b55b175d9471eb6e9d4",
-      requestPermissions: ['user_friends', 'emails', 'public_profile']
+      secret: "d52ce297e2f71b55b175d9471eb6e9d4"
     }
   }
 );
+
+
+// Meteor.publish("artists", function(){
+//   return Artists.find();
+// });
 
 Meteor.methods({
 	//Admin
@@ -54,12 +58,21 @@ Meteor.methods({
 			Meteor.users.insert({
 				"profile": {
 					"userFieldsSet":true,
+					"gender":"female",
+					"city":"Orlando",
+					"state":"Florida",
+					"latitude":28.5747416,
+					"longitude":-81.3949264,
+					"name":{
+						"first":"First_" + i,
+						"last":"Last_" + i
+					},
 					"height":{
 						"feet":heightFeet,
 						"inches":heightInches
 					},
 					"birthdate":{
-						"month":"Jan",
+						"month":0,
 						"day":1,
 						"year":1915
 					},
@@ -81,7 +94,7 @@ Meteor.methods({
 					"searchable":true,
 					"preferences": {
 						"gender":"male",
-						"distance":100,
+						"searchDistance":100,
 						"age": {
 							"min":ageMin,
 							"max":ageMax
@@ -100,11 +113,6 @@ Meteor.methods({
 						"wantsKids":pref_wantsKids,
 						"wantsPets":pref_wantsPets
 					}
-				},
-				"services":{
-					"facebook": {
-						"gender":"female"
-					}
 				}
 			})
 		}
@@ -112,24 +120,31 @@ Meteor.methods({
 	},
 
 	//Login
-	addUserFields:function(userId){
+	addUserFields:function(userId, fbData){
 		var user = Meteor.users.find(userId).fetch()[0],
 			prefGender = "female";
 
 		//set preference gender
-		if (user.services.facebook.gender === "female")
+		if (user.profile.gender === "female")
 			prefGender = "male";
 
 		Meteor.users.update(userId, {
 			$set: { 
 				"profile": {
+					"email":fbData.email,
+					"gender":fbData.gender,
+					"fbId":fbData.id,
+					"name":{
+						"first":fbData.first_name,
+						"last":fbData.last_name
+					},
 					"userFieldsSet":true,
 					"height":{
 						"feet":5,
 						"inches":0
 					},
 					"birthdate":{
-						"month":"Jan",
+						"month":0,
 						"day":1,
 						"year":1915
 					},
@@ -151,7 +166,7 @@ Meteor.methods({
 					"searchable":false,
 					"preferences": {
 						"gender":prefGender,
-						"distance":100,
+						"searchDistance":100,
 						"age": {
 							"min":18,
 							"max":99
@@ -231,7 +246,7 @@ Meteor.methods({
 	accountPrefChange:function(userId, fieldname, option){
 		switch(fieldname){
 			case "gender":
-				Meteor.users.update(userId, {$set:{"preferences.gender":option}})
+				Meteor.users.update(userId, {$set:{"profile.preferences.gender":option}})
 				break;
 			default:
 				var user = Meteor.users.find(userId).fetch()[0];
@@ -258,7 +273,7 @@ Meteor.methods({
 				Meteor.users.update(userId, {$set:{"profile.birthdate.year":parseInt(option)}})
 				break;
 			case "month":
-				Meteor.users.update(userId, {$set:{"profile.birthdate.month":option}})
+				Meteor.users.update(userId, {$set:{"profile.birthdate.month":parseInt(option)}})
 				break;
 			case "day":
 				Meteor.users.update(userId, {$set:{"profile.birthdate.day":parseInt(option)}})
@@ -278,5 +293,10 @@ Meteor.methods({
 		Meteor.users.update(userId, {
 			$set: user
 		});
+	},
+
+	//Search Page
+	searchInit:function(){
+		return Meteor.users.find().fetch();
 	}
 })
