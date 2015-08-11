@@ -147,6 +147,11 @@ Template.registerHelper("getProperties", function (objIdx) {
 	}
 	return returnArr;
 });
+Template.registerHelper("getActualPropertyName", function (objIdx, propIdx) {
+	console.log(objIdx);
+	console.log(propIdx);
+	return accountFields[objIdx].options[propIdx];
+});
 Template.registerHelper("calculateAge", function (birthdateObj) {
 	console.log(birthdateObj);
 	return Math.floor((Date.now() - Date.parse((birthdateObj.month + 1) + " " + birthdateObj.day + " " + birthdateObj.year))/31557600000);

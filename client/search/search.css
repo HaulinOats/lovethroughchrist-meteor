@@ -1,20 +1,38 @@
 .search_page_single_user_outer {
-	margin:10px;
-	min-height: 200px;
+	margin: 10px;
+    min-height: 250px;
+    height: 250px;
+}
+.search_page_single_user_inner_left {
+	background-image:url('http://placekitten.com.s3.amazonaws.com/homepage-samples/200/140.jpg');
+	background-size:cover;
 }
 .search_page_single_user_inner_left,
 .search_page_single_user_inner_right {
 	height:100%;
+	overflow:hidden;
 }
-.search_page_single_user_inner_left img {
-	width:100%;
+.search_page_cityState {
+	float:right;
+}
+.search_page_title_bar {
+	margin-bottom:15px;
 }
 .search_page_title_bar h2{
+	margin: 0;
+    font-size: 26px;
+    display: inline;
+}
+.search_page_title_bar b {
 	font-size:22px;
 }
 .search_page_title_bar i {
 	font-size:20px;
 }
-.search_page_title_bar b {
-	margin-left:15px;
+.search_page_quote {
+	font-size:20px;
+}
+.search_page_bio {
+	line-height: 135%;
+    font-size: 16px;
 }

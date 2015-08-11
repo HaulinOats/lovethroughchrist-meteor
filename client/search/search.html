@@ -10,10 +10,14 @@
 			{{#each getSearchUsers}}
 				<div class="search_page_single_user_outer col-xs-12">
 					<div class="search_page_single_user_inner_left col-xs-3">
-						<img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/200/140.jpg"/>
 					</div>
 					<div class="search_page_single_user_inner_right col-xs-9">
-						<h2 class="search_page_title_bar">{{this.profile.name.first}} {{this.profile.name.last}} - <i>{{this.profile.city}}, {{this.profile.state}}</i><b>{{calculateAge this.profile.birthdate}}</b></h2>
+						<div class="search_page_title_bar">
+							<h2>{{this.profile.name.first}} {{this.profile.name.last}} - {{calculateAge this.profile.birthdate}}</h2>
+							<p class="search_page_cityState"><i>{{this.profile.city}}, {{this.profile.state}}</i></p>
+						</div>
+						<p class="search_page_quote"><i>{{this.profile.favoriteQuote}}</i></p>
+						<p class="search_page_bio">{{this.profile.bio}}</p>
 					</div>
 				<div class="clearfix"></div>
 				</div>
