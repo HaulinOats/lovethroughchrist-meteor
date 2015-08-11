@@ -11,7 +11,15 @@
 				<p class="profile-location">{{this.profile.city}}, {{this.profile.state}}</p>
 				<p class="profile-lastOnline"><b>Last Online: </b>{{daysSinceLastOnline this.profile.lastOnline}}</p>
 				<p class="profile-quote"><i>{{this.profile.favoriteQuote}}</i></p>
+				<div>
+					<button class="profile-wink">Message</button>
+					<button class="profile-wink">Wink</button>
+				</div>
 			</div>
+		</div>
+		<div class="col-xs-12 profile-message-container">
+			<textarea class="col-xs-12"></textarea>
+			<button userid="{{this._id}}">Send</button>
 		</div>
 		<div class="clearfix"></div>
 		<hr class="hr_normal">

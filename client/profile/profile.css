@@ -8,3 +8,25 @@
 .profile-info-field {
 
 }
+.profile-message-container {
+	overflow: hidden;
+	height:0px;
+	-webkit-transition: .5s;
+	-o-transition: .5s;
+	transition: .5s;
+}
+.profile-message-container button {
+	    position: absolute;
+    bottom: 0;
+    right: 15px;
+    padding: 10px 25px;
+}
+.profile-message-container textarea{
+	height:100%;
+	padding:15px;
+	border:solid thin gray;
+}
+.show-message {
+	height:250px;
+	margin:1% 0%;
+}

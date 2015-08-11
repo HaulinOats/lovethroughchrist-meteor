@@ -9,6 +9,8 @@ ServiceConfiguration.configurations.upsert(
   }
 );
 
+//Collections
+Messages = new Mongo.Collection("messages");
 
 // Meteor.publish("artists", function(){
 //   return Artists.find();
@@ -385,5 +387,15 @@ Meteor.methods({
 	},
 	getSearchUser:function(userId){
 		return Meteor.users.find(userId).fetch()[0];
+	},
+
+	//Profile
+	newMessage:function(fromUserId, toUserId, message){
+		Messages.insert({
+			"to":toUserId,
+			"from":fromUserId,
+			"firstMessage":message,
+			"messages":[]
+		})
 	}
 })
