@@ -23,3 +23,18 @@
 .sign-in-text-facebook {
 	cursor:pointer;
 }
+
+.main-label {
+	display:block;
+	width:100%;
+}
+
+/*Preferences*/
+.pref-checkbox {
+	display:inline-block;
+	padding-left:15px;
+}
+.pref-checkbox-container {
+	height:150px;
+	min-height: 175px;
+}

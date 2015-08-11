@@ -2,6 +2,7 @@
 	margin: 10px;
     min-height: 250px;
     height: 250px;
+    cursor:pointer;
 }
 .search_page_single_user_inner_left {
 	background-image:url('http://placekitten.com.s3.amazonaws.com/homepage-samples/200/140.jpg');

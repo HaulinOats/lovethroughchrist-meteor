@@ -25,7 +25,7 @@
 	{{#if currentUser}}
 		<li><a href="/messages">Messages <i class="glyphicon glyphicon-envelope"></i></a></li>
 		<li><a href="/search">Search <i class="glyphicon glyphicon-search"></i></a></li>
-		<li><a href="/my-profile">My Profile <i class="glyphicon glyphicon-user"></i></a></li>
+		<li><a href="/search/{{currentUser._id}}">My Profile <i class="glyphicon glyphicon-user"></i></a></li>
 		<li><a href="/my-account">Account <i class="glyphicon glyphicon-cog"></i></a></li>
 		{{#if isAdmin}}<li><a href="/admin">Admin <i class="glyphicon glyphicon-cog"></i></a></li>{{/if}}
 		<li class="facebook-logout">Sign Out <i class="glyphicon glyphicon-log-out"></i></li>

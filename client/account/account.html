@@ -20,7 +20,7 @@
 				<label class="col-xs-4">Gender</label>
 				<select class="col-xs-4 pull-right account-gender-select account-single-dropdown" fieldname="gender">
 					{{#each getProperties 'gender'}}
-						<option value="{{lowercase this.option}}" selected="{{#if stringOptionMatch currentUser.profile.gender this.option}}selected{{/if}}">{{this.option}}</option>
+						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.gender this.index}}selected{{/if}}">{{this.option}}</option>
 					{{/each}}
 				</select>
 			</div>
@@ -156,36 +156,19 @@
 				</select>
 			</div>
 			<div class="col-xs-12 col-sm-6 info-field">
-				<label class="col-xs-4">Has Kids</label>
-				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="hasKids">
-					{{#each getProperties 'hasKids'}}
-						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.hasKids this.index}}selected{{/if}}">{{this.option}}</option>
-					{{/each}}
-				</select>
-			</div>
-			<div class="clearfix"></div>
-			<div class="col-xs-12 col-sm-6 info-field">
-				<label class="col-xs-4">Language</label>
+				<label class="col-xs-4">Primary Language</label>
 				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="language">
 					{{#each getProperties 'language'}}
 						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.language this.index}}selected{{/if}}">{{this.option}}</option>
 					{{/each}}
 				</select>
 			</div>
-			<div class="col-xs-12 col-sm-6 info-field">
-				<label class="col-xs-4">Pet Preference</label>
-				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="petPreference">
-					{{#each getProperties 'petPreference'}}
-						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.petPreference this.index}}selected{{/if}}">{{this.option}}</option>
-					{{/each}}
-				</select>
-			</div>
 			<div class="clearfix"></div>
 			<div class="col-xs-12 col-sm-6 info-field">
-				<label class="col-xs-4">Has Pets</label>
-				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="hasPets">
-					{{#each getProperties 'hasPets'}}
-						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.hasPets this.index}}selected{{/if}}">{{this.option}}</option>
+				<label class="col-xs-4">Has Kids</label>
+				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="hasKids">
+					{{#each getProperties 'hasKids'}}
+						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.hasKids this.index}}selected{{/if}}">{{this.option}}</option>
 					{{/each}}
 				</select>
 			</div>
@@ -199,10 +182,27 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="col-xs-12 col-sm-6 info-field">
+				<label class="col-xs-4">Has Pets</label>
+				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="hasPets">
+					{{#each getProperties 'hasPets'}}
+						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.hasPets this.index}}selected{{/if}}">{{this.option}}</option>
+					{{/each}}
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-5">Wants Pets Eventually</label>
 				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="wantsPets">
 					{{#each getProperties 'wantsPets'}}
 						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.wantsPets this.index}}selected{{/if}}">{{this.option}}</option>
+					{{/each}}
+				</select>
+			</div>
+			<div class="clearfix"></div>
+			<div class="col-xs-12 col-sm-6 info-field">
+				<label class="col-xs-4">Pet Preference</label>
+				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="petPreference">
+					{{#each getProperties 'petPreference'}}
+						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.petPreference this.index}}selected{{/if}}">{{this.option}}</option>
 					{{/each}}
 				</select>
 			</div>

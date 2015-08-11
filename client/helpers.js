@@ -81,22 +81,37 @@ var accountFields = {
 	hasKids: {
 		propertyName: 'kids',
 		displayName: 'Kids',
-		options:['None', 'Has Kid(s)']
+		options:['No','Yes']
+	},
+	prefHasKids: {
+		propertyName: 'kids',
+		displayName: 'Kids',
+		options:["Doesn't Matter",'No','Yes']
 	},
 	wantsKids: {
 		propertyName: 'wantKids',
 		displayName: 'Wants Kids Eventually',
 		options: ['No', 'Yes', 'Maybe']
 	},
-	wantsPets: {
-		propertyName: 'wantPets',
-		displayName: 'Wants Pets Eventually',
-		options: ['No', 'Yes', 'Maybe']
+	prefWantsKids: {
+		propertyName: 'wantKids',
+		displayName: 'Wants Kids Eventually',
+		options: ["Doesn't Matter", 'No', 'Yes']
 	},
 	hasPets: {
 		propertyName: 'pets',
 		displayName: 'Pets',
-		options:['None', 'Has Pet(s)']
+		options:['No', 'Yes']
+	},
+	prefHasPets: {
+		propertyName: 'pets',
+		displayName: 'Pets',
+		options:["Doesn't Matter", 'No', 'Yes']
+	},
+	wantsPets: {
+		propertyName: 'wantPets',
+		displayName: 'Wants Pets Eventually',
+		options: ['No', 'Yes', 'Maybe']
 	},
 	petPreference: {
 		propertyName: 'petPreference',
@@ -148,11 +163,25 @@ Template.registerHelper("getProperties", function (objIdx) {
 	return returnArr;
 });
 Template.registerHelper("getActualPropertyName", function (objIdx, propIdx) {
-	console.log(objIdx);
-	console.log(propIdx);
 	return accountFields[objIdx].options[propIdx];
 });
 Template.registerHelper("calculateAge", function (birthdateObj) {
-	console.log(birthdateObj);
 	return Math.floor((Date.now() - Date.parse((birthdateObj.month + 1) + " " + birthdateObj.day + " " + birthdateObj.year))/31557600000);
 });
+Template.registerHelper("isInArray", function (optionIndex, choiceArray) {
+	if (choiceArray) {
+		for (var i = 0; i < choiceArray.length; i++) {
+			if (optionIndex === choiceArray[i])
+				return true;
+		}	
+	}
+});
+Template.registerHelper("daysSinceLastOnline", function(lastOnlineStamp){
+	var time = (Date.now() - lastOnlineStamp)/86400000;
+	if (time < 1)
+		return "Today";
+	else if (time > 1 && time < 2)
+		return "Yesterday";
+	else
+		return Math.round(time) + " days ago";
+})

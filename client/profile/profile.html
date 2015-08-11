@@ -1,0 +1,116 @@
+<template name="user_profile">
+	{{#with getSearchUser}}
+	<div class="col-xs-12">
+		<h2>{{this.profile.name.first}}</h2>
+		<hr class="hr_normal">
+		<div class="col-xs-12 profile-top-container">
+			<div class="col-xs-12 col-sm-4 profile-default-container" style="background-image:url(http://placekitten.com.s3.amazonaws.com/homepage-samples/200/140.jpg);">
+				
+			</div>
+			<div class="col-xs-12 col-sm-8">
+				<p class="profile-location">{{this.profile.city}}, {{this.profile.state}}</p>
+				<p class="profile-lastOnline"><b>Last Online: </b>{{daysSinceLastOnline this.profile.lastOnline}}</p>
+				<p class="profile-quote"><i>{{this.profile.favoriteQuote}}</i></p>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<hr class="hr_normal">
+		<h3>My Info</h3>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Gender</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'gender' this.profile.gender}}</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Age</label>
+			<p class="col-xs-4 pull-right">{{calculateAge this.profile.birthdate}}</p>
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Height</label>
+			<p class="col-xs-4 pull-right">{{this.profile.height.feet}} Ft. {{this.profile.height.inches}} In.</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Body Type</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'bodyType' this.profile.bodyType}}</p>
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Denomination</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'denomination' this.profile.denomination}}</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Church Attendance</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'churchAttendance' this.profile.churchAttendance}}</p>
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Education</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'education' this.profile.education}}</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Ethnicity</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'ethnicity' this.profile.ethnicity}}</p>
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Eye Color</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'eyeColor' this.profile.eyeColor}}</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Hair Color</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'hairColor' this.profile.hairColor}}</p>
+			
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Drinks</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'drinks' this.profile.drinks}}</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Smokes</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'smokes' this.profile.smokes}}</p>
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Has Kids</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'hasKids' this.profile.hasKids}}</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Wants Kids</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'wantsKids' this.profile.wantsKids}}</p>
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Has Pets</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'hasPets' this.profile.hasPets}}</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Wants Pets</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'wantsPets' this.profile.wantsPets}}</p>
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Pet Preference</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'petPreference' this.profile.petPreference}}</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 profile-info-field">
+			<label class="col-xs-8">Primary Language</label>
+			<p class="col-xs-4 pull-right">{{getActualPropertyName 'language' this.profile.language}}</p>
+		</div>
+		<div class="clearfix"></div>
+		<h3>About Me</h3>
+		<div class="col-xs-12 profile-about-field">
+			<h4>Bio</h4>
+			<p>{{this.profile.bio}}</p>
+		</div>
+		<div class="col-xs-12 profile-about-field">
+			<h4>Favorite Bible Passage</h4>
+			<p>{{this.profile.biblePassage}}</p>
+		</div>
+		<div class="col-xs-12 profile-about-field">
+			<h4>What I'm Looking For...</h4>
+			<p>{{this.profile.mateTraits}}</p>
+		</div>
+	</div>
+	{{/with}}
+</template>

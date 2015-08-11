@@ -17,6 +17,16 @@ Router.route('/search', {
     this.next();
   }
 });
+Router.route('/search/:_id', {
+  template:'user_profile',
+  onBeforeAction:function(){
+    Meteor.call('getSearchUser', this.params._id, function(err, result){
+      if (!err)
+        Session.set('currentSearchUser', result);
+    })
+    this.next();
+  }
+});
 Router.route('/messages', {
   template:'messages_page'
 });

@@ -29,11 +29,12 @@
 .info-field {
 	padding: 1% 0%;
   border-bottom: solid thin gray;
-  min-height: 75px;
+  min-height: 100px;
   padding-top:15px;
 }
 .info-field select,
-.info-field input {
+.info-field input[type="text"],
+.info-field input[type="number"] {
   -webkit-appearance:none;
 	min-height: 40px;
   border-radius:10px;

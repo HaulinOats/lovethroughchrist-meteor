@@ -60,7 +60,11 @@ Meteor.methods({
 					"userFieldsSet":true,
 					"dateCreated":Date.now(),
 					"lastOnline":Date.now(),
-					"gender":"female",
+					"gender":1,
+					"bio":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+					"favoriteQuote":'"Here is a quote I like alot" - Some Person',
+					"mateTraits":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+					"biblePassage":"If I speak with the tongues of men and of angels, but do not have love, I have become a ringing brass gong or a clashing cymbal. And if I have the gift of prophecy and I know all mysteries and all knowledge, and if I have all faith so that I can remove mountains, but do not have love, I am nothing. And if I parcel out all my possessions, and if I hand over my body in order that I will be burned, but do not have love, it benefits me nothing.",
 					"city":"Orlando",
 					"state":"Florida",
 					"latitude":28.5747416,
@@ -78,6 +82,7 @@ Meteor.methods({
 						"day":1,
 						"year":1915
 					},
+					"language":language,
 					"bodyType":bodyType,
 					"churchAttendance":churchAttendance,
 					"denomination":denomination,
@@ -95,7 +100,7 @@ Meteor.methods({
 					"politicalParty":politicalParty,
 					"searchable":true,
 					"preferences": {
-						"gender":"male",
+						"gender":[0],
 						"searchDistance":100,
 						"age": {
 							"min":ageMin,
@@ -135,11 +140,16 @@ Meteor.methods({
 	},
 	addUserFields:function(userId, fbData){
 		var user = Meteor.users.find(userId).fetch()[0],
-			prefGender = "female";
+			gender = 0,
+			prefGender = 1;
 
 		//set preference gender
-		if (user.profile.gender === "female")
-			prefGender = "male";
+		if (user.profile.gender === 1)
+			prefGender = 0;
+
+		//set user gender
+		if (fbData.gender === "female")
+			gender = 1;
 
 		Meteor.users.update(userId, {
 			$set: { 
@@ -147,7 +157,7 @@ Meteor.methods({
 					"dateCreated":Date.now(),
 					"lastOnline":Date.now(),
 					"email":fbData.email,
-					"gender":fbData.gender,
+					"gender":gender,
 					"fbId":fbData.id,
 					"name":{
 						"first":fbData.first_name,
@@ -163,6 +173,7 @@ Meteor.methods({
 						"day":1,
 						"year":1915
 					},
+					"language":0,
 					"bodyType":0,
 					"churchAttendance":0,
 					"denomination":0,
@@ -180,7 +191,7 @@ Meteor.methods({
 					"politicalParty":0,
 					"searchable":false,
 					"preferences": {
-						"gender":prefGender,
+						"gender":[prefGender],
 						"searchDistance":100,
 						"age": {
 							"min":18,
@@ -189,9 +200,9 @@ Meteor.methods({
 						"education":0,
 						"churchAttendance":0,
 						"denomination":0,
-						"smokes":0,
-						"drinks":0,
-						"ethnicity":0,
+						"smokes":2,
+						"drinks":2,
+						"ethnicity":[0,1,2,3,4,5,6,7,8],
 						"hasKids":0,
 						"language":0,
 						"petPreference":0,
@@ -250,7 +261,7 @@ Meteor.methods({
 		var user = Meteor.users.find(userId).fetch()[0];
 		switch(fieldname){
 			case "gender":
-				Meteor.users.update(userId, {$set:{"services.facebook.gender":option, "profile.gender":option}})
+				Meteor.users.update(userId, {$set:{"profile.gender":parseInt(option)}})
 				break;
 			default:
 				user.profile[fieldname] = parseInt(option);
@@ -310,7 +321,38 @@ Meteor.methods({
 		});
 	},
 
-	//Search Page
+	//Preference Search Page
+	prefGenderCheckbox:function(userId, optionindex, isChecked){
+		if (isChecked) {
+			Meteor.users.update(userId, {
+				$addToSet: {
+					"profile.preferences.gender":parseInt(optionindex)
+				}
+			});
+		} else {
+			Meteor.users.update(userId, {
+				$pull: {
+					"profile.preferences.gender":parseInt(optionindex)
+				}
+			});
+		}
+		return Meteor.users.find(userId).fetch()[0];
+	},
+	prefEthnicityCheckbox:function(userId, optionindex, isChecked){
+		if (isChecked) {
+			Meteor.users.update(userId, {
+				$addToSet: {
+					"profile.preferences.ethnicity":parseInt(optionindex)
+				}
+			});
+		} else {
+			Meteor.users.update(userId, {
+				$pull: {
+					"profile.preferences.ethnicity":parseInt(optionindex)
+				}
+			});
+		}
+	},
 	searchInit:function(userId){
 		var user = Meteor.users.find(userId).fetch()[0];
 			prefObj = {};
@@ -340,5 +382,8 @@ Meteor.methods({
 				"hasKids":prefObj.hasKids
 			}
 		},{sort:{"last_login":1}});
+	},
+	getSearchUser:function(userId){
+		return Meteor.users.find(userId).fetch()[0];
 	}
 })

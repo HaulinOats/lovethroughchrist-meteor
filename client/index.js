@@ -33,5 +33,13 @@ Template.preferences.events({
 				Meteor.call('setAgeMinMax', Meteor.userId(), event.currentTarget.value, event.currentTarget.attributes.fieldname.value);
 			}, 500);
 		}
+	},
+	'click .pref-gender-checkbox':function(event){
+		Meteor.call('prefGenderCheckbox', Meteor.userId(), event.currentTarget.attributes.optionindex.value, $(event.currentTarget).find('input')[0].checked, function(err, result){
+			console.log(result);
+		});
+	},
+	'click .pref-ethnicity-checkbox':function(event){
+		Meteor.call('prefEthnicityCheckbox', Meteor.userId(), event.currentTarget.attributes.optionindex.value, $(event.currentTarget).find('input')[0].checked);
 	}
 });
