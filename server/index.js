@@ -58,6 +58,8 @@ Meteor.methods({
 			Meteor.users.insert({
 				"profile": {
 					"userFieldsSet":true,
+					"dateCreated":Date.now(),
+					"lastOnline":Date.now(),
 					"gender":"female",
 					"city":"Orlando",
 					"state":"Florida",
@@ -120,6 +122,17 @@ Meteor.methods({
 	},
 
 	//Login
+	setLastOnlineAndAge:function(userId){
+		var user = Meteor.users.find(userId).fetch()[0],
+			age = Math.floor((Date.now() - Date.parse((user.profile.birthdate.month + 1) + " " + user.profile.birthdate.day + " " + user.profile.birthdate.year))/31557600000);
+		
+		Meteor.users.update(userId, {
+			$set: {
+				"profile.lastOnline":Date.now(),
+				"profile.age":age
+			}
+		});
+	},
 	addUserFields:function(userId, fbData){
 		var user = Meteor.users.find(userId).fetch()[0],
 			prefGender = "female";
@@ -131,6 +144,8 @@ Meteor.methods({
 		Meteor.users.update(userId, {
 			$set: { 
 				"profile": {
+					"dateCreated":Date.now(),
+					"lastOnline":Date.now(),
 					"email":fbData.email,
 					"gender":fbData.gender,
 					"fbId":fbData.id,
@@ -296,7 +311,34 @@ Meteor.methods({
 	},
 
 	//Search Page
-	searchInit:function(){
-		return Meteor.users.find().fetch();
+	searchInit:function(userId){
+		var user = Meteor.users.find(userId).fetch()[0];
+			prefObj = {};
+
+		prefObj.gender 		     = user.profile.preferences.gender;
+		prefObj.searchDistance   = user.profile.preferences.searchDistance;
+		prefObj.education 	     = user.profile.preferences.education;
+		prefObj.churchAttendance = user.profile.preferences.churchAttendance;
+		prefObj.denomination  	 = user.profile.preferences.denomination;
+		prefObj.smokes 			 = user.profile.preferences.smokes;
+		prefObj.drinks 			 = user.profile.preferences.drinks;
+		prefObj.hasKids 		 = user.profile.preferences.hasKids;
+		prefObj.wantsKids 		 = user.profile.preferences.wantsKids;
+		prefObj.language 		 = user.profile.preferences.language;
+		prefObj.ethnicity 		 = user.profile.preferences.ethnicity;
+		prefObj.hasPets 		 = user.profile.preferences.hasPets;
+		prefObj.wantsPets 		 = user.profile.preferences.wantsPets;
+		prefObj.petPreference 	 = user.profile.preferences.petPreference;
+		prefObj.politicalParty 	 = user.profile.preferences.politicalParty;
+
+
+
+		return Meteor.users.find().fetch({
+			"profile":{
+				"gender":prefObj.gender,
+				"searchDistance":{$lt:prefObj.searchDistance},
+				"hasKids":prefObj.hasKids
+			}
+		},{sort:{"last_login":1}});
 	}
 })

@@ -1,12 +1,12 @@
 Template.header.events({
 	'click .facebook-login':function(event){
-		Meteor.loginWithFacebook({requestPermissions:['user_friends', 'email', 'public_profile'], forceApprovalPrompt:true},function(err){
+		Meteor.loginWithFacebook({requestPermissions:['user_friends', 'email', 'public_profile']},function(err){
 			if (err)
 				throw new Meteor.Error("Facebook Login Failed");
 			else {
+				console.log('here');
 				if (!Meteor.user().profile.userFieldsSet) {
 					FB.api("/me", function(fbData){
-						console.log(fbData);
 						Meteor.call('addUserFields', Meteor.userId(), fbData);
 		            });
 				}

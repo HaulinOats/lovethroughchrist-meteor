@@ -148,5 +148,6 @@ Template.registerHelper("getProperties", function (objIdx) {
 	return returnArr;
 });
 Template.registerHelper("calculateAge", function (birthdateObj) {
-	return Math.floor((Date.now() - Date.parse(birthdateObj.month + " " + birthdateObj.day + " " + birthdateObj.year))/31557600000);
+	console.log(birthdateObj);
+	return Math.floor((Date.now() - Date.parse((birthdateObj.month + 1) + " " + birthdateObj.day + " " + birthdateObj.year))/31557600000);
 });

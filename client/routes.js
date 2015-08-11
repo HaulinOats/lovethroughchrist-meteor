@@ -10,7 +10,7 @@ Router.route('/my-profile', {
 Router.route('/search', {
   template:'search_page',
   onBeforeAction:function(){
-    Meteor.call('searchInit', function(err, result){
+    Meteor.call('searchInit', Meteor.userId(), function(err, result){
       if (!err)
         Session.set('searchUsers', result);
     })
@@ -34,8 +34,13 @@ Router.onBeforeAction(function () {
   if (!Meteor.userId())
     this.render('home_page');
   else {
-    if (Meteor.user())
-      console.log(Meteor.user());
+  	//Check last online
+    if (Meteor.user()) {
+      	console.log(Meteor.user());
+      	//if more than 15 minutes since time 'lastOnline' was set
+    	if ((Date.now() - Meteor.user().profile.lastOnline) > 900000)
+    		Meteor.call('setLastOnlineAndAge', Meteor.userId());
+  	}
     this.next();
   }
 });
