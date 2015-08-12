@@ -14,6 +14,7 @@ Messages = new Mongo.Collection("messages");
 
 Messages.before.insert(function (userId, doc) {
   doc.createdAt = Date.now();
+  doc.updatedAt = Date.now();
 });
 Messages.before.update(function (userId, doc) {
   doc.updatedAt = Date.now();
@@ -129,6 +130,41 @@ Meteor.methods({
 			})
 		}
 		return Meteor.users.find().fetch();
+	},
+	seedMessages:function(userId){
+		var users = Meteor.users.find().fetch();
+
+		for (var i = 0; i < 10; i++){
+			Messages.insert({
+				"to":userId,
+				"from":users[i]._id,
+				"messages":[
+				{
+					"from":userId,
+					"body":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+				},
+				{
+					"from":userId,
+					"body":"Here's the first reply message."
+				},
+				{
+					"from":users[i]._id,
+					"body":"Here's the second reply message."
+				},
+				{
+					"from":userId,
+					"body":"Here's the third reply message."
+				},
+				{
+					"from":userId,
+					"body":"Here's the fourth reply message from same user."
+				},
+				{
+					"from":users[i]._id,
+					"body":"Here's the fifth reply message from other user."
+				}]
+			});
+		}
 	},
 
 	//Login

@@ -4,5 +4,11 @@ Template.admin_page.events({
 			if (!err)
 				alert('users seeded');
 		});
+	},
+	'click .seed_messages':function(event){
+		Meteor.call('seedMessages', function(err, result){
+			if (!err)
+				alert('messages seeded');
+		});
 	}
 });
