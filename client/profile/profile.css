@@ -1,9 +1,18 @@
 .profile-top-container {
-	
+	height: 350px;
 }
 .profile-default-container {
-	height: 350px;
+	height:100%;
 	background-size:cover;
+}
+.profile-top-right-container {
+	height:100%;
+}
+.profile-message-wink-cont {
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: 1% 0%;
 }
 .profile-info-field {
 
@@ -17,14 +26,17 @@
 }
 .profile-message-container button {
 	    position: absolute;
-    bottom: 0;
+    bottom: 1px;
     right: 15px;
     padding: 10px 25px;
+    border:none;
 }
 .profile-message-container textarea{
 	height:100%;
 	padding:15px;
-	border:solid thin gray;
+	border:none;
+    background-color: rgba(0,0,0,.1);
+    border-radius:5px;
 }
 .show-message {
 	height:250px;

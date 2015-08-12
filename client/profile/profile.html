@@ -7,13 +7,13 @@
 			<div class="col-xs-12 col-sm-4 profile-default-container" style="background-image:url(http://placekitten.com.s3.amazonaws.com/homepage-samples/200/140.jpg);">
 				
 			</div>
-			<div class="col-xs-12 col-sm-8">
+			<div class="col-xs-12 col-sm-8 profile-top-right-container">
 				<p class="profile-location">{{this.profile.city}}, {{this.profile.state}}</p>
 				<p class="profile-lastOnline"><b>Last Online: </b>{{daysSinceLastOnline this.profile.lastOnline}}</p>
 				<p class="profile-quote"><i>{{this.profile.favoriteQuote}}</i></p>
-				<div>
-					<button class="profile-wink">Message</button>
-					<button class="profile-wink">Wink</button>
+				<div class="profile-message-wink-cont">
+					<button class="profile-message">Message</button>
+					<button class="profile-wink" userid="{{this._id}}">Wink</button>
 				</div>
 			</div>
 		</div>

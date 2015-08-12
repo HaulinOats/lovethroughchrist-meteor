@@ -12,9 +12,12 @@ ServiceConfiguration.configurations.upsert(
 //Collections
 Messages = new Mongo.Collection("messages");
 
-// Meteor.publish("artists", function(){
-//   return Artists.find();
-// });
+Messages.before.insert(function (userId, doc) {
+  doc.createdAt = Date.now();
+});
+Messages.before.update(function (userId, doc) {
+  doc.updatedAt = Date.now();
+});
 
 Meteor.methods({
 	//Admin
@@ -395,7 +398,26 @@ Meteor.methods({
 			"to":toUserId,
 			"from":fromUserId,
 			"firstMessage":message,
+			"createdAt":Date.now(),
+			"updatedAt":Date.now(),
 			"messages":[]
 		})
+	},
+	sendWink:function(fromUserId, toUserId){
+		Meteor.users.update(fromUserId, {
+			$addToSet:{"profile.winks.to":toUserId}
+		});
+		Meteor.users.update(toUserId, {
+			$addToSet:{"profile.winks.from":fromUserId}
+		});
+	},
+
+	//Messages
+	getAllMessages:function(userId){
+		return Messages.find({$or:[{"from":{$eq: userId }},{"to":{ $eq: userId}}]},{sort:{"updatedAt":-1}}).fetch();
+	},
+	getSentMessages:function(userId){
+		// return Messages.find({"to":userId, "from":userId}).fetch();
+		return Messages.find({"from":userId}, {sort:{"createdAt":-1}}).fetch();
 	}
 })

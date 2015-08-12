@@ -28,7 +28,20 @@ Router.route('/search/:_id', {
   }
 });
 Router.route('/messages', {
-  template:'messages_page'
+  template:'messages_page',
+  onBeforeAction:function(){
+    Meteor.call('getAllMessages', Meteor.userId(), function(err, result){
+      if (!err){
+        console.log(result);
+        Session.set('allMessages', result);
+      }
+    });
+    Meteor.call('getSentMessages', Meteor.userId(), function(err, result){
+      if (!err)
+        Session.set('sentMessages', result);
+    })
+    this.next();
+  }
 });
 Router.route('/admin', {
   template:'admin_page',
