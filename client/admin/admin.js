@@ -6,7 +6,7 @@ Template.admin_page.events({
 		});
 	},
 	'click .seed_messages':function(event){
-		Meteor.call('seedMessages', function(err, result){
+		Meteor.call('seedMessages', Meteor.userId(), function(err, result){
 			if (!err)
 				alert('messages seeded');
 		});

@@ -30,17 +30,20 @@ Router.route('/search/:_id', {
 Router.route('/messages', {
   template:'messages_page',
   onBeforeAction:function(){
-    Meteor.call('getAllMessages', Meteor.userId(), function(err, result){
-      if (!err){
-        console.log(result);
-        Session.set('allMessages', result);
-      }
-    });
-    Meteor.call('getSentMessages', Meteor.userId(), function(err, result){
-      if (!err)
-        Session.set('sentMessages', result);
-    })
+    // Meteor.call('getAllMessages', Meteor.userId(), function(err, result){
+    //   if (!err){
+    //     console.log(result);
+    //     Session.set('allMessages', result);
+    //   }
+    // });
+    // Meteor.call('getSentMessages', Meteor.userId(), function(err, result){
+    //   if (!err)
+    //     Session.set('sentMessages', result);
+    // })
     this.next();
+  },
+  waitOn:function(){
+    return [Meteor.subscribe("allUserMessages")];
   }
 });
 Router.route('/admin', {

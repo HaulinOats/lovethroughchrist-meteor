@@ -1,3 +1,6 @@
+//Collections
+Messages = new Mongo.Collection("messages");
+
 //Facebook SDK
 ServiceConfiguration.configurations.upsert(
   { service: "facebook" },
@@ -9,8 +12,9 @@ ServiceConfiguration.configurations.upsert(
   }
 );
 
-//Collections
-Messages = new Mongo.Collection("messages");
+Meteor.publish('allUserMessages', function publishFunction() {
+	return Messages.find({$or:[{"from":{$eq: this.userId }},{"to":{ $eq: this.userId}}]},{sort:{"updatedAt":-1}})
+});
 
 Messages.before.insert(function (userId, doc) {
   doc.createdAt = Date.now();
@@ -45,6 +49,9 @@ Meteor.methods({
 				language 	     = randomIntFromInterval(0, 12),
 				ageMin 	 		 = randomIntFromInterval(18,30),
 				ageMax 	 		 = randomIntFromInterval(31,45),
+				month 			 = randomIntFromInterval(0, 11),
+				day 			 = randomIntFromInterval(1, 30),
+				year 			 = randomIntFromInterval(1916, 1996),
 				pref_churchAttendance = randomIntFromInterval(0, 4),
 				pref_denomination 	  = randomIntFromInterval(0, 10),
 				pref_drinks 	 	  = randomIntFromInterval(0, 4),
@@ -84,9 +91,9 @@ Meteor.methods({
 						"inches":heightInches
 					},
 					"birthdate":{
-						"month":0,
-						"day":1,
-						"year":1915
+						"month":month,
+						"day":day,
+						"year":year
 					},
 					"language":language,
 					"bodyType":bodyType,
@@ -131,36 +138,35 @@ Meteor.methods({
 		}
 		return Meteor.users.find().fetch();
 	},
-	seedMessages:function(userId){
+	seedMessages:function(userId, userName){
 		var users = Meteor.users.find().fetch();
-
 		for (var i = 0; i < 10; i++){
 			Messages.insert({
-				"to":userId,
+				"to": userId,
 				"from":users[i]._id,
 				"messages":[
 				{
-					"from":userId,
+					"fromUserId":users[i]._id,
 					"body":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
 				},
 				{
-					"from":userId,
+					"fromUserId":userId,
 					"body":"Here's the first reply message."
 				},
 				{
-					"from":users[i]._id,
+					"fromUserId":users[i]._id,
 					"body":"Here's the second reply message."
 				},
 				{
-					"from":userId,
+					"fromUserId":userId,
 					"body":"Here's the third reply message."
 				},
 				{
-					"from":userId,
+					"fromUserId":userId,
 					"body":"Here's the fourth reply message from same user."
 				},
 				{
-					"from":users[i]._id,
+					"fromUserId":users[i]._id,
 					"body":"Here's the fifth reply message from other user."
 				}]
 			});
@@ -398,21 +404,21 @@ Meteor.methods({
 		var user = Meteor.users.find(userId).fetch()[0];
 			prefObj = {};
 
-		prefObj.gender 		     = user.profile.preferences.gender;
-		prefObj.searchDistance   = user.profile.preferences.searchDistance;
-		prefObj.education 	     = user.profile.preferences.education;
-		prefObj.churchAttendance = user.profile.preferences.churchAttendance;
-		prefObj.denomination  	 = user.profile.preferences.denomination;
-		prefObj.smokes 			 = user.profile.preferences.smokes;
-		prefObj.drinks 			 = user.profile.preferences.drinks;
-		prefObj.hasKids 		 = user.profile.preferences.hasKids;
-		prefObj.wantsKids 		 = user.profile.preferences.wantsKids;
-		prefObj.language 		 = user.profile.preferences.language;
-		prefObj.ethnicity 		 = user.profile.preferences.ethnicity;
-		prefObj.hasPets 		 = user.profile.preferences.hasPets;
-		prefObj.wantsPets 		 = user.profile.preferences.wantsPets;
-		prefObj.petPreference 	 = user.profile.preferences.petPreference;
-		prefObj.politicalParty 	 = user.profile.preferences.politicalParty;
+		// prefObj.gender 		     = user.profile.preferences.gender;
+		// prefObj.searchDistance   = user.profile.preferences.searchDistance;
+		// prefObj.education 	     = user.profile.preferences.education;
+		// prefObj.churchAttendance = user.profile.preferences.churchAttendance;
+		// prefObj.denomination  	 = user.profile.preferences.denomination;
+		// prefObj.smokes 			 = user.profile.preferences.smokes;
+		// prefObj.drinks 			 = user.profile.preferences.drinks;
+		// prefObj.hasKids 		 = user.profile.preferences.hasKids;
+		// prefObj.wantsKids 		 = user.profile.preferences.wantsKids;
+		// prefObj.language 		 = user.profile.preferences.language;
+		// prefObj.ethnicity 		 = user.profile.preferences.ethnicity;
+		// prefObj.hasPets 		 = user.profile.preferences.hasPets;
+		// prefObj.wantsPets 		 = user.profile.preferences.wantsPets;
+		// prefObj.petPreference 	 = user.profile.preferences.petPreference;
+		// prefObj.politicalParty 	 = user.profile.preferences.politicalParty;
 
 
 
@@ -433,10 +439,10 @@ Meteor.methods({
 		Messages.insert({
 			"to":toUserId,
 			"from":fromUserId,
-			"firstMessage":message,
-			"createdAt":Date.now(),
-			"updatedAt":Date.now(),
-			"messages":[]
+			"messages":[{
+				"from":fromUserId,
+				"body":message
+			}]
 		})
 	},
 	sendWink:function(fromUserId, toUserId){
@@ -449,11 +455,19 @@ Meteor.methods({
 	},
 
 	//Messages
-	getAllMessages:function(userId){
-		return Messages.find({$or:[{"from":{$eq: userId }},{"to":{ $eq: userId}}]},{sort:{"updatedAt":-1}}).fetch();
-	},
-	getSentMessages:function(userId){
-		// return Messages.find({"to":userId, "from":userId}).fetch();
-		return Messages.find({"from":userId}, {sort:{"createdAt":-1}}).fetch();
-	}
+	// getAllMessages:function(userId){
+	// 	var messages = Messages.find({$or:[{"from":{$eq: userId }},{"to":{ $eq: userId}}]},{sort:{"updatedAt":-1}}).fetch();
+	// 	for (var i = 0; i < messages.length; i++){
+	// 		if (messages[i].to !== userId){
+	// 			messages[i].toName = Meteor.users.find(messages[i].to).fetch()[0].profile.name.first;
+	// 		} else if (messages[i].from !== userId) {
+	// 			messages[i].fromName = Meteor.users.find(messages[i].from).fetch()[0].profile.name.first;
+	// 		}
+	// 	}
+	// 	return messages;
+	// },
+	// getSentMessages:function(userId){
+	// 	// return Messages.find({"to":userId, "from":userId}).fetch();
+	// 	return Messages.find({"from":userId}, {sort:{"createdAt":-1}}).fetch();
+	// }
 })
