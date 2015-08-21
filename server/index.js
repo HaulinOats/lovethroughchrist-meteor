@@ -23,6 +23,9 @@ Messages.before.insert(function (userId, doc) {
 Messages.before.update(function (userId, doc) {
   doc.updatedAt = Date.now();
 });
+Messages.before.find(function (userId, selector, options, cursor) {
+	
+});
 
 Meteor.methods({
 	//Admin

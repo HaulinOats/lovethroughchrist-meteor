@@ -10,6 +10,8 @@
 			{{#each getAllMessages}}
 			<div class="messages_single_outer_container">
 				<img src="https://pbs.twimg.com/profile_images/2370446440/6e2jwf7ztbr5t1yjq4c5.jpeg"/>
+				{{getNameById this.to this.from}}
+				<p class="messages_single_single_header_message"></p>
 				<!-- {{#each this}}
 					<p class="messages_single_title">{{this.name}}</p>
 					<p class="messages_single_body">{{this.body}}</p>
