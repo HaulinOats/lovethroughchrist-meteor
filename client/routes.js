@@ -29,8 +29,36 @@ Router.route('/search/:_id', {
 });
 Router.route('/messages', {
   template:'messages_page',
+  onBeforeAction:function(){
+    var userIdArr = [],
+        messages = Messages.find().fetch();
+    for (var i = 0; i < messages.length; i ++) {
+      if (messages[i].from === Meteor.userId())
+        userIdArr.push(messages[i].to);
+      else
+        userIdArr.push(messages[i].from);
+    }
+    Meteor.call('getUserData', userIdArr, function(err, result){
+      if (!err){
+        for (var i = 0; i < result.length; i ++)
+          messages[i].name = result[i];
+        Session.set('allMessages', messages);
+      }
+    });
+    this.next();
+  },
   waitOn:function(){
     return [Meteor.subscribe("allUserMessages")];
+  }
+});
+Router.route('/messages/:_id', {
+  template:"message_single_page",
+  onBeforeAction:function(){
+    Meteor.call("getSingleMessage", this.params._id, function(err, result){
+      if (!err)
+        Session.set('singleMessage', result);
+    })
+    this.next();
   }
 });
 Router.route('/admin', {

@@ -1,7 +1,15 @@
 .messages_single_outer_container {
 	height:90px;
 	margin:1% 0%;
+	overflow: hidden;
+	cursor:pointer;
 }
 .messages_single_outer_container img{
 	height:100%;
+	float:left;
+	padding-right:2%;
+}
+.messages_single_single_header_name {
+	font-weight: bold;
+	font-size: 16px;
 }

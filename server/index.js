@@ -23,9 +23,6 @@ Messages.before.insert(function (userId, doc) {
 Messages.before.update(function (userId, doc) {
   doc.updatedAt = Date.now();
 });
-Messages.before.find(function (userId, selector, options, cursor) {
-	
-});
 
 Meteor.methods({
 	//Admin
@@ -458,6 +455,20 @@ Meteor.methods({
 	},
 
 	//Messages
+	getUserData:function(idArr){
+		var userData = [];
+		for (var i = 0; i < idArr.length; i++){
+			var user = Meteor.users.find(idArr[i]).fetch()[0].profile;
+			userData.push({
+				"first":user.name.first,
+				"last":user.name.last
+			});
+		}
+		return userData;
+	},
+	getSingleMessage:function(id){
+		return Messages.find(id).fetch()[0];
+	}
 	// getAllMessages:function(userId){
 	// 	var messages = Messages.find({$or:[{"from":{$eq: userId }},{"to":{ $eq: userId}}]},{sort:{"updatedAt":-1}}).fetch();
 	// 	for (var i = 0; i < messages.length; i++){
