@@ -30,10 +30,17 @@
 
 <template name="message_single_page">
 	{{#with getMessage}}
+	<div class="message_single_messages_container">
 	{{setOtherUser this}}
 		{{#each this.messages}}
 			<h3>{{#if isCurrentUser this.fromUserId}}Me{{else}}{{#with getOtherUser}}{{this.profile.name.first}}{{/with}}{{/if}}</h3>
 			<p>{{this.body}}</p>
 		{{/each}}
+	</div>
+	<div class="message_single_reply_container">
+		<div class="message_single_reply_container_inner" contenteditable="true">
+		</div>
+		<button class="single_message_send_reply ltc_button">Send</button>
+	</div>
 	{{/with}}
 </template>

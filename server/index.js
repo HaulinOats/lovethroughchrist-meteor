@@ -15,6 +15,9 @@ ServiceConfiguration.configurations.upsert(
 Meteor.publish('allUserMessages', function publishFunction() {
 	return Messages.find({$or:[{"from":{$eq: this.userId }},{"to":{ $eq: this.userId}}]},{sort:{"updatedAt":-1}})
 });
+Meteor.publish('singleUserMessage', function publishFunction(messageId) {
+	return Messages.find(messageId);
+});
 
 Messages.before.insert(function (userId, doc) {
   doc.createdAt = Date.now();
@@ -468,6 +471,11 @@ Meteor.methods({
 	},
 	getSingleMessage:function(id){
 		return Messages.find(id).fetch()[0];
+	},
+	singleMessageReply:function(messageId, fromUser, messageBody){
+		Messages.update(messageId, {
+			$push: {"messages":{"fromUserId":fromUser, "body":messageBody}}
+		})
 	}
 	// getAllMessages:function(userId){
 	// 	var messages = Messages.find({$or:[{"from":{$eq: userId }},{"to":{ $eq: userId}}]},{sort:{"updatedAt":-1}}).fetch();

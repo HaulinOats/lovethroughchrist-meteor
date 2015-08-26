@@ -14,3 +14,7 @@ hr {
 	border-top:solid thin black;
 	background-image: none !important;
 }
+.ltc_button {
+	background:#5F9EA0;
+	color:white;
+}

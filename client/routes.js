@@ -44,7 +44,7 @@ Router.route('/messages', {
           messages[i].name = result[i];
         Session.set('allMessages', messages);
       }
-    });
+    })
     this.next();
   },
   waitOn:function(){
@@ -54,11 +54,12 @@ Router.route('/messages', {
 Router.route('/messages/:_id', {
   template:"message_single_page",
   onBeforeAction:function(){
-    Meteor.call("getSingleMessage", this.params._id, function(err, result){
-      if (!err)
-        Session.set('singleMessage', result);
-    })
+    Session.set('singleMessageId', this.params._id);
+    setTimeout(function(){$('.message_single_messages_container')[0].scrollTop = $('.message_single_messages_container')[0].scrollHeight;},1000);
     this.next();
+  },
+  waitOn:function(){
+    return [Meteor.subscribe("singleUserMessage", this.params._id)];
   }
 });
 Router.route('/admin', {
