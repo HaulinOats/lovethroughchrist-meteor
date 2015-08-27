@@ -71,3 +71,37 @@
     background-color: cadetblue;
     color: white;
 }
+.account_page_search_thumbnail {
+  margin-right:10px;
+  margin-top:10px;
+  box-shadow: 1px 1px 3px;
+}
+.account_page_search_thumbnail:hover {
+  box-shadow: none;
+}
+.account_page_thumbnail_popup {
+  position: absolute;
+  z-index: 10;
+  display:none;
+  width:500px;
+}
+.account_page_thumbnail_popup img{
+  width:100%;
+  height:auto;
+}
+.account_page_photos_select {
+  position: relative;
+  display:none;
+  max-height: 400px;
+  border: solid thin gray;
+  border-radius: 10px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: inset 0px 0px 9px 0px;
+  overflow-y: scroll;
+}
+.account_load_more {
+    padding: 10px 15px;
+  width: 100px;
+  height: 100px;
+}

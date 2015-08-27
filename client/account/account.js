@@ -41,5 +41,60 @@ Template.account_page.events({
 			textAreaVal = $textArea.val(),
 			fieldName   = $textArea.attr('fieldname');
 		Meteor.call('infoTextAreaSave', Meteor.userId(), fieldName, textAreaVal);
+	},
+	'click .account_page_search_photos':function(event){
+		//set all photos
+		FB.api("/me/photos", function(photoData){
+		  $('.account_page_photos_select').show();
+		  $('.account_page_search_photos').hide();
+		  $('.account_load_more').attr('data-next-url-all', photoData.paging.next);
+          for (var i = 0; i < photoData.data.length; i++)
+          	$(".account_load_more").before('<img class="account_page_search_thumbnail" src="'+ photoData.data[i].picture +'" data-image-url="'+ photoData.data[i].source +'" />');
+        });
+        //set profile photos
+        FB.api("/me/albums", function(photoData){
+        	for (var i = 0; i < photoData.data.length; i++){
+        		if (photoData.data[i].name === "Profile Pictures") {
+        			FB.api("/"+ photoData.data[i].id + "/photos", function(photoData2){
+        				$('.account_load_more').attr('data-next-url-profile', photoData2.paging.next);
+        				for (var i = 0; i < photoData2.data.length;i++)
+        					$(".account_load_more").before('<img class="account_page_search_thumbnail" src="'+ photoData2.data[i].picture +'" data-image-url="'+ photoData2.data[i].source +'" />');
+        			});
+        			break;
+        		} 
+        	}
+        });
+	},
+	'click .account_load_more':function(event){
+		//get all photos
+		$.ajax({
+		  url: $('.account_load_more').attr('data-next-url-all'),
+		  method:"GET"
+		}).done(function(json) {
+		  $('.account_load_more').attr('data-next-url-all', json.paging.next);
+		  for (var i = 0; i < json.data.length; i++)
+		  	$(".account_load_more").before('<img class="account_page_search_thumbnail" src="'+ json.data[i].picture +'" data-image-url="'+ json.data[i].source +'" />')
+		});
+		//get profile photos
+		$.ajax({
+		  url: $('.account_load_more').attr('data-next-url-profile'),
+		  method:"GET"
+		}).done(function(json) {
+		  $('.account_load_more').attr('data-next-url-profile', json.paging.next);
+		  for (var i = 0; i < json.data.length; i++)
+		  	$(".account_load_more").before('<img class="account_page_search_thumbnail" src="'+ json.data[i].picture +'" data-image-url="'+ json.data[i].source +'" />')
+		});
+	},
+	'mouseover .account_page_search_thumbnail, mouseout .account_page_search_thumbnail':function(event){
+		if (event.type === "mouseover")
+			$('.account_page_thumbnail_popup').append('<img src="'+ $(event.currentTarget).attr('data-image-url') +'" />').show().css({'top':event.pageY - 150, 'left':event.pageX});
+		else if (event.type === "mouseout")
+			$('.account_page_thumbnail_popup').html('').hide();
+
+	},
+	'click .account_page_search_thumbnail':function(event){
+		if (confirm("Add To Profile Pictures?")) {
+			console.log('photo added');
+		}
 	}
 });
