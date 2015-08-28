@@ -43,11 +43,12 @@
     border:none;
 }
 .profile-message-container textarea{
-	height:100%;
-	padding:15px;
-	border:none;
-    background-color: rgba(0,0,0,.1);
-    border-radius:5px;
+	  height: 100%;
+  padding: 15px;
+  border: none;
+  background-color: rgba(0,0,0,.12);
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 3px black;
 }
 .show-message {
 	height:250px;
