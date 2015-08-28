@@ -85,6 +85,10 @@ Meteor.methods({
 					"state":"Florida",
 					"latitude":28.5747416,
 					"longitude":-81.3949264,
+					"images": {
+						"all":[],
+						"default":null
+					},
 					"name":{
 						"first":"First_" + i,
 						"last":"Last_" + i
@@ -209,6 +213,10 @@ Meteor.methods({
 					"email":fbData.email,
 					"gender":gender,
 					"fbId":fbData.id,
+					"images": {
+						"all":[],
+						"default":null
+					},
 					"name":{
 						"first":fbData.first_name,
 						"last":fbData.last_name
@@ -369,6 +377,21 @@ Meteor.methods({
 		Meteor.users.update(userId, {
 			$set: user
 		});
+	},
+	addProfileImage:function(userId, imageUrl){
+		Meteor.users.update(userId,{
+			$addToSet:{ "profile.images.all":imageUrl}
+		})
+	},
+	removeProfileImage:function(userId, imageUrl){
+		Meteor.users.update(userId,{
+			$pull:{ "profile.images.all":imageUrl}
+		})
+	},
+	makeDefaultImage:function(userId, imageUrl){
+		Meteor.users.update(userId,{
+			$set:{ "profile.images.default":imageUrl}
+		})
 	},
 
 	//Preference Search Page

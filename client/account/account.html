@@ -12,13 +12,19 @@
 		<!-- INFO -->
 		<div class="tab-pane fade active in" id="info">
 			<h3>Photos</h3>
-			<div class="account_page_photos_container">
-				<div class="account_page_photos_current">
+			<div class="col-xs-12 account_page_photos_container">
+				<div class="col-xs-12 account_page_photos_current">
+					{{#each currentUser.profile.images.all}}
+						<div class="col-xs-12 col-sm-3 account_page_photos_current_single_container" style="background-image:url({{this}})">
+							<span class="glyphicon glyphicon-remove account_page_photos_current_single_remove" data-image-url="{{this}}" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-star account_page_photos_current_single_make_default" data-image-url="{{this}}" aria-hidden="true" style="color:{{#unless isDefaultImage this}}white{{/unless}}"></span>
+						</div>
+					{{/each}}
 				</div>
 				<button class="account_page_search_photos ltc_button">Search Facebook Photos</button>
 				<div class="account_page_thumbnail_popup">
 				</div>
-				<div class="account_page_photos_select">
+				<div class="col-xs-12 account_page_photos_select">
 					<button class="ltc_button account_load_more">Load More Photos</button>
 				</div>
 			</div>

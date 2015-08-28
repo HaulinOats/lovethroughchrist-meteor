@@ -1,18 +1,29 @@
 .profile-top-container {
-	height: 350px;
+
 }
 .profile-default-container {
-	height:100%;
-	background-size:cover;
+	  height: 350px;
+	background-size: contain;
+	  background-repeat: no-repeat;
+	  background-position: center;
+	  margin-bottom:15px;
+	  background-color:rgb(30,30,30);
+	  border-radius: 8px;
+	  cursor:pointer;
 }
 .profile-top-right-container {
 	height:100%;
 }
 .profile-message-wink-cont {
-	position: absolute;
-    bottom: 0;
+	
     width: 100%;
     margin: 1% 0%;
+}
+.profile-location {
+	font-size:22px;
+}
+.profile-lastOnline {
+	font-size:18px;
 }
 .profile-info-field {
 
@@ -41,4 +52,67 @@
 .show-message {
 	height:250px;
 	margin:1% 0%;
+}
+.profile_photos_modal_outer {
+	display:none;
+	position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: rgba(0,0,0,.5);
+}
+.profile_photos_modal_inner {
+  position: absolute;
+  top: 12%;
+  left: 10%;
+  height: 80%;
+  width: 80%;
+  background: white;
+  background-size: auto 100%;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-color: rgb(30,30,30);
+}
+.profile_photos_next,
+.profile_photos_prev {
+  position: absolute;
+  top: 45%;
+  color: white;
+  cursor:pointer;
+  font-size: 70px;
+  -webkit-text-shadow: -1px 5px 3px black;
+  -moz-text-shadow: -1px 5px 3px black;
+  -ms-text-shadow: -1px 5px 3px black;
+  -o-text-shadow: -1px 5px 3px black;
+  text-shadow: -1px 5px 3px black;
+}
+.profile_photos_prev {
+  left: 10px;
+}
+.profile_photos_next {
+  right: 10px;
+}
+.profile_photos_next:active,
+.profile_photos_prev:active,
+.profile_photos_close:active{
+	-webkit-text-shadow: none;
+	-moz-text-shadow: none;
+	-ms-text-shadow: none;
+	-o-text-shadow: none;
+	text-shadow: none;
+}
+.profile_photos_close {
+	position: absolute;
+	font-size:50px;
+	color:white;
+	top:75px;
+	right:10px;
+	cursor: pointer;
+	-webkit-text-shadow: -1px 5px 3px black;
+  -moz-text-shadow: -1px 5px 3px black;
+  -ms-text-shadow: -1px 5px 3px black;
+  -o-text-shadow: -1px 5px 3px black;
+  text-shadow: -1px 5px 3px black;
 }

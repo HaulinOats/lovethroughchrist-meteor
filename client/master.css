@@ -18,3 +18,6 @@ hr {
 	background:#5F9EA0;
 	color:white;
 }
+.modal_showing {
+	display:block;
+}

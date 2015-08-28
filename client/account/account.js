@@ -4,6 +4,10 @@ Template.account_page.helpers({
 	getUser:function(){
 		// if(Meteor.user())
 		// 	console.log(Meteor.user());
+	},
+	isDefaultImage:function(imageUrl, defaultUrl){
+		if (Meteor.user().profile.images.default === imageUrl)
+			return true;
 	}
 });
 
@@ -93,8 +97,20 @@ Template.account_page.events({
 
 	},
 	'click .account_page_search_thumbnail':function(event){
-		if (confirm("Add To Profile Pictures?")) {
-			console.log('photo added');
+		if (Meteor.user().profile.images.all.length < 11){
+			if (confirm("Add To Profile Pictures?")) {
+				Meteor.call('addProfileImage', Meteor.userId(), $(event.currentTarget).attr('data-image-url'));
+			}
+		} else
+		alert("12 Photo Maximum!");
+	},
+	'click .account_page_photos_current_single_remove':function(event){
+		if (confirm("Remove Profile Image?")){
+			Meteor.call('removeProfileImage', Meteor.userId(),$(event.currentTarget).attr('data-image-url'));
 		}
+	},
+	'click .account_page_photos_current_single_make_default':function(event){
+		if (confirm("Make Default Photo?"))
+			Meteor.call('makeDefaultImage', Meteor.userId(),$(event.currentTarget).attr('data-image-url'));
 	}
 });
