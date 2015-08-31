@@ -5,9 +5,9 @@ Template.user_profile.helpers({
 	getDefaultPhoto:function(userObj){
 		if (!userObj.profile.images.default){
 			if (!userObj.profile.images.all.length)
-				console.log('no default and no images');
+				return "./../default.png";
 			else 
-				console.log('no default but at least 1 image');
+				return userObj.profile.images.all[0];
 		} else {
 			return userObj.profile.images.default;
 		}

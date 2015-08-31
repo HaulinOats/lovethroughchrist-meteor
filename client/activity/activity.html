@@ -1,0 +1,82 @@
+<template name="activity_page">
+{{setMessageData}}
+	<h2>Activity</h2>
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#messages">Messages</a></li>
+		<li><a data-toggle="tab" href="#winks">Winks</a></li>
+	</ul>
+	<div class="tab-content col-xs-12">
+
+		<!-- MESSAGES -->
+		<div class="tab-pane fade active in" id="messages">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#inbox">Inbox</a></li>
+				<li><a data-toggle="tab" href="#sentMessages">Sent</a></li>
+			</ul>
+			<div class="tab-content col-xs-12">
+				<!-- INBOX -->
+				<div class="tab-pane fade active in" id="inbox">
+					{{#each getAllMessages}}
+					<div class="messages_single_outer_container" messageid="{{this._id}}">
+						<img src="https://pbs.twimg.com/profile_images/2370446440/6e2jwf7ztbr5t1yjq4c5.jpeg"/>
+						<p class="messages_single_single_header_name">{{this.name.first}} {{this.name.last}}</p>
+						<p class="messages_single_single_header_message">{{getLastMessage this.messages}}</p>
+						<!-- {{#each this}}
+							<p class="messages_single_title">{{this.name}}</p>
+							<p class="messages_single_body">{{this.body}}</p>
+						{{/each}} -->
+					</div>
+					{{/each}}
+				</div>
+				<!-- SENT -->
+				<div class="tab-pane fade" id="sentMessages">
+					<!-- {{#each getSentMessages}}
+						<p>{{this.firstMessage}}</p>
+					{{/each}} -->
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade active in" id="winks">
+			{{setWinkData}}
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#fromWink">From</a></li>
+				<li><a data-toggle="tab" href="#sentWink">Sent</a></li>
+			</ul>
+			<div class="tab-content col-xs-12">
+				<div class="tab-pane fade active in" id="fromWink">
+					{{#each getFromWinkData}}
+						<div class="col-xs-12 col-md-6 activity_winks_outer" data-user-id="{{this._id}}">
+							<div class="col-xs-3 activity_winks_image_container" style="background-image:url({{imageExists this.image}})"></div>
+							<p class="col-xs-9 activity_winks_name">{{this.first}} {{this.last}}</p>
+						</div>
+					{{/each}}
+				</div>
+				<div class="tab-pane fade in" id="sentWink">
+					{{#each getSentWinkData}}
+						<div class="col-xs-12 col-md-6 activity_winks_outer" data-user-id="{{this._id}}"> 
+							<div class="col-xs-3 activity_winks_image_container" style="background-image:url({{imageExists this.image}})"></div>
+							<p class="col-xs-9 activity_winks_name">{{this.first}} {{this.last}}</p>
+						</div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="message_single_page">
+	{{#with getMessage}}
+	<div class="message_single_messages_container">
+	{{setOtherUser this}}
+		{{#each this.messages}}
+			<h3>{{#if isCurrentUser this.fromUserId}}Me{{else}}{{#with getOtherUser}}{{this.profile.name.first}}{{/with}}{{/if}}</h3>
+			<p>{{this.body}}</p>
+		{{/each}}
+	</div>
+	<div class="message_single_reply_container">
+		<div class="message_single_reply_container_inner" contenteditable="true">
+		</div>
+		<button class="single_message_send_reply ltc_button">Send</button>
+	</div>
+	{{/with}}
+</template>

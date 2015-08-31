@@ -8,6 +8,15 @@ Template.account_page.helpers({
 	isDefaultImage:function(imageUrl, defaultUrl){
 		if (Meteor.user().profile.images.default === imageUrl)
 			return true;
+	},
+	getUserInfo:function(){
+	    Meteor.call('getUserNameAndDefault', userIdArr, function(err, result){
+	      if (!err){
+	        for (var i = 0; i < result.length; i ++)
+	          messages[i].name = result[i];
+	        Session.set('allMessages', messages);
+	      }
+	    })
 	}
 });
 
@@ -91,7 +100,7 @@ Template.account_page.events({
 	},
 	'mouseover .account_page_search_thumbnail, mouseout .account_page_search_thumbnail':function(event){
 		if (event.type === "mouseover")
-			$('.account_page_thumbnail_popup').append('<img src="'+ $(event.currentTarget).attr('data-image-url') +'" />').show().css({'top':event.pageY - 150, 'left':event.pageX});
+			$('.account_page_thumbnail_popup').append('<img src="'+ $(event.currentTarget).attr('data-image-url') +'" />').show();
 		else if (event.type === "mouseout")
 			$('.account_page_thumbnail_popup').html('').hide();
 

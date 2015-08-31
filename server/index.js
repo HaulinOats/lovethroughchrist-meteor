@@ -481,13 +481,23 @@ Meteor.methods({
 	},
 
 	//Messages
-	getUserData:function(idArr){
-		var userData = [];
+	getNameAndImage:function(idArr){
+		var userData = [],
+			userImage = null;
 		for (var i = 0; i < idArr.length; i++){
-			var user = Meteor.users.find(idArr[i]).fetch()[0].profile;
+			var user = Meteor.users.find(idArr[i]).fetch()[0];
+			if (!user.profile.images.default){
+				if (user.profile.images.all.length)
+					userImage = user.profile.images.all[0];
+			} else {
+				if (user.profile.images.all.length)
+					userImage = user.profile.images.all[0];
+			}
 			userData.push({
-				"first":user.name.first,
-				"last":user.name.last
+				"_id":user._id,
+				"first":user.profile.name.first,
+				"last":user.profile.name.last,
+				"image":userImage
 			});
 		}
 		return userData;

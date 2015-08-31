@@ -114,14 +114,16 @@
   box-shadow: none;
 }
 .account_page_thumbnail_popup {
-  position: absolute;
+  position: fixed;
+  top:70px;
+  left:25%;
   z-index: 10;
   display:none;
-  width:500px;
+  height:400px;
 }
 .account_page_thumbnail_popup img{
-  width:100%;
-  height:auto;
+  width:auto;
+  height:100%;
 }
 .account_page_photos_select {
   margin-top:15px;

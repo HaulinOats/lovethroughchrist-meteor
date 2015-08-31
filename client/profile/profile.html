@@ -4,7 +4,7 @@
 		<h2>{{this.profile.name.first}}</h2>
 		<hr class="hr_normal">
 		<div class="col-xs-12 profile-top-container">
-			<div class="col-xs-12 col-sm-6 profile-default-container" style="background-image:url({{getDefaultPhoto this}})">
+			<div class="col-xs-12 col-sm-6 col-md-4 profile-default-container" data-user-id="{{this._id}}" style="background-image:url({{getDefaultPhoto this}})">
 			</div>
 			<div class="profile_photos_modal_outer">
 				<div class="profile_photos_modal_inner">
@@ -27,7 +27,7 @@
 		</div>
 		<div class="col-xs-12 profile-message-container">
 			<textarea class="col-xs-12"></textarea>
-			<button userid="{{this._id}}">Send</button>
+			<button class="ltc_button" userid="{{this._id}}">Send</button>
 		</div>
 		<div class="clearfix"></div>
 		<hr class="hr_normal">
