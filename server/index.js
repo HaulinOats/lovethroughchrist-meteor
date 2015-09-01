@@ -448,7 +448,7 @@ Meteor.methods({
 
 
 
-		return Meteor.users.find().fetch({
+		return Meteor.users.find({"_id":{$ne:userId}}).fetch({
 			"profile":{
 				"gender":prefObj.gender,
 				"searchDistance":{$lt:prefObj.searchDistance},
@@ -482,9 +482,9 @@ Meteor.methods({
 
 	//Messages
 	getNameAndImage:function(idArr){
-		var userData = [],
-			userImage = null;
+		var userData = [];
 		for (var i = 0; i < idArr.length; i++){
+			userImage = null;
 			var user = Meteor.users.find(idArr[i]).fetch()[0];
 			if (!user.profile.images.default){
 				if (user.profile.images.all.length)

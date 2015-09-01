@@ -10,6 +10,7 @@ Router.route('/my-profile', {
 Router.route('/search', {
   template:'search_page',
   onBeforeAction:function(){
+    delete Session.keys['searchUsers'];
     Meteor.call('searchInit', Meteor.userId(), function(err, result){
       if (!err)
         Session.set('searchUsers', result);
@@ -20,6 +21,7 @@ Router.route('/search', {
 Router.route('/search/:_id', {
   template:'user_profile',
   onBeforeAction:function(){
+    delete Session.keys['currentSearchUser'];
     Meteor.call('getSearchUser', this.params._id, function(err, result){
       if (!err)
         Session.set('currentSearchUser', result);

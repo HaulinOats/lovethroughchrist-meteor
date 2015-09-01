@@ -40,27 +40,31 @@ Template.user_profile.events({
 		
 	},
 	'click .profile-default-container':function(event){
-		$('.profile_photos_modal_outer').addClass('modal_showing');
-		$('.profile_photos_modal_inner').css('background-image', 'url('+ Meteor.user().profile.images.all[0] +')');
-		Session.set('profileImageIndex', 0);
+		var user = Session.get('currentSearchUser');
+		if (user.profile.images.default || user.profile.images.all.length){
+			$('.profile_photos_modal_outer').addClass('modal_showing');
+			$('.profile_photos_modal_inner').css('background-image', 'url('+ user.profile.images.all[0] +')');
+			Session.set('profileImageIndex', 0);
+		}
 	},
 	'click .profile_photos_prev, click .profile_photos_next':function(event){
-		var currentImageIndex = Session.get('profileImageIndex');
+		var currentImageIndex = Session.get('profileImageIndex'),
+			user = Session.get('currentSearchUser');
 		if ($(event.currentTarget).attr('data-direction') === "next") {
-			if (Meteor.user().profile.images.all[currentImageIndex+1]){
-				$('.profile_photos_modal_inner').css('background-image', 'url('+ Meteor.user().profile.images.all[currentImageIndex+1] +')');
+			if (user.profile.images.all[currentImageIndex+1]){
+				$('.profile_photos_modal_inner').css('background-image', 'url('+ user.profile.images.all[currentImageIndex+1] +')');
 				Session.set('profileImageIndex', currentImageIndex+1);
 			} else {
-				$('.profile_photos_modal_inner').css('background-image', 'url('+ Meteor.user().profile.images.all[0] +')');
+				$('.profile_photos_modal_inner').css('background-image', 'url('+ user.profile.images.all[0] +')');
 				Session.set('profileImageIndex', 0);
 			}
 		} else {
-			if (Meteor.user().profile.images.all[currentImageIndex-1]){
-				$('.profile_photos_modal_inner').css('background-image', 'url('+ Meteor.user().profile.images.all[currentImageIndex-1] +')');
+			if (user.profile.images.all[currentImageIndex-1]){
+				$('.profile_photos_modal_inner').css('background-image', 'url('+ user.profile.images.all[currentImageIndex-1] +')');
 				Session.set('profileImageIndex', currentImageIndex-1);
 			} else {
-				$('.profile_photos_modal_inner').css('background-image', 'url('+ Meteor.user().profile.images.all[Meteor.user().profile.images.all.length-1] +')');
-				Session.set('profileImageIndex', Meteor.user().profile.images.all.length-1);
+				$('.profile_photos_modal_inner').css('background-image', 'url('+ user.profile.images.all[user.profile.images.all.length-1] +')');
+				Session.set('profileImageIndex', user.profile.images.all.length-1);
 			}
 		}
 	},

@@ -1,24 +1,39 @@
 //All Messages Page
 Template.activity_page.helpers({
 	setMessageData:function(){
-		var userIdArr = [],
+		var responseIdArr = [],
+			sentIdArr 	  = [],
 	        messages = Messages.find().fetch();
 	    for (var i = 0; i < messages.length; i ++) {
-	      if (messages[i].from === Meteor.userId())
-	        userIdArr.push(messages[i].to);
-	      else
-	        userIdArr.push(messages[i].from);
+        	var otherUserId = null;
+        	for (var j = 0; j < messages[i].messages.length; j++){
+        		if (messages[i].messages[j].fromUserId !== Meteor.userId())
+        			otherUserId = messages[i].messages[j].fromUserId;
+        	}
+        	if (otherUserId)
+        		responseIdArr.push(otherUserId);
+        	else
+        		sentIdArr.push(messages[i].to);
 	    }
-	    Meteor.call('getNameAndImage', userIdArr, function(err, result){
-	      if (!err){
-	        for (var i = 0; i < result.length; i ++)
-	          messages[i].name = result[i];
-	        Session.set('allMessages', messages);
-	      }
-	    })
+	    console.log('responded messages:');
+	    console.log(responseIdArr);
+	    console.log('no response (sent):');
+	    console.log(sentIdArr);
+	      // if (messages[i].from === Meteor.userId())
+	      //   userIdArr.push(messages[i].to);
+	      // else
+	      //   userIdArr.push(messages[i].from);
+	    // Meteor.call('getNameAndImage', userIdArr, function(err, result){
+	    //   if (!err){
+	    //     for (var i = 0; i < result.length; i ++)
+	    //       messages[i].extraData = result[i];
+	    //     console.log(messages);
+	    //     Session.set('inboxMessages', messages);
+	    //   }
+	    // })
 	},
-	getAllMessages:function(){
-		return Session.get('allMessages');
+	getInboxMessages:function(){
+		return Session.get('inboxMessages');
 	},
 	getSentMessages:function(){
 		return Session.get('sentMessages');
@@ -45,6 +60,7 @@ Template.activity_page.helpers({
 		}
 	},
 	getSentWinkData:function(){
+		console.log(Session.get('sentWinkData'));
 		return Session.get('sentWinkData');
 	},
 	getFromWinkData:function(){
@@ -53,6 +69,8 @@ Template.activity_page.helpers({
 	imageExists:function(image){
 		if(!image)
 			return "./default.png";
+		else
+			return image;
 	}
 });
 Template.activity_page.events({

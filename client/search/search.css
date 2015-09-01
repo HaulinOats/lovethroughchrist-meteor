@@ -5,8 +5,9 @@
     cursor:pointer;
 }
 .search_page_single_user_inner_left {
-	background-image:url('http://placekitten.com.s3.amazonaws.com/homepage-samples/200/140.jpg');
-	background-size:cover;
+	background-size:contain;
+	background-position: 50%;
+	background-repeat: no-repeat;
 }
 .search_page_single_user_inner_left,
 .search_page_single_user_inner_right {

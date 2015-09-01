@@ -60,6 +60,7 @@ Template.account_page.events({
 		FB.api("/me/photos", function(photoData){
 		  $('.account_page_photos_select').show();
 		  $('.account_page_search_photos').hide();
+		  $('.account_page_photos_current').css('min-height', "250px");
 		  $('.account_load_more').attr('data-next-url-all', photoData.paging.next);
           for (var i = 0; i < photoData.data.length; i++)
           	$(".account_load_more").before('<img class="account_page_search_thumbnail" src="'+ photoData.data[i].picture +'" data-image-url="'+ photoData.data[i].source +'" />');

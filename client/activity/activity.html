@@ -16,9 +16,9 @@
 			<div class="tab-content col-xs-12">
 				<!-- INBOX -->
 				<div class="tab-pane fade active in" id="inbox">
-					{{#each getAllMessages}}
+					{{#each getInboxMessages}}
 					<div class="messages_single_outer_container" messageid="{{this._id}}">
-						<img src="https://pbs.twimg.com/profile_images/2370446440/6e2jwf7ztbr5t1yjq4c5.jpeg"/>
+						<img src="{{imageExists this.image}}"/>
 						<p class="messages_single_single_header_name">{{this.name.first}} {{this.name.last}}</p>
 						<p class="messages_single_single_header_message">{{getLastMessage this.messages}}</p>
 						<!-- {{#each this}}
@@ -26,17 +26,18 @@
 							<p class="messages_single_body">{{this.body}}</p>
 						{{/each}} -->
 					</div>
+					<hr>
 					{{/each}}
 				</div>
 				<!-- SENT -->
-				<div class="tab-pane fade" id="sentMessages">
+				<div class="tab-pane fade in" id="sentMessages">
 					<!-- {{#each getSentMessages}}
 						<p>{{this.firstMessage}}</p>
 					{{/each}} -->
 				</div>
 			</div>
 		</div>
-		<div class="tab-pane fade active in" id="winks">
+		<div class="tab-pane fade in" id="winks">
 			{{setWinkData}}
 			<ul class="nav nav-tabs">
 				<li class="active"><a data-toggle="tab" href="#fromWink">From</a></li>

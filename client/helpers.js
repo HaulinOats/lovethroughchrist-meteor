@@ -185,3 +185,13 @@ Template.registerHelper("daysSinceLastOnline", function(lastOnlineStamp){
 	else
 		return Math.round(time) + " days ago";
 })
+Template.registerHelper("getDefaultImage", function(imagesObj){
+	if (!imagesObj.default){
+		if (imagesObj.all.length)
+			return imagesObj.all[0];
+		else
+			return './default.png';
+	} else {
+		return imagesObj.default;
+	}
+});
