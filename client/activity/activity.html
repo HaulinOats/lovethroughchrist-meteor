@@ -18,22 +18,27 @@
 				<div class="tab-pane fade active in" id="inbox">
 					{{#each getInboxMessages}}
 					<div class="messages_single_outer_container" messageid="{{this._id}}">
-						<img src="{{imageExists this.image}}"/>
-						<p class="messages_single_single_header_name">{{this.name.first}} {{this.name.last}}</p>
-						<p class="messages_single_single_header_message">{{getLastMessage this.messages}}</p>
-						<!-- {{#each this}}
-							<p class="messages_single_title">{{this.name}}</p>
-							<p class="messages_single_body">{{this.body}}</p>
-						{{/each}} -->
+						<div class="col-xs-4 col-sm-2 messages_single_image" style="background-image:url({{imageExists this.userInfo.image}})"></div>
+						<div class="col-xs-8 col-sm-10">
+							<p class="messages_single_single_header_name">{{this.userInfo.first}} {{this.userInfo.last}}</p>
+							<p class="messages_single_single_header_message">{{getLastMessage this.messages}}</p>
+						</div>
 					</div>
 					<hr>
 					{{/each}}
 				</div>
 				<!-- SENT -->
 				<div class="tab-pane fade in" id="sentMessages">
-					<!-- {{#each getSentMessages}}
-						<p>{{this.firstMessage}}</p>
-					{{/each}} -->
+					{{#each getSentMessages}}
+					<div class="messages_single_outer_container" messageid="{{this._id}}">
+						<div class="col-xs-4 col-sm-2 messages_single_image" style="background-image:url({{imageExists this.userInfo.image}})"></div>
+						<div class="col-xs-8 col-sm-10">
+							<p class="messages_single_single_header_name">{{this.userInfo.first}} {{this.userInfo.last}}</p>
+							<p class="messages_single_single_header_message">{{getLastMessage this.messages}}</p>
+						</div>
+					</div>
+					<hr>
+					{{/each}}
 				</div>
 			</div>
 		</div>

@@ -1,8 +1,10 @@
 //All Messages Page
 Template.activity_page.helpers({
 	setMessageData:function(){
-		var responseIdArr = [],
-			sentIdArr 	  = [],
+		var responseIdArr  = [],
+			responseMsgArr = [],
+			sentIdArr 	   = [],
+			sentMsgArr     = [],
 	        messages = Messages.find().fetch();
 	    for (var i = 0; i < messages.length; i ++) {
         	var otherUserId = null;
@@ -10,20 +12,33 @@ Template.activity_page.helpers({
         		if (messages[i].messages[j].fromUserId !== Meteor.userId())
         			otherUserId = messages[i].messages[j].fromUserId;
         	}
-        	if (otherUserId)
+        	if (otherUserId) {
         		responseIdArr.push(otherUserId);
-        	else
+        		responseMsgArr.push(messages[i]);
+        	} else{
         		sentIdArr.push(messages[i].to);
+        		sentMsgArr.push(messages[i]);
+        	}
 	    }
-	    console.log('responded messages:');
-	    console.log(responseIdArr);
-	    console.log('no response (sent):');
-	    console.log(sentIdArr);
+	    Meteor.call('getNameAndImage', responseIdArr, function(err, result){
+	    	if (!err){
+	    		for (var i = 0; i < result.length; i ++)
+	    			responseMsgArr[i].userInfo = result[i];
+	    		Session.set('inboxMessages', responseMsgArr);
+	    	}
+	    });
+	    Meteor.call('getNameAndImage', sentIdArr, function(err, result){
+	    	if (!err){
+	    		for (var i = 0; i < result.length; i ++)
+	    			sentMsgArr[i].userInfo = result[i];
+	    		Session.set('sentMessages', sentMsgArr.reverse());
+	    	}
+	    });
+	    
 	      // if (messages[i].from === Meteor.userId())
 	      //   userIdArr.push(messages[i].to);
 	      // else
 	      //   userIdArr.push(messages[i].from);
-	    // Meteor.call('getNameAndImage', userIdArr, function(err, result){
 	    //   if (!err){
 	    //     for (var i = 0; i < result.length; i ++)
 	    //       messages[i].extraData = result[i];
@@ -67,10 +82,12 @@ Template.activity_page.helpers({
 		return Session.get('fromWinkData');
 	},
 	imageExists:function(image){
-		if(!image)
+		console.log(image);
+		if(!image) {
 			return "./default.png";
-		else
+		} else {
 			return image;
+		}
 	}
 });
 Template.activity_page.events({

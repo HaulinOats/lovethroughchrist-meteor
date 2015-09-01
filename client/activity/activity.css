@@ -9,6 +9,13 @@
 	float:left;
 	padding-right:2%;
 }
+.messages_single_image{
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  height:100%;
+  background-color:rgb(30,30,30);
+}
 .messages_single_single_header_name {
 	font-weight: bold;
 	font-size: 16px;

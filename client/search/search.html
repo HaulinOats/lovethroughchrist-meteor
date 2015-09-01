@@ -9,9 +9,9 @@
 		<div class="tab-pane fade active in" id="search">
 			{{#each getSearchUsers}}
 				<div class="search_page_single_user_outer col-xs-12" userid="{{this._id}}">
-					<div class="search_page_single_user_inner_left col-xs-3" style="background-image:url('{{getDefaultImage this.profile.images}}')">
+					<div class="search_page_single_user_inner_left col-xs-4 col-sm-3" style="background-image:url('{{getDefaultImage this.profile.images}}')">
 					</div>
-					<div class="search_page_single_user_inner_right col-xs-9">
+					<div class="search_page_single_user_inner_right col-xs-8 col-sm-9">
 						<div class="search_page_title_bar">
 							<h2>{{this.profile.name.first}} {{this.profile.name.last}} - {{calculateAge this.profile.birthdate}}</h2>
 							<p class="search_page_cityState"><i>{{this.profile.city}}, {{this.profile.state}}</i></p>

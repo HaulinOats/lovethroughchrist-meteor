@@ -18,6 +18,9 @@ Template.header.events({
 			if (err)
 				throw new Meteor.Error('Logout Failed');
 		})
+	},
+	'click .navigation-list li':function(event){
+		$('#ltc-small-menu').removeClass('in');
 	}
 });
 

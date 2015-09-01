@@ -13,7 +13,7 @@ ServiceConfiguration.configurations.upsert(
 );
 
 Meteor.publish('allUserMessages', function publishFunction() {
-	return Messages.find({$or:[{"from":{$eq: this.userId }},{"to":{ $eq: this.userId}}]},{sort:{"updatedAt":-1}})
+	return Messages.find({$or:[{"from":{$eq: this.userId }},{"to":{ $eq: this.userId}}]},{sort:{"updatedAt":1}})
 });
 Meteor.publish('singleUserMessage', function publishFunction(messageId) {
 	return Messages.find(messageId);
@@ -466,7 +466,7 @@ Meteor.methods({
 			"to":toUserId,
 			"from":fromUserId,
 			"messages":[{
-				"from":fromUserId,
+				"fromUserId":fromUserId,
 				"body":message
 			}]
 		})
