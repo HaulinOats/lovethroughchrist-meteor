@@ -190,7 +190,7 @@ Template.registerHelper("getDefaultImage", function(imagesObj){
 		if (imagesObj.all.length)
 			return imagesObj.all[0];
 		else
-			return './default.png';
+			return '/default.png';
 	} else {
 		return imagesObj.default;
 	}

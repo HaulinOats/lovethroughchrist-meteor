@@ -31,3 +31,33 @@ hr {
     padding-right:0;
     padding-left:0;
 }
+.loading_pic {
+	display:block;
+	margin:0 auto;
+	max-width: 400px;
+	 -moz-animation-duration: 2s;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -moz-animation-name: loaderSpin;
+  -webkit-animation-name: loaderSpin;
+  animation-name: loaderSpin;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+@keyframes loaderSpin {
+	from {transform:rotateY(0deg);}
+	to {transform:rotateY(360deg);}
+}
+@-webkit-keyframes loaderSpin {
+	from {transform:rotateY(0deg);}
+	to {transform:rotateY(360deg);}
+}
+@-moz-keyframes loaderSpin {
+	from {transform:rotateY(0deg);}
+	to {transform:rotateY(360deg);}
+}
+@-o-keyframes loaderSpin {
+	from {transform:rotateY(0deg);}
+	to {transform:rotateY(360deg);}
+}

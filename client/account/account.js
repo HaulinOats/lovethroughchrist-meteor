@@ -63,7 +63,7 @@ Template.account_page.events({
 		  $('.account_page_photos_current').css('min-height', "250px");
 		  $('.account_load_more').attr('data-next-url-all', photoData.paging.next);
           for (var i = 0; i < photoData.data.length; i++)
-          	$(".account_load_more").before('<img class="account_page_search_thumbnail" src="'+ photoData.data[i].picture +'" data-image-url="'+ photoData.data[i].source +'" />');
+          	$(".account_load_more").before('<img class="account_page_photo_search_thumbnail" src="'+ photoData.data[i].picture +'" data-image-url="'+ photoData.data[i].source +'" />');
         });
         //set profile photos
         FB.api("/me/albums", function(photoData){
@@ -72,47 +72,68 @@ Template.account_page.events({
         			FB.api("/"+ photoData.data[i].id + "/photos", function(photoData2){
         				$('.account_load_more').attr('data-next-url-profile', photoData2.paging.next);
         				for (var i = 0; i < photoData2.data.length;i++)
-        					$(".account_load_more").before('<img class="account_page_search_thumbnail" src="'+ photoData2.data[i].picture +'" data-image-url="'+ photoData2.data[i].source +'" />');
+        					$(".account_load_more").before('<img class="account_page_photo_search_thumbnail" src="'+ photoData2.data[i].picture +'" data-image-url="'+ photoData2.data[i].source +'" />');
         			});
         			break;
         		} 
         	}
         });
 	},
-	'click .account_load_more':function(event){
+	'click .account_page_search_videos':function(event){
+		//set all photos
+		FB.api("/me/videos", function(videoData){
+			console.log(videoData);
+		  $('.account_page_videos_select').show();
+		  $('.account_page_search_videos').hide();
+		  $('.account_page_videos_current').css('min-height', "250px");
+		  $('.account_load_more_videos').attr('data-next-url-all', videoData.paging.next);
+          for (var i = 0; i < videoData.data.length; i++)
+          	$(".account_load_more_videos").before('<img class="account_page_video_search_thumbnail" src="'+ videoData.data[i].picture +'" data-video-url="'+ videoData.data[i].source +'" />');
+        });
+	},
+	'click .account_load_more_photos':function(event){
 		//get all photos
 		$.ajax({
-		  url: $('.account_load_more').attr('data-next-url-all'),
+		  url: $('.account_load_more_photos').attr('data-next-url-all'),
 		  method:"GET"
 		}).done(function(json) {
-		  $('.account_load_more').attr('data-next-url-all', json.paging.next);
+		  $('.account_load_more_photos').attr('data-next-url-all', json.paging.next);
 		  for (var i = 0; i < json.data.length; i++)
-		  	$(".account_load_more").before('<img class="account_page_search_thumbnail" src="'+ json.data[i].picture +'" data-image-url="'+ json.data[i].source +'" />')
+		  	$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ json.data[i].picture +'" data-image-url="'+ json.data[i].source +'" />')
 		});
 		//get profile photos
 		$.ajax({
-		  url: $('.account_load_more').attr('data-next-url-profile'),
+		  url: $('.account_load_more_photos').attr('data-next-url-profile'),
 		  method:"GET"
 		}).done(function(json) {
-		  $('.account_load_more').attr('data-next-url-profile', json.paging.next);
+		  $('.account_load_more_photos').attr('data-next-url-profile', json.paging.next);
 		  for (var i = 0; i < json.data.length; i++)
-		  	$(".account_load_more").before('<img class="account_page_search_thumbnail" src="'+ json.data[i].picture +'" data-image-url="'+ json.data[i].source +'" />')
+		  	$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ json.data[i].picture +'" data-image-url="'+ json.data[i].source +'" />')
 		});
 	},
-	'mouseover .account_page_search_thumbnail, mouseout .account_page_search_thumbnail':function(event){
+	'mouseover .account_page_photo_search_thumbnail, mouseout .account_page_photo_search_thumbnail':function(event){
 		if (event.type === "mouseover")
 			$('.account_page_thumbnail_popup').append('<img src="'+ $(event.currentTarget).attr('data-image-url') +'" />').show();
 		else if (event.type === "mouseout")
 			$('.account_page_thumbnail_popup').html('').hide();
 
 	},
-	'click .account_page_search_thumbnail':function(event){
+	'click .account_page_photo_search_thumbnail':function(event){
 		if (Meteor.user().profile.images.all.length < 11){
 			if (confirm("Add To Profile Pictures?")) {
 				Meteor.call('addProfileImage', Meteor.userId(), $(event.currentTarget).attr('data-image-url'));
 			}
 		} else
 		alert("12 Photo Maximum!");
+	},
+	'click .account_page_video_search_thumbnail':function(event){
+		if (Meteor.user().profile.videos.length < 11){
+			// if (confirm("Add To Profile Pictures?")) {
+				Meteor.call('addVideo', Meteor.userId(), $(event.currentTarget).attr('data-video-url'));
+			// }
+
+		} else
+		alert("12 Video Maximum!");
 	},
 	'click .account_page_photos_current_single_remove':function(event){
 		if (confirm("Remove Profile Image?")){

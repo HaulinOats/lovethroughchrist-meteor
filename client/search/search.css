@@ -8,6 +8,9 @@
 	background-size:contain;
 	background-position: 50%;
 	background-repeat: no-repeat;
+	background-color:rgb(30,30,30);
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
 }
 .search_page_single_user_inner_left,
 .search_page_single_user_inner_right {
@@ -37,4 +40,27 @@
 .search_page_bio {
 	line-height: 135%;
     font-size: 16px;
+}
+.search_load_more {
+	text-align: center;
+  margin-bottom: 20px;
+  background: cadetblue;
+  color: white;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 1px 1px 3px black;
+}
+.search_load_more:active: {
+	box-shadow: none;
+}
+.search_load_more p {
+	font-size:25px;
+}
+.search_load_more span {
+	font-size:30px;
+}
+.search_end {
+	display:none;
+	text-align: center;
+	font-size:20px;
 }

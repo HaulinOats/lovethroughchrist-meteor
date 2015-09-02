@@ -33,6 +33,7 @@ Meteor.methods({
 		function randomIntFromInterval(min,max){return Math.floor(Math.random()*(max-min+1)+min);}
 		for (var i = 0; i < 50; i++) {
 			var heightFeet   	 = randomIntFromInterval(3, 7),
+				gender 		     = randomIntFromInterval(0, 1),
 				heightInches 	 = randomIntFromInterval(0, 11),
 				bodyType	 	 = randomIntFromInterval(0, 8),
 				churchAttendance = randomIntFromInterval(0, 4),
@@ -76,19 +77,20 @@ Meteor.methods({
 					"userFieldsSet":true,
 					"dateCreated":Date.now(),
 					"lastOnline":Date.now(),
-					"gender":1,
+					"gender":gender,
 					"bio":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
 					"favoriteQuote":'"Here is a quote I like alot" - Some Person',
 					"mateTraits":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
 					"biblePassage":"If I speak with the tongues of men and of angels, but do not have love, I have become a ringing brass gong or a clashing cymbal. And if I have the gift of prophecy and I know all mysteries and all knowledge, and if I have all faith so that I can remove mountains, but do not have love, I am nothing. And if I parcel out all my possessions, and if I hand over my body in order that I will be burned, but do not have love, it benefits me nothing.",
-					"city":"Orlando",
+					"city":"Palm City",
 					"state":"Florida",
-					"latitude":28.5747416,
-					"longitude":-81.3949264,
+					"latitude":27.1458025,
+					"longitude":-80.3435908,
 					"images": {
 						"all":[],
 						"default":null
 					},
+					"videos":[],
 					"name":{
 						"first":"First_" + i,
 						"last":"Last_" + i
@@ -120,7 +122,7 @@ Meteor.methods({
 					"politicalParty":politicalParty,
 					"searchable":true,
 					"preferences": {
-						"gender":[0],
+						"gender":[0, 1],
 						"searchDistance":100,
 						"age": {
 							"min":ageMin,
@@ -217,6 +219,7 @@ Meteor.methods({
 						"all":[],
 						"default":null
 					},
+					"videos":[],
 					"name":{
 						"first":fbData.first_name,
 						"last":fbData.last_name
@@ -383,6 +386,11 @@ Meteor.methods({
 			$addToSet:{ "profile.images.all":imageUrl}
 		})
 	},
+	addVideo:function(userId, videoUrl){
+		Meteor.users.update(userId, {
+			$addToSet:{"profile.videos":videoUrl}
+		})
+	},
 	removeProfileImage:function(userId, imageUrl){
 		Meteor.users.update(userId,{
 			$pull:{ "profile.images.all":imageUrl}
@@ -426,35 +434,68 @@ Meteor.methods({
 			});
 		}
 	},
-	searchInit:function(userId){
+	searchInit:function(userId, skip){
 		var user = Meteor.users.find(userId).fetch()[0];
-			prefObj = {};
+			prefObj = {},
+			users   = [];
 
-		// prefObj.gender 		     = user.profile.preferences.gender;
-		// prefObj.searchDistance   = user.profile.preferences.searchDistance;
-		// prefObj.education 	     = user.profile.preferences.education;
-		// prefObj.churchAttendance = user.profile.preferences.churchAttendance;
-		// prefObj.denomination  	 = user.profile.preferences.denomination;
-		// prefObj.smokes 			 = user.profile.preferences.smokes;
-		// prefObj.drinks 			 = user.profile.preferences.drinks;
-		// prefObj.hasKids 		 = user.profile.preferences.hasKids;
-		// prefObj.wantsKids 		 = user.profile.preferences.wantsKids;
-		// prefObj.language 		 = user.profile.preferences.language;
-		// prefObj.ethnicity 		 = user.profile.preferences.ethnicity;
-		// prefObj.hasPets 		 = user.profile.preferences.hasPets;
-		// prefObj.wantsPets 		 = user.profile.preferences.wantsPets;
-		// prefObj.petPreference 	 = user.profile.preferences.petPreference;
-		// prefObj.politicalParty 	 = user.profile.preferences.politicalParty;
+		prefObj.gender 		     = user.profile.preferences.gender;
+		prefObj.searchDistance   = user.profile.preferences.searchDistance;
+		prefObj.education 	     = user.profile.preferences.education;
+		prefObj.churchAttendance = user.profile.preferences.churchAttendance;
+		prefObj.denomination  	 = user.profile.preferences.denomination;
+		prefObj.smokes 			 = user.profile.preferences.smokes;
+		prefObj.drinks 			 = user.profile.preferences.drinks;
+		prefObj.hasKids 		 = user.profile.preferences.hasKids;
+		prefObj.wantsKids 		 = user.profile.preferences.wantsKids;
+		prefObj.language 		 = user.profile.preferences.language;
+		prefObj.ethnicity 		 = user.profile.preferences.ethnicity;
+		prefObj.hasPets 		 = user.profile.preferences.hasPets;
+		prefObj.wantsPets 		 = user.profile.preferences.wantsPets;
+		prefObj.politicalParty 	 = user.profile.preferences.politicalParty;
 
+		//get my latitude and longitude
+		if (user.profile.latitude){
+			var myLat  = user.profile.latitude,
+				myLong = user.profile.longitude;
+		}
 
+		var foundUsers = Meteor.users.find({
+			// "_id":{$ne:userId},
+			"profile.gender":{$in:prefObj.gender},
+			// "profile.ethnicity":{$in:prefObj.ethnicity},
+			// "profile.education":{$gte:prefObj.education},
+			// "profile.churchAttendance":{$gte:prefObj.churchAttendance},
+			// "profile.smokes":{$gte:prefObj.smokes},
+			// "profile.drinks":{$gte:prefObj.drinks},
+			// "profile.hasKids":{$gte:prefObj.hasKids},
+			// "profile.hasPets":{$gte:prefObj.hasPets},
+			// "profile.wantsPets":{$gte:prefObj.wantsPets},
+			// "profile.wantsKids":{$gte:prefObj.wantsKids},
+			// "profile.denomination":{$eq:prefObj.denomination},
+			// "profile.language":{$eq:prefObj.language},
+			// "profile.politicalParty":{$eq:prefObj.politicalParty}
+		},{sort:{"last_login":1}, skip:skip, limit:20}).fetch();
 
-		return Meteor.users.find({"_id":{$ne:userId}}).fetch({
-			"profile":{
-				"gender":prefObj.gender,
-				"searchDistance":{$lt:prefObj.searchDistance},
-				"hasKids":prefObj.hasKids
+		//loop through found users and return those within specific distance
+		for (var i = 0, len = foundUsers.length; i < len; i++) {
+			if (foundUsers[i].profile.latitude){
+				if (user.profile.preferences.searchDistance >= distance(myLat, myLong, foundUsers[i].profile.latitude, foundUsers[i].profile.longitude))
+					users.push(foundUsers[i]);
 			}
-		},{sort:{"last_login":1}});
+		}
+
+		return users;
+
+		function distance(lat1, lon1, lat2, lon2) {
+		  var p = 0.017453292519943295;    // Math.PI / 180
+		  var c = Math.cos;
+		  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+		          c(lat1 * p) * c(lat2 * p) * 
+		          (1 - c((lon2 - lon1) * p))/2;
+
+		  return (12742 * Math.asin(Math.sqrt(a))) * 0.621371; // 2 * R; R = 6371 km
+		}
 	},
 	getSearchUser:function(userId){
 		return Meteor.users.find(userId).fetch()[0];
