@@ -15,7 +15,6 @@ Router.route('/my-profile', {
 Router.route('/search', {
   template:'search_page',
   onBeforeAction:function(){
-    console.log('hi');
     delete Session.keys['searchUsers','searchSkip'];
     if (Meteor.userId()){
       Meteor.call('searchInit', Meteor.userId(), 0, function(err, result){

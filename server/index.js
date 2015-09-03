@@ -37,7 +37,6 @@ Meteor.methods({
 				heightInches 	 = randomIntFromInterval(0, 11),
 				bodyType	 	 = randomIntFromInterval(0, 8),
 				churchAttendance = randomIntFromInterval(0, 4),
-				denomination 	 = randomIntFromInterval(0, 10),
 				drinks 	 	     = randomIntFromInterval(0, 4),
 				smokes 	 	     = randomIntFromInterval(0, 4),
 				education 	 	 = randomIntFromInterval(0, 4),
@@ -82,10 +81,10 @@ Meteor.methods({
 					"favoriteQuote":'"Here is a quote I like alot" - Some Person',
 					"mateTraits":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
 					"biblePassage":"If I speak with the tongues of men and of angels, but do not have love, I have become a ringing brass gong or a clashing cymbal. And if I have the gift of prophecy and I know all mysteries and all knowledge, and if I have all faith so that I can remove mountains, but do not have love, I am nothing. And if I parcel out all my possessions, and if I hand over my body in order that I will be burned, but do not have love, it benefits me nothing.",
-					"city":"Palm City",
+					"city":"Orlando",
 					"state":"Florida",
-					"latitude":27.1458025,
-					"longitude":-80.3435908,
+					"latitude":28.6013431,
+					"longitude":-81.20092869999999,
 					"images": {
 						"all":[],
 						"default":null
@@ -107,7 +106,7 @@ Meteor.methods({
 					"language":language,
 					"bodyType":bodyType,
 					"churchAttendance":churchAttendance,
-					"denomination":denomination,
+					"denomination":0,
 					"drinks":drinks,
 					"smokes":smokes,
 					"education":education,
@@ -130,15 +129,15 @@ Meteor.methods({
 						},
 						"education":pref_education,
 						"churchAttendance":pref_churchAttendance,
-						"denomination":pref_denomination,
+						"denomination":[0,1,2,3,4,5,6,7,8,9,10],
 						"smokes":pref_smokes,
 						"drinks":pref_drinks,
 						"ethnicity":pref_ethnicity,
 						"hasKids":pref_hasKids,
 						"hasPets":pref_hasPets,
-						"language":pref_language,
+						"language":[0,1,2,3,4,5,6,7,8,9,10,11,12],
 						"petPreference":pref_petPreference,
-						"politicalParty":pref_politicalParty,
+						"politicalParty":[0,1,2,3,4,5,6],
 						"wantsKids":pref_wantsKids,
 						"wantsPets":pref_wantsPets
 					}
@@ -260,15 +259,15 @@ Meteor.methods({
 						},
 						"education":0,
 						"churchAttendance":0,
-						"denomination":0,
+						"denomination":[0,1,2,3,4,5,6,7,8,9,10],
 						"smokes":2,
 						"drinks":2,
 						"ethnicity":[0,1,2,3,4,5,6,7,8],
 						"hasKids":0,
-						"language":0,
+						"language":[0,1,2,3,4,5,6,7,8,9,10,11,12],
 						"petPreference":0,
 						"hasPets":0,
-						"politicalParty":0,
+						"politicalParty":[0,1,2,3,4,5,6],
 						"wantsKids":0,
 						"wantsPets":0
 					}
@@ -337,8 +336,13 @@ Meteor.methods({
 				break;
 			default:
 				var user = Meteor.users.find(userId).fetch()[0];
-				user.profile.preferences[fieldname] = parseInt(option);
-				Meteor.users.update(userId, {$set:user});
+				if (option === "default") {
+					delete user.profile.preferences[fieldname];
+					Meteor.users.update(userId, {$set:user});
+				} else {
+					user.profile.preferences[fieldname] = parseInt(option);
+					Meteor.users.update(userId, {$set:user});
+				}
 				break;
 		}
 	},
@@ -393,7 +397,7 @@ Meteor.methods({
 	},
 	removeProfileImage:function(userId, imageUrl){
 		Meteor.users.update(userId,{
-			$pull:{ "profile.images.all":imageUrl}
+			$pull:{ "profile.images.all":imageUrl, "profile.images.default":imageUrl}
 		})
 	},
 	makeDefaultImage:function(userId, imageUrl){
@@ -404,41 +408,44 @@ Meteor.methods({
 
 	//Preference Search Page
 	prefGenderCheckbox:function(userId, optionindex, isChecked){
-		if (isChecked) {
-			Meteor.users.update(userId, {
-				$addToSet: {
-					"profile.preferences.gender":parseInt(optionindex)
-				}
-			});
-		} else {
-			Meteor.users.update(userId, {
-				$pull: {
-					"profile.preferences.gender":parseInt(optionindex)
-				}
-			});
-		}
-		return Meteor.users.find(userId).fetch()[0];
+		if (isChecked)
+			Meteor.users.update(userId, {$addToSet: {"profile.preferences.gender":parseInt(optionindex)}});
+		else
+			Meteor.users.update(userId, {$pull: {"profile.preferences.gender":parseInt(optionindex)}});
 	},
 	prefEthnicityCheckbox:function(userId, optionindex, isChecked){
-		if (isChecked) {
-			Meteor.users.update(userId, {
-				$addToSet: {
-					"profile.preferences.ethnicity":parseInt(optionindex)
-				}
-			});
-		} else {
-			Meteor.users.update(userId, {
-				$pull: {
-					"profile.preferences.ethnicity":parseInt(optionindex)
-				}
-			});
-		}
+		if (isChecked)
+			Meteor.users.update(userId, {$addToSet: {"profile.preferences.ethnicity":parseInt(optionindex)}});
+		else
+			Meteor.users.update(userId, {$pull: {"profile.preferences.ethnicity":parseInt(optionindex)}});
+	},
+	prefDenominationCheckbox:function(userId, optionindex, isChecked){
+		if (isChecked)
+			Meteor.users.update(userId, {$addToSet: {"profile.preferences.denomination":parseInt(optionindex)}});
+		else
+			Meteor.users.update(userId, {$pull: {"profile.preferences.denomination":parseInt(optionindex)}});
+	},
+	prefPoliticalPartyCheckbox:function(userId, optionindex, isChecked){
+		if (isChecked)
+			Meteor.users.update(userId, {$addToSet: {"profile.preferences.politicalParty":parseInt(optionindex)}});
+		else
+			Meteor.users.update(userId, {$pull: {"profile.preferences.politicalParty":parseInt(optionindex)}});
+	},
+	prefLanguageCheckbox:function(userId, optionindex, isChecked){
+		if (isChecked)
+			Meteor.users.update(userId, {$addToSet: {"profile.preferences.language":parseInt(optionindex)}});
+		else
+			Meteor.users.update(userId, {$pull: {"profile.preferences.language":parseInt(optionindex)}});
 	},
 	searchInit:function(userId, skip){
 		var user = Meteor.users.find(userId).fetch()[0];
 			prefObj = {},
-			users   = [];
+			users   = [],
+			today   = new Date(),
+			year    = today.getFullYear();
 
+		prefObj.ageMin  		 = year - user.profile.preferences.age.min;
+		prefObj.ageMax  		 = year - user.profile.preferences.age.max;
 		prefObj.gender 		     = user.profile.preferences.gender;
 		prefObj.searchDistance   = user.profile.preferences.searchDistance;
 		prefObj.education 	     = user.profile.preferences.education;
@@ -461,20 +468,21 @@ Meteor.methods({
 		}
 
 		var foundUsers = Meteor.users.find({
-			// "_id":{$ne:userId},
+			"_id":{$ne:userId},
 			"profile.gender":{$in:prefObj.gender},
-			// "profile.ethnicity":{$in:prefObj.ethnicity},
-			// "profile.education":{$gte:prefObj.education},
-			// "profile.churchAttendance":{$gte:prefObj.churchAttendance},
-			// "profile.smokes":{$gte:prefObj.smokes},
-			// "profile.drinks":{$gte:prefObj.drinks},
-			// "profile.hasKids":{$gte:prefObj.hasKids},
-			// "profile.hasPets":{$gte:prefObj.hasPets},
-			// "profile.wantsPets":{$gte:prefObj.wantsPets},
-			// "profile.wantsKids":{$gte:prefObj.wantsKids},
-			// "profile.denomination":{$eq:prefObj.denomination},
-			// "profile.language":{$eq:prefObj.language},
-			// "profile.politicalParty":{$eq:prefObj.politicalParty}
+			"profile.denomination":{$in:prefObj.denomination},
+			"profile.politicalParty":{$in:prefObj.politicalParty},
+			"profile.ethnicity":{$in:prefObj.ethnicity},
+			"profile.language":{$in:prefObj.language},
+			"profile.education":{$gte:prefObj.education},
+			"profile.birthdate.year":{$gte:prefObj.ageMax, $lte:prefObj.ageMin},
+			"profile.churchAttendance":{$gte:prefObj.churchAttendance},
+			"profile.smokes":{$gte:prefObj.smokes},
+			"profile.drinks":{$gte:prefObj.drinks},
+			"profile.hasKids":{$gte:prefObj.hasKids},
+			"profile.hasPets":{$gte:prefObj.hasPets},
+			"profile.wantsPets":{$gte:prefObj.wantsPets},
+			"profile.wantsKids":{$gte:prefObj.wantsKids}
 		},{sort:{"last_login":1}, skip:skip, limit:20}).fetch();
 
 		//loop through found users and return those within specific distance

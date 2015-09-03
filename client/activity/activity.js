@@ -34,18 +34,6 @@ Template.activity_page.helpers({
 	    		Session.set('sentMessages', sentMsgArr.reverse());
 	    	}
 	    });
-	    
-	      // if (messages[i].from === Meteor.userId())
-	      //   userIdArr.push(messages[i].to);
-	      // else
-	      //   userIdArr.push(messages[i].from);
-	    //   if (!err){
-	    //     for (var i = 0; i < result.length; i ++)
-	    //       messages[i].extraData = result[i];
-	    //     console.log(messages);
-	    //     Session.set('inboxMessages', messages);
-	    //   }
-	    // })
 	},
 	getInboxMessages:function(){
 		return Session.get('inboxMessages');
@@ -75,14 +63,12 @@ Template.activity_page.helpers({
 		}
 	},
 	getSentWinkData:function(){
-		console.log(Session.get('sentWinkData'));
 		return Session.get('sentWinkData');
 	},
 	getFromWinkData:function(){
 		return Session.get('fromWinkData');
 	},
 	imageExists:function(image){
-		console.log(image);
 		if(!image) {
 			return "./default.png";
 		} else {

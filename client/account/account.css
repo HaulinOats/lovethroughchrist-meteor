@@ -29,8 +29,8 @@
 .info-field {
 	padding: 1% 0%;
   border-bottom: solid thin gray;
-  min-height: 100px;
-  padding-top:15px;
+  min-height: 115px;
+  padding-top:30px;
 }
 .info-field select,
 .info-field input[type="text"],
@@ -48,6 +48,7 @@
 }
 .info-field label {
 	margin-top:8px;
+  font-size: 16px;
 }
 .info-textarea {
   margin-top:30px;

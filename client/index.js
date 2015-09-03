@@ -37,10 +37,25 @@ Template.preferences.events({
 			}, 500);
 		}
 	},
-	'click .pref-gender-checkbox':function(event){
-		Meteor.call('prefGenderCheckbox', Meteor.userId(), event.currentTarget.attributes.optionindex.value, $(event.currentTarget).find('input')[0].checked, function(err, result){
-			console.log(result);
-		});
+	'click .pref-checkbox-el':function(event){
+		var fieldname = $(event.currentTarget).attr('data-fieldname');
+		switch(fieldname){
+			case "gender":
+				Meteor.call('prefGenderCheckbox', Meteor.userId(), event.currentTarget.attributes.optionindex.value, $(event.currentTarget).find('input')[0].checked);
+				break;
+			case "political":
+				Meteor.call('prefPoliticalPartyCheckbox', Meteor.userId(), event.currentTarget.attributes.optionindex.value, $(event.currentTarget).find('input')[0].checked);
+				break;
+			case "ethnicity":
+				Meteor.call('prefEthnicityCheckbox', Meteor.userId(), event.currentTarget.attributes.optionindex.value, $(event.currentTarget).find('input')[0].checked);
+				break;
+			case "denomination":
+				Meteor.call('prefDenominationCheckbox', Meteor.userId(), event.currentTarget.attributes.optionindex.value, $(event.currentTarget).find('input')[0].checked);
+				break;
+			case "language":
+				Meteor.call('prefLanguageCheckbox', Meteor.userId(), event.currentTarget.attributes.optionindex.value, $(event.currentTarget).find('input')[0].checked);
+				break;
+		}
 	},
 	'click .pref-ethnicity-checkbox':function(event){
 		Meteor.call('prefEthnicityCheckbox', Meteor.userId(), event.currentTarget.attributes.optionindex.value, $(event.currentTarget).find('input')[0].checked);

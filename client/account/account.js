@@ -63,16 +63,16 @@ Template.account_page.events({
 		  $('.account_page_photos_current').css('min-height', "250px");
 		  $('.account_load_more').attr('data-next-url-all', photoData.paging.next);
           for (var i = 0; i < photoData.data.length; i++)
-          	$(".account_load_more").before('<img class="account_page_photo_search_thumbnail" src="'+ photoData.data[i].picture +'" data-image-url="'+ photoData.data[i].source +'" />');
+          	$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ photoData.data[i].picture +'" data-image-url="'+ photoData.data[i].source +'" />');
         });
         //set profile photos
         FB.api("/me/albums", function(photoData){
         	for (var i = 0; i < photoData.data.length; i++){
         		if (photoData.data[i].name === "Profile Pictures") {
         			FB.api("/"+ photoData.data[i].id + "/photos", function(photoData2){
-        				$('.account_load_more').attr('data-next-url-profile', photoData2.paging.next);
+        				$('.account_load_more_photos').attr('data-next-url-profile', photoData2.paging.next);
         				for (var i = 0; i < photoData2.data.length;i++)
-        					$(".account_load_more").before('<img class="account_page_photo_search_thumbnail" src="'+ photoData2.data[i].picture +'" data-image-url="'+ photoData2.data[i].source +'" />');
+        					$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ photoData2.data[i].picture +'" data-image-url="'+ photoData2.data[i].source +'" />');
         			});
         			break;
         		} 
@@ -81,6 +81,7 @@ Template.account_page.events({
 	},
 	'click .account_page_search_videos':function(event){
 		//set all photos
+		$('.account_load_more_photos').show();
 		FB.api("/me/videos", function(videoData){
 			console.log(videoData);
 		  $('.account_page_videos_select').show();
@@ -109,6 +110,20 @@ Template.account_page.events({
 		  $('.account_load_more_photos').attr('data-next-url-profile', json.paging.next);
 		  for (var i = 0; i < json.data.length; i++)
 		  	$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ json.data[i].picture +'" data-image-url="'+ json.data[i].source +'" />')
+		});
+	},
+	'click .account_load_more_videos':function(event){
+		//get all videos
+		$.ajax({
+		  url: $('.account_load_more_videos').attr('data-next-url-all'),
+		  method:"GET"
+		}).done(function(json) {
+			if (json.paging.next)
+		  		$('.account_load_more_videos').attr('data-next-url-all', json.paging.next);
+		  	else
+		  		$('.account_load_more_videos').hide();
+			for (var i = 0; i < json.data.length; i++)
+		  		$(".account_load_more_videos").before('<img class="account_page_video_search_thumbnail" src="'+ json.data[i].picture +'" data-video-url="'+ json.data[i].source +'" />')
 		});
 	},
 	'mouseover .account_page_photo_search_thumbnail, mouseout .account_page_photo_search_thumbnail':function(event){
@@ -143,5 +158,10 @@ Template.account_page.events({
 	'click .account_page_photos_current_single_make_default':function(event){
 		if (confirm("Make Default Photo?"))
 			Meteor.call('makeDefaultImage', Meteor.userId(),$(event.currentTarget).attr('data-image-url'));
+	},
+	'click .account_friends_tab':function(event){
+		FB.api("/me/friends", function(friendData){
+			console.log(friendData);
+		})
 	}
 });
