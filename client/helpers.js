@@ -113,6 +113,11 @@ var accountFields = {
 		displayName: 'Wants Pets Eventually',
 		options: ['No', 'Yes', 'Maybe']
 	},
+	prefWantsPets: {
+		propertyName: 'wantPets',
+		displayName: 'Wants Pets Eventually',
+		options: ["Doesn't Matter", 'No', 'Yes']
+	},
 	petPreference: {
 		propertyName: 'petPreference',
 		displayName: 'Pet Preference',
@@ -194,4 +199,8 @@ Template.registerHelper("getDefaultImage", function(imagesObj){
 	} else {
 		return imagesObj.default;
 	}
+});
+Template.registerHelper("isMale", function(gender){
+	if (!gender)
+		return true;
 });

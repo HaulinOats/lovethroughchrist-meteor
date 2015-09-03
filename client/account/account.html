@@ -1,6 +1,6 @@
 <template name="account_page">
 	{{getUser}}
-	<h2>Account Page</h2>
+	<h2>Account Page <i class="fa fa-cog"></i></h2>
 	<ul class="nav nav-tabs">
 		<li class="active"><a data-toggle="tab" href="#info">Info</a></li>
 		<li><a data-toggle="tab" href="#photos">Photos</a></li>
@@ -174,15 +174,6 @@
 				</select>
 			</div>
 			<div class="col-xs-12 col-sm-6 info-field">
-				<label class="col-xs-5">Wants Kids Eventually</label>
-				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="wantsKids">
-					{{#each getProperties 'wantsKids'}}
-						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.wantsKids this.index}}selected{{/if}}">{{this.option}}</option>
-					{{/each}}
-				</select>
-			</div>
-			<div class="clearfix"></div>
-			<div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-4">Has Pets</label>
 				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="hasPets">
 					{{#each getProperties 'hasPets'}}
@@ -190,23 +181,32 @@
 					{{/each}}
 				</select>
 			</div>
-			<div class="col-xs-12 col-sm-6 info-field">
+			<!-- <div class="col-xs-12 col-sm-6 info-field">
+				<label class="col-xs-5">Wants Kids Eventually</label>
+				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="wantsKids">
+					{{#each getProperties 'wantsKids'}}
+						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.wantsKids this.index}}selected{{/if}}">{{this.option}}</option>
+					{{/each}}
+				</select>
+			</div> -->
+			<!-- <div class="clearfix"></div> -->
+			<!-- <div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-5">Wants Pets Eventually</label>
 				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="wantsPets">
 					{{#each getProperties 'wantsPets'}}
 						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.wantsPets this.index}}selected{{/if}}">{{this.option}}</option>
 					{{/each}}
 				</select>
-			</div>
-			<div class="clearfix"></div>
-			<div class="col-xs-12 col-sm-6 info-field">
+			</div> -->
+			<!-- <div class="clearfix"></div> -->
+			<!-- <div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-4">Pet Preference</label>
 				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="petPreference">
 					{{#each getProperties 'petPreference'}}
 						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.petPreference this.index}}selected{{/if}}">{{this.option}}</option>
 					{{/each}}
 				</select>
-			</div>
+			</div> -->
 			<div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-5">Searchable</label>
 				<div class="col-xs-2 pull-right account-searchable-container" fieldname="searchable">

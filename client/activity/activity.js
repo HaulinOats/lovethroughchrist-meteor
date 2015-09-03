@@ -1,6 +1,7 @@
 //All Messages Page
 Template.activity_page.helpers({
 	setMessageData:function(){
+		console.log('setMessageData function');
 		var responseIdArr  = [],
 			responseMsgArr = [],
 			sentIdArr 	   = [],
@@ -20,6 +21,8 @@ Template.activity_page.helpers({
         		sentMsgArr.push(messages[i]);
         	}
 	    }
+	    console.log('messages');
+	    console.log(messages);
 	    Meteor.call('getNameAndImage', responseIdArr, function(err, result){
 	    	if (!err){
 	    		for (var i = 0; i < result.length; i ++)
@@ -113,8 +116,9 @@ Template.message_single_page.helpers({
 });
 Template.message_single_page.events({
 	'click .single_message_send_reply':function(event){
+		var otherUser = Session.get('singleMessageUserData');
 		if ($('.message_single_reply_container_inner').text().length > 0)
-			Meteor.call('singleMessageReply', Session.get('singleMessageId'), Meteor.userId(),$('.message_single_reply_container_inner').html(), function(err, result){
+			Meteor.call('singleMessageReply', Session.get('singleMessageId'), Meteor.userId(),$('.message_single_reply_container_inner').html(), otherUser._id, function(err, result){
 				if (!err){
 					$('.message_single_reply_container_inner').html('');
 					setTimeout(function(){$('.message_single_messages_container')[0].scrollTop = $('.message_single_messages_container')[0].scrollHeight;}, 250)

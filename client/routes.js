@@ -3,7 +3,7 @@ Router.configure({
   loadingTemplate: 'loading'
 });
 
-Router.route('/', {
+Router.route('', {
   template:'home_page'
 });
 Router.route('/my-account', {
@@ -69,9 +69,10 @@ Router.route('/admin', {
 
 //Router Pre-Hook
 Router.onBeforeAction(function () {
-  if (!Meteor.userId())
+  if (!Meteor.userId()){
     this.render('home_page');
-  else {
+    this.next();
+  } else {
   	//Check last online
     if (Meteor.user()) {
       	console.log(Meteor.user());

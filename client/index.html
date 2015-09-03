@@ -98,9 +98,9 @@
 	</div>
 	<div class="clearfix"></div>
 	<div class="col-xs-12 info-field">
-		<label class="col-xs-5">Want someone who wants pets?</label>
+		<label class="col-xs-5">Want someone who wants pets eventually?</label>
 		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="wantsPets">
-			{{#each getProperties 'wantsPets'}}
+			{{#each getProperties 'prefWantsPets'}}
 				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.wantsPets this.index}}selected{{/if}}">{{this.option}}</option>
 			{{/each}}
 		</select>

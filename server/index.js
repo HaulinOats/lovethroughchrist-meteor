@@ -6,14 +6,18 @@ ServiceConfiguration.configurations.upsert(
   { service: "facebook" },
   {
     $set:{
+      // Development
       appId: "485852571574726",
       secret: "d52ce297e2f71b55b175d9471eb6e9d4"
+      //Meteor Site
+      // appId:"289256867900965",
+      // secret:"813b5631116afc377fe572435f7776ad"
     }
   }
 );
 
 Meteor.publish('allUserMessages', function publishFunction() {
-	return Messages.find({$or:[{"from":{$eq: this.userId }},{"to":{ $eq: this.userId}}]},{sort:{"updatedAt":1}})
+	return Messages.find({$or:[{"from":this.userId},{"to":this.userId}]},{sort:{"updatedAt":-1}});
 });
 Meteor.publish('singleUserMessage', function publishFunction(messageId) {
 	return Messages.find(messageId);
@@ -28,6 +32,12 @@ Messages.before.update(function (userId, doc) {
 });
 
 Meteor.methods({
+	//Header
+	activityChecked:function(userId){
+		Meteor.users.update(userId, {
+			$set:{"profile.newActivity":false}
+		})
+	},
 	//Admin
 	seedUsers:function(){
 		function randomIntFromInterval(min,max){return Math.floor(Math.random()*(max-min+1)+min);}
@@ -73,7 +83,6 @@ Meteor.methods({
 
 			Meteor.users.insert({
 				"profile": {
-					"userFieldsSet":true,
 					"dateCreated":Date.now(),
 					"lastOnline":Date.now(),
 					"gender":gender,
@@ -85,6 +94,7 @@ Meteor.methods({
 					"state":"Florida",
 					"latitude":28.6013431,
 					"longitude":-81.20092869999999,
+					"newActivity":false,
 					"images": {
 						"all":[],
 						"default":null
@@ -107,8 +117,8 @@ Meteor.methods({
 					"bodyType":bodyType,
 					"churchAttendance":churchAttendance,
 					"denomination":0,
-					"drinks":drinks,
-					"smokes":smokes,
+					"drinks":0,
+					"smokes":0,
 					"education":education,
 					"ethnicity":ethnicity,
 					"eyeColor":eyeColor,
@@ -214,6 +224,7 @@ Meteor.methods({
 					"email":fbData.email,
 					"gender":gender,
 					"fbId":fbData.id,
+					"newActivity":false,
 					"images": {
 						"all":[],
 						"default":null
@@ -223,7 +234,6 @@ Meteor.methods({
 						"first":fbData.first_name,
 						"last":fbData.last_name
 					},
-					"userFieldsSet":true,
 					"height":{
 						"feet":5,
 						"inches":0
@@ -268,8 +278,8 @@ Meteor.methods({
 						"petPreference":0,
 						"hasPets":0,
 						"politicalParty":[0,1,2,3,4,5,6],
-						"wantsKids":0,
-						"wantsPets":0
+						"wantsKids":1,
+						"wantsPets":1
 					}
 				}
 			}
@@ -476,13 +486,12 @@ Meteor.methods({
 			"profile.language":{$in:prefObj.language},
 			"profile.education":{$gte:prefObj.education},
 			"profile.birthdate.year":{$gte:prefObj.ageMax, $lte:prefObj.ageMin},
-			"profile.churchAttendance":{$gte:prefObj.churchAttendance},
-			"profile.smokes":{$gte:prefObj.smokes},
-			"profile.drinks":{$gte:prefObj.drinks},
-			"profile.hasKids":{$gte:prefObj.hasKids},
-			"profile.hasPets":{$gte:prefObj.hasPets},
-			"profile.wantsPets":{$gte:prefObj.wantsPets},
-			"profile.wantsKids":{$gte:prefObj.wantsKids}
+			"profile.smokes":{$lte:prefObj.smokes},
+			"profile.drinks":{$lte:prefObj.drinks},
+			"profile.hasKids":{$lte:prefObj.hasKids},
+			"profile.hasPets":{$lte:prefObj.hasPets},
+			"profile.wantsPets":{$lte:prefObj.wantsPets},
+			"profile.wantsKids":{$lte:prefObj.wantsKids}
 		},{sort:{"last_login":1}, skip:skip, limit:20}).fetch();
 
 		//loop through found users and return those within specific distance
@@ -519,6 +528,10 @@ Meteor.methods({
 				"body":message
 			}]
 		})
+		//alert user of new message
+		Meteor.users.update(toUserId, {
+			$set:{'profile.newActivity':true}
+		});
 	},
 	sendWink:function(fromUserId, toUserId){
 		Meteor.users.update(fromUserId, {
@@ -526,6 +539,10 @@ Meteor.methods({
 		});
 		Meteor.users.update(toUserId, {
 			$addToSet:{"profile.winks.from":fromUserId}
+		});
+		//alert user of new wink
+		Meteor.users.update(toUserId, {
+			$set:{'profile.newActivity':true}
 		});
 	},
 
@@ -554,9 +571,12 @@ Meteor.methods({
 	getSingleMessage:function(id){
 		return Messages.find(id).fetch()[0];
 	},
-	singleMessageReply:function(messageId, fromUser, messageBody){
+	singleMessageReply:function(messageId, fromUser, messageBody, toUserId){
 		Messages.update(messageId, {
 			$push: {"messages":{"fromUserId":fromUser, "body":messageBody}}
+		})
+		Meteor.users.update(toUserId, {
+			$set:{"profile.newActivity":true}
 		})
 	}
 	// getAllMessages:function(userId){

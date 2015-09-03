@@ -1,13 +1,18 @@
 Template.header.events({
 	'click .facebook-login':function(event){
-		Meteor.loginWithFacebook({requestPermissions:['user_friends', 'email', 'public_profile', 'user_photos', 'user_videos']},function(err){
+		Meteor.loginWithFacebook({requestPermissions:['user_photos', 'user_videos']},function(err){
 			if (err)
 				throw new Meteor.Error("Facebook Login Failed");
 			else {
-				console.log('here');
-				if (!Meteor.user().profile.userFieldsSet) {
+				if (!Meteor.user().profile.email) {
 					FB.api("/me", function(fbData){
-						Meteor.call('addUserFields', Meteor.userId(), fbData);
+						console.log(fbData);
+						Meteor.call('addUserFields', Meteor.userId(), fbData, function(err, result){
+							if (!err)
+								console.log('facebook info saved');
+							else
+								console.log('server error saving facebook info');
+						});
 		            });
 				}
 			}
@@ -17,10 +22,15 @@ Template.header.events({
 		Meteor.logout(function(err){
 			if (err)
 				throw new Meteor.Error('Logout Failed');
+			else
+				Router.go('/');
 		})
 	},
 	'click .navigation-list li':function(event){
 		$('#ltc-small-menu').removeClass('in');
+	},
+	'click .header_activity_link':function(event){
+		Meteor.call('activityChecked', Meteor.userId());
 	}
 });
 
@@ -28,5 +38,9 @@ Template.navigation_links.helpers({
 	isAdmin:function(){
 		if (Meteor.user() && Meteor.user().profile.email === 'midgitsuu@gmail.com')
 			return true;
+	},
+	newActivity:function(){
+		if (Meteor.user().profile.newActivity)
+			return "header_new_activity";
 	}
 });

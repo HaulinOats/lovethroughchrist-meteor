@@ -10,6 +10,12 @@ hr {
     height: 1px;
     background-image: linear-gradient(to right, rgba(95, 158, 160, 0), rgba(95, 158, 160, 0.75), rgba(95, 158, 160, 0));
 }
+.fa-venus {
+	color:deeppink !important;
+}
+.fa-mars {
+	color:dodgerblue !important;
+}
 .hr_normal {
 	border-top:solid thin black;
 	background-image: none !important;
@@ -36,6 +42,37 @@ select{
     -moz-appearance: none;
     text-indent: 1px;
     text-overflow: '';
+}
+.header_new_activity {
+	 -moz-animation-duration: 4s;
+  -webkit-animation-duration: 4s;
+  animation-duration: 4s;
+  -moz-animation-name: newActivity;
+  -webkit-animation-name: newActivity;
+  animation-name: newActivity;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+@keyframes newActivity {
+	0% {color:cadetblue;}
+	50% {color:gold;}
+	100% {color:cadetblue;}
+}
+@-webkit-keyframes newActivity {
+	0% {color:cadetblue;}
+	50% {color:gold;}
+	100% {color:cadetblue;}
+}
+@-moz-keyframes newActivity {
+	0% {color:cadetblue;}
+	50% {color:gold;}
+	100% {color:cadetblue;}
+}
+@-o-keyframes newActivity {
+	0% {color:cadetblue;}
+	50% {color:gold;}
+	100% {color:cadetblue;}
 }
 .loading_pic {
 	display:block;

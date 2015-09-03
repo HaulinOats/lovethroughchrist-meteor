@@ -28,8 +28,8 @@
 .profile-lastOnline {
 	font-size:18px;
 }
-.profile-info-field {
-
+.profile-info-field label{
+  font-size:14px;
 }
 .profile-message-container {
 	overflow: hidden;

@@ -3,7 +3,10 @@ Messages = new Mongo.Collection("messages");
 
 window.fbAsyncInit = function() {
 	FB.init({
-	  appId      : '485852571574726',
+	  // Developer
+	  appId		 : '485852571574726',
+	  // Meteor
+	  // appId      : '289256867900965',
 	  status     : true,
 	  xfbml      : true,
 	  version    : "v2.3"
