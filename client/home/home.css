@@ -38,12 +38,12 @@
 	text-align: center;
 	padding:2%;
 }
-.home-body-section:hover {
+/*.home-body-section:hover {
 	background:lightgray;
 	-webkit-transition: .5s background;
 	-o-transition: .5s background;
 	transition: .5s background;
-}
+}*/
 .home-body-section i{
 	font-size:60px;
 }

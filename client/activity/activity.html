@@ -75,7 +75,7 @@
 	<div class="message_single_messages_container">
 	{{setOtherUser this}}
 		{{#each this.messages}}
-			<h3>{{#if isCurrentUser this.fromUserId}}Me{{else}}{{#with getOtherUser}}{{this.profile.name.first}}{{/with}}{{/if}}</h3>
+			<h3>{{#if isCurrentUser this.fromUserId}}Me{{else}}{{#with getOtherUser}}<a href="/search/{{this._id}}" target="_blank">{{this.profile.name.first}}</a>{{/with}}{{/if}}</h3>
 			<p>{{this.body}}</p>
 		{{/each}}
 	</div>

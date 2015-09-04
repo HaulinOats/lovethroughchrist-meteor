@@ -41,38 +41,7 @@ select{
 	-webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 1px;
-    text-overflow: '';
-}
-.header_new_activity {
-	 -moz-animation-duration: 4s;
-  -webkit-animation-duration: 4s;
-  animation-duration: 4s;
-  -moz-animation-name: newActivity;
-  -webkit-animation-name: newActivity;
-  animation-name: newActivity;
-  -moz-animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-}
-@keyframes newActivity {
-	0% {color:cadetblue;}
-	50% {color:gold;}
-	100% {color:cadetblue;}
-}
-@-webkit-keyframes newActivity {
-	0% {color:cadetblue;}
-	50% {color:gold;}
-	100% {color:cadetblue;}
-}
-@-moz-keyframes newActivity {
-	0% {color:cadetblue;}
-	50% {color:gold;}
-	100% {color:cadetblue;}
-}
-@-o-keyframes newActivity {
-	0% {color:cadetblue;}
-	50% {color:gold;}
-	100% {color:cadetblue;}
+    text-overflow: ellipsis;
 }
 .loading_pic {
 	display:block;
@@ -88,10 +57,6 @@ select{
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
-@keyframes loaderSpin {
-	from {transform:rotateY(0deg);}
-	to {transform:rotateY(360deg);}
-}
 @-webkit-keyframes loaderSpin {
 	from {transform:rotateY(0deg);}
 	to {transform:rotateY(360deg);}
@@ -101,6 +66,10 @@ select{
 	to {transform:rotateY(360deg);}
 }
 @-o-keyframes loaderSpin {
+	from {transform:rotateY(0deg);}
+	to {transform:rotateY(360deg);}
+}
+@keyframes loaderSpin {
 	from {transform:rotateY(0deg);}
 	to {transform:rotateY(360deg);}
 }

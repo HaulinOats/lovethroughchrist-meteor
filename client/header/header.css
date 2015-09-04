@@ -97,3 +97,26 @@
 .facebook-logout {
 	color:darkgray;
 }
+.header_new_activity {
+  -webkit-animation: newActivity 2s ease-in-out infinite alternate;
+   -moz-animation: newActivity 2s ease-in-out infinite alternate;
+    -ms-animation: newActivity 2s ease-in-out infinite alternate;
+     -o-animation: newActivity 2s ease-in-out infinite alternate;
+        animation: newActivity 2s ease-in-out infinite alternate;
+}
+@keyframes newActivity {
+	from {color:cadetblue;}
+	to {color:gold;}
+}
+@-webkit-keyframes newActivity {
+	from {color:cadetblue;}
+	to {color:gold;}
+}
+@-moz-keyframes newActivity {
+	from {color:cadetblue;}
+	to {color:gold;}
+}
+@-o-keyframes newActivity {
+	from {color:cadetblue;}
+	to {color:gold;}
+}

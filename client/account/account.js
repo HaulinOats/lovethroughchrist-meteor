@@ -44,10 +44,10 @@ Template.account_page.events({
 		Meteor.call('birthdateDropdownChange', Meteor.userId(), event.currentTarget.attributes.birthdatefield.value, $(event.currentTarget).find(":selected")[0].value);
 	},
 	'click .account-searchable-container':function(event){
-		if (Meteor.user().profile.latitude && Meteor.user().profile.latitude)
+		if (Meteor.user().profile.latitude && Meteor.user().profile.longitude)
 			Meteor.call('searchableSwitch', Meteor.userId());
 		else
-			alert('Must Set Zipcde');
+			alert('Must Set Zipcode');
 	},
 	'click .textarea-outer-container button':function(event){
 		var $textArea = $(event.currentTarget).siblings('textarea'),

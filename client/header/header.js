@@ -40,7 +40,7 @@ Template.navigation_links.helpers({
 			return true;
 	},
 	newActivity:function(){
-		if (Meteor.user().profile.newActivity)
+		if (Meteor.user().profile.newActivity === true)
 			return "header_new_activity";
 	}
 });
