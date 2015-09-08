@@ -181,6 +181,15 @@
 					{{/each}}
 				</select>
 			</div>
+			<div class="clearfix"></div>
+			<div class="col-xs-12 col-sm-6 info-field">
+				<label class="col-xs-4">Have you been married before?</label>
+				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="beenMarried">
+					{{#each getProperties 'beenMarried'}}
+						<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.beenMarried this.index}}selected{{/if}}">{{this.option}}</option>
+					{{/each}}
+				</select>
+			</div>
 			<!-- <div class="col-xs-12 col-sm-6 info-field">
 				<label class="col-xs-5">Wants Kids Eventually</label>
 				<select class="col-xs-4 pull-right account-single-dropdown" fieldname="wantsKids">
@@ -273,9 +282,12 @@
 			<div class="col-xs-12 account_page_videos_container">
 				<div class="col-xs-12 account_page_videos_current">
 					{{#each currentUser.profile.videos}}
-						<video class="account_page_profile_video" preload="metadata" controls>
-							<source src="{{this}}">
-						</video>
+						<div class="col-xs-12 col-sm-6 col-md-3 account_page_profile_video_outer">
+							<span class="glyphicon glyphicon-remove account_page_videos_current_single_remove" data-video-url="{{this}}" aria-hidden="true"></span>
+							<video class="account_page_profile_video" preload="metadata" controls>
+								<source src="{{this}}">
+							</video>
+						</div>
 					{{/each}}
 				</div>
 			</div>

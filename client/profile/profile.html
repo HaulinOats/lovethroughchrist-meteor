@@ -133,9 +133,11 @@
 		<h3>My Videos <span class="glyphicon glyphicon-film" aria-hidden="true"></span></h3>
 		<div class="col-xs-12 profile-videos">
 			{{#each this.profile.videos}}
+			<div class="col-xs-12 col-sm-6 col-md-3 account_page_profile_video_outer">
 				<video class="account_page_profile_video" preload="metadata" controls>
 					<source src="{{this}}">
 				</video>
+			</div>
 			{{/each}}
 		</div>
 	</div>

@@ -34,6 +34,11 @@ var accountFields = {
 		displayName: 'Hair Color',
 		options: ['Blonde', 'Dirty Blonde', 'Brown', 'Red', 'Black', 'Gray', 'White', 'Pink', 'Blue', 'Other']
 	},
+	beenMarried: {
+		propertyName: 'beenMarried',
+		displayName: 'Been Married',
+		options: ["No", "Yes"]
+	},
 	height: {
 		propertyName: 'height',
 		displayName: 'Height',
@@ -86,17 +91,12 @@ var accountFields = {
 	prefHasKids: {
 		propertyName: 'kids',
 		displayName: 'Kids',
-		options:["Doesn't Matter",'No','Yes']
+		options:['No','Yes']
 	},
 	wantsKids: {
 		propertyName: 'wantKids',
 		displayName: 'Wants Kids Eventually',
-		options: ['No', 'Yes', 'Maybe']
-	},
-	prefWantsKids: {
-		propertyName: 'wantKids',
-		displayName: 'Wants Kids Eventually',
-		options: ["Doesn't Matter", 'No', 'Yes']
+		options: ['No', 'Yes', '']
 	},
 	hasPets: {
 		propertyName: 'pets',
@@ -106,17 +106,12 @@ var accountFields = {
 	prefHasPets: {
 		propertyName: 'pets',
 		displayName: 'Pets',
-		options:["Doesn't Matter", 'No', 'Yes']
+		options:['No', 'Yes']
 	},
 	wantsPets: {
 		propertyName: 'wantPets',
 		displayName: 'Wants Pets Eventually',
-		options: ['No', 'Yes', 'Maybe']
-	},
-	prefWantsPets: {
-		propertyName: 'wantPets',
-		displayName: 'Wants Pets Eventually',
-		options: ["Doesn't Matter", 'No', 'Yes']
+		options: ['No', 'Yes']
 	},
 	petPreference: {
 		propertyName: 'petPreference',

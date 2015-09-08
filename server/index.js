@@ -7,11 +7,11 @@ ServiceConfiguration.configurations.upsert(
   {
     $set:{
       // Development
-      // appId: "485852571574726",
-      // secret: "d52ce297e2f71b55b175d9471eb6e9d4"
+      appId: "485852571574726",
+      secret: "d52ce297e2f71b55b175d9471eb6e9d4"
       //Meteor Site
-      appId:"289256867900965",
-      secret:"813b5631116afc377fe572435f7776ad"
+      // appId:"289256867900965",
+      // secret:"813b5631116afc377fe572435f7776ad"
     }
   }
 );
@@ -65,6 +65,7 @@ Meteor.methods({
 				month 			 = randomIntFromInterval(0, 11),
 				day 			 = randomIntFromInterval(1, 30),
 				year 			 = randomIntFromInterval(1916, 1996),
+				married 		 = randomIntFromInterval(0,1),
 				pref_churchAttendance = randomIntFromInterval(0, 4),
 				pref_denomination 	  = randomIntFromInterval(0, 10),
 				pref_drinks 	 	  = randomIntFromInterval(0, 4),
@@ -74,9 +75,9 @@ Meteor.methods({
 				pref_eyeColor 	 	  = randomIntFromInterval(0, 7),
 				pref_hairColor 	 	  = randomIntFromInterval(0, 9),
 				pref_hasKids 	 	  = randomIntFromInterval(0, 1),
-				pref_wantsKids 	 	  = randomIntFromInterval(0, 2),
+				pref_wantsKids 	 	  = randomIntFromInterval(0, 1),
 				pref_hasPets 	 	  = randomIntFromInterval(0, 1),
-				pref_wantsPets 	 	  = randomIntFromInterval(0, 2),
+				pref_wantsPets 	 	  = randomIntFromInterval(0, 1),
 				pref_petPreference 	  = randomIntFromInterval(0, 2),
 				pref_politicalParty   = randomIntFromInterval(0, 6),
 				pref_language   = randomIntFromInterval(0, 12);
@@ -124,11 +125,10 @@ Meteor.methods({
 					"eyeColor":eyeColor,
 					"hairColor":hairColor,
 					"hasKids":hasKids,
-					"wantsKids":wantsKids,
 					"hasPets":hasPets,
 					"petPreference":petPreference,
-					"wantsPets":wantsPets,
 					"politicalParty":politicalParty,
+					"beenMarried":married,
 					"searchable":true,
 					"preferences": {
 						"gender":[0, 1],
@@ -149,7 +149,8 @@ Meteor.methods({
 						"petPreference":pref_petPreference,
 						"politicalParty":[0,1,2,3,4,5,6],
 						"wantsKids":pref_wantsKids,
-						"wantsPets":pref_wantsPets
+						"wantsPets":pref_wantsPets,
+						"beenMarried":1
 					}
 				}
 			})
@@ -254,11 +255,10 @@ Meteor.methods({
 					"eyeColor":0,
 					"hairColor":0,
 					"hasKids":0,
-					"wantsKids":0,
 					"hasPets":0,
 					"petPreference":0,
-					"wantsPets":0,
 					"politicalParty":0,
+					"beenMarried":0,
 					"searchable":false,
 					"preferences": {
 						"gender":[prefGender],
@@ -273,13 +273,14 @@ Meteor.methods({
 						"smokes":2,
 						"drinks":2,
 						"ethnicity":[0,1,2,3,4,5,6,7,8],
-						"hasKids":0,
+						"hasKids":1,
 						"language":[0,1,2,3,4,5,6,7,8,9,10,11,12],
 						"petPreference":0,
-						"hasPets":0,
+						"hasPets":1,
 						"politicalParty":[0,1,2,3,4,5,6],
 						"wantsKids":1,
-						"wantsPets":1
+						"wantsPets":1,
+						"beenMarried":1
 					}
 				}
 			}
@@ -411,6 +412,11 @@ Meteor.methods({
 			$pull:{ "profile.images.all":imageUrl, "profile.images.default":imageUrl}
 		})
 	},
+	removeProfileVideo:function(userId, videoUrl){
+		Meteor.users.update(userId,{
+			$pull:{ "profile.videos":videoUrl}
+		})
+	},
 	makeDefaultImage:function(userId, imageUrl){
 		Meteor.users.update(userId,{
 			$set:{ "profile.images.default":imageUrl}
@@ -471,39 +477,40 @@ Meteor.methods({
 		prefObj.hasPets 		 = user.profile.preferences.hasPets;
 		prefObj.wantsPets 		 = user.profile.preferences.wantsPets;
 		prefObj.politicalParty 	 = user.profile.preferences.politicalParty;
+		prefObj.beenMarried      = user.profile.preferences.beenMarried;
 
 		//get my latitude and longitude
 		if (user.profile.latitude){
 			var myLat  = user.profile.latitude,
-				myLong = user.profile.longitude;
-		}
+				myLong = user.profile.longitude,
+				foundUsers = Meteor.users.find({
+				"_id":{$ne:userId},
+				"profile.gender":{$in:prefObj.gender},
+				"profile.denomination":{$in:prefObj.denomination},
+				"profile.politicalParty":{$in:prefObj.politicalParty},
+				"profile.ethnicity":{$in:prefObj.ethnicity},
+				"profile.language":{$in:prefObj.language},
+				"profile.education":{$gte:prefObj.education},
+				"profile.birthdate.year":{$gte:prefObj.ageMax, $lte:prefObj.ageMin},
+				"profile.smokes":{$lte:prefObj.smokes},
+				"profile.drinks":{$lte:prefObj.drinks},
+				"profile.beenMarried":prefObj.beenMarried,
+				"profile.hasKids":prefObj.hasKids,
+				"profile.hasPets":prefObj.hasPets,
+				// "profile.wantsPets":prefObj.wantsPets,
+				// "profile.wantsKids":prefObj.wantsKids
+			},{sort:{"profile.lastOnline":-1}, skip:skip, limit:20}).fetch();
 
-		var foundUsers = Meteor.users.find({
-			"_id":{$ne:userId},
-			"profile.gender":{$in:prefObj.gender},
-			"profile.denomination":{$in:prefObj.denomination},
-			"profile.politicalParty":{$in:prefObj.politicalParty},
-			"profile.ethnicity":{$in:prefObj.ethnicity},
-			"profile.language":{$in:prefObj.language},
-			"profile.education":{$gte:prefObj.education},
-			"profile.birthdate.year":{$gte:prefObj.ageMax, $lte:prefObj.ageMin},
-			"profile.smokes":{$lte:prefObj.smokes},
-			"profile.drinks":{$lte:prefObj.drinks},
-			// "profile.hasKids":{$lte:prefObj.hasKids},
-			// "profile.hasPets":{$lte:prefObj.hasPets},
-			// "profile.wantsPets":{$lte:prefObj.wantsPets},
-			// "profile.wantsKids":{$lte:prefObj.wantsKids}
-		},{sort:{"profile.lastOnline":-1}, skip:skip, limit:20}).fetch();
-
-		//loop through found users and return those within specific distance
-		for (var i = 0, len = foundUsers.length; i < len; i++) {
-			if (foundUsers[i].profile.latitude){
-				if (user.profile.preferences.searchDistance >= distance(myLat, myLong, foundUsers[i].profile.latitude, foundUsers[i].profile.longitude))
-					users.push(foundUsers[i]);
+			//loop through found users and return those within specific distance
+			for (var i = 0, len = foundUsers.length; i < len; i++) {
+				if (foundUsers[i].profile.latitude){
+					if (user.profile.preferences.searchDistance >= distance(myLat, myLong, foundUsers[i].profile.latitude, foundUsers[i].profile.longitude))
+						users.push(foundUsers[i]);
+				}
 			}
-		}
 
-		return users;
+			return users;
+		}
 
 		function distance(lat1, lon1, lat2, lon2) {
 		  var p = 0.017453292519943295;    // Math.PI / 180

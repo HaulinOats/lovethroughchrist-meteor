@@ -38,6 +38,17 @@
 	text-align: center;
 	padding:2%;
 }
+.home-body-section i {
+	-webkit-transition: 1s;
+	-o-transition: 1s;
+	transition: 1s;
+}
+.home-body-section:hover i {
+	-webkit-transform: rotateY(360deg);
+	-ms-transform: rotateY(360deg);
+	-o-transform: rotateY(360deg);
+	transform: rotateY(360deg);
+}
 /*.home-body-section:hover {
 	background:lightgray;
 	-webkit-transition: .5s background;

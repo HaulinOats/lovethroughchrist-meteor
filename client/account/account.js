@@ -148,11 +148,16 @@ Template.account_page.events({
 			// }
 
 		} else
-		alert("12 Video Maximum!");
+			alert("12 Video Maximum!");
 	},
 	'click .account_page_photos_current_single_remove':function(event){
 		if (confirm("Remove Profile Image?")){
 			Meteor.call('removeProfileImage', Meteor.userId(),$(event.currentTarget).attr('data-image-url'));
+		}
+	},
+	'click .account_page_videos_current_single_remove':function(event){
+		if (confirm("Remove Profile Video?")){
+			Meteor.call('removeProfileVideo', Meteor.userId(),$(event.currentTarget).attr('data-video-url'));
 		}
 	},
 	'click .account_page_photos_current_single_make_default':function(event){

@@ -64,18 +64,18 @@
 		</select>
 	</div>
 	<div class="col-xs-12 col-sm-6 info-field">
-		<label class="col-xs-5">Want someone with kids?</label>
+		<label class="col-xs-5">Are you okay seeing someone who has kids?</label>
 		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="hasKids">
-			{{#each getProperties 'prefHasKids'}}
+			{{#each getProperties 'hasKids'}}
 				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.hasKids this.index}}selected{{/if}}">{{this.option}}</option>
 			{{/each}}
 		</select>
 	</div>
 	<div class="clearfix"></div>
 	<div class="col-xs-12 col-sm-6 info-field">
-		<label class="col-xs-5">Want someone that wants to have kids eventually?</label>
+		<label class="col-xs-5">Are you okay seeing someone who might want kids eventually?</label>
 		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="wantsKids">
-			{{#each getProperties 'prefWantsKids'}}
+			{{#each getProperties 'wantsKids'}}
 				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.wantsKids this.index}}selected{{/if}}">{{this.option}}</option>
 			{{/each}}
 		</select>
@@ -89,19 +89,27 @@
 		</select>
 	</div> -->
 	<div class="col-xs-12 col-sm-6 info-field">
-		<label class="col-xs-5">Want someone who has pets?</label>
+		<label class="col-xs-5">Are you okay seeing someone who has pets?</label>
 		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="hasPets">
-			{{#each getProperties 'prefHasPets'}}
+			{{#each getProperties 'hasPets'}}
 				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.hasPets this.index}}selected{{/if}}">{{this.option}}</option>
 			{{/each}}
 		</select>
 	</div>
 	<div class="clearfix"></div>
-	<div class="col-xs-12 info-field">
-		<label class="col-xs-5">Want someone who wants pets eventually?</label>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Are you okay seeing someone who might want pets eventually?</label>
 		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="wantsPets">
-			{{#each getProperties 'prefWantsPets'}}
+			{{#each getProperties 'wantsPets'}}
 				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.wantsPets this.index}}selected{{/if}}">{{this.option}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-6 info-field">
+		<label class="col-xs-5">Are you okay with seeing someone who has been married before?</label>
+		<select class="col-xs-4 pull-right pref-single-dropdown" fieldname="beenMarried">
+			{{#each getProperties 'beenMarried'}}
+				<option value="{{this.index}}" selected="{{#if numberOptionMatch currentUser.profile.preferences.beenMarried this.index}}selected{{/if}}">{{this.option}}</option>
 			{{/each}}
 		</select>
 	</div>
