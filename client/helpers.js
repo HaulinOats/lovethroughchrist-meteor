@@ -96,7 +96,7 @@ var accountFields = {
 	wantsKids: {
 		propertyName: 'wantKids',
 		displayName: 'Wants Kids Eventually',
-		options: ['No', 'Yes', '']
+		options: ['No', 'Yes']
 	},
 	hasPets: {
 		propertyName: 'pets',

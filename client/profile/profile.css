@@ -15,9 +15,12 @@
 	height:100%;
 }
 .profile-message-wink-cont {
-	
+  
     width: 100%;
     margin: 1% 0%;
+}
+.profile-message-wink-cont i {
+  margin-right: 10px;
 }
 .profile-location {
 	font-size:22px;

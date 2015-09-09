@@ -81,7 +81,8 @@ Template.activity_page.events({
 		Router.go('/messages/' + event.currentTarget.attributes.messageid.value);
 	},
 	'click .activity_winks_outer':function(event){
-		Router.go('/search/'+ $(event.currentTarget).attr('data-user-id'));
+		window.open('/search/'+ $(event.currentTarget).attr('data-user-id'), '_blank')
+		// Router.go('/search/'+ $(event.currentTarget).attr('data-user-id'));
 	}
 });
 

@@ -494,11 +494,11 @@ Meteor.methods({
 				"profile.birthdate.year":{$gte:prefObj.ageMax, $lte:prefObj.ageMin},
 				"profile.smokes":{$lte:prefObj.smokes},
 				"profile.drinks":{$lte:prefObj.drinks},
-				"profile.beenMarried":prefObj.beenMarried,
-				"profile.hasKids":prefObj.hasKids,
-				"profile.hasPets":prefObj.hasPets,
-				// "profile.wantsPets":prefObj.wantsPets,
-				// "profile.wantsKids":prefObj.wantsKids
+				"profile.beenMarried":{$lte:prefObj.beenMarried},
+				"profile.hasKids":{$lte:prefObj.hasKids},
+				"profile.hasPets":{$lte:prefObj.hasPets},
+				"profile.preferences.wantsPets":{$lte:prefObj.wantsPets},
+				"profile.preferences.wantsKids":{$lte:prefObj.wantsKids}
 			},{sort:{"profile.lastOnline":-1}, skip:skip, limit:20}).fetch();
 
 			//loop through found users and return those within specific distance
