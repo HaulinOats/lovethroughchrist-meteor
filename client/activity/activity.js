@@ -114,7 +114,6 @@ Template.message_single_page.helpers({
 });
 Template.message_single_page.events({
 	'click .single_message_send_reply, keypress .message_single_reply_container_inner':function(event){
-		console.log(event);
 		if (event.which === 13 || event.type === "click") {
 			if ($('.message_single_reply_container_inner').text().length > 0) {
 				var otherUser = Session.get('singleMessageUserData');

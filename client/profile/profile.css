@@ -123,3 +123,36 @@
   -o-text-shadow: -1px 5px 3px black;
   text-shadow: -1px 5px 3px black;
 }
+.report_user {
+  margin-top:10px;
+}
+.report_user_outer {
+  display:none;
+  position: fixed;
+  height:100%;
+  width: 100%;
+  top:0;
+  left:0;
+  background:rgba(0,0,0,.5);
+  z-index: 10;
+}
+.report_user_inner {
+  position: absolute;
+  width:80%;
+  height:80%;
+  top:14%;
+  left:10%;
+  background: white;
+  border-radius: 5px;
+}
+.report_user_inner textarea {
+  width:100%;
+  min-height: 200px;
+}
+.submit_report_user {
+  position: absolute;
+  bottom:0;
+  right:0;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}

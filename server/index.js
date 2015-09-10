@@ -553,6 +553,14 @@ Meteor.methods({
 			$set:{'profile.newActivity':true}
 		});
 	},
+	reportUser:function(fromUserId, toUserId){
+		Meteor.users.update(toUserId, {
+			$addToSet:{'profile.report.from':fromUserId}
+		})
+		Meteor.users.update(fromUserId, {
+			$addToSet:{'profile.report.to':toUserId}
+		})
+	},
 
 	//Messages
 	getNameAndImage:function(idArr){

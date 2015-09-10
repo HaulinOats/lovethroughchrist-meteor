@@ -70,5 +70,14 @@ Template.user_profile.events({
 	},
 	'click .profile_photos_close':function(event){
 		$('.profile_photos_modal_outer').removeClass('modal_showing');
+	},
+	'click .report_user':function(event){
+		if(confirm("This user will be blocked from you.  Is that okay?")){
+			Meteor.call('reportUser', Meteor.userId(), $(event.currentTarget).attr('data-userid'), function(err, result){
+				if (!err) {
+					alert('User reported.  Thank you!');
+				}
+			})
+		}
 	}
 })

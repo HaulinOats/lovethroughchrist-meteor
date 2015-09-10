@@ -28,8 +28,8 @@
 }
 .info-field {
   border-bottom: solid thin gray;
-  min-height: 115px;
-  padding-top:30px;
+  min-height: 60px;
+  padding-top: 10px;
 }
 .info-field select,
 .info-field input[type="text"],

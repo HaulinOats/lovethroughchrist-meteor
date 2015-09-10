@@ -7,14 +7,19 @@
 }
 .slider_container_inner {
 	position:relative;
-	height:100%;
+	display: block;
+	height:600px;
 	width:auto;
 	background:orange;
 	background-size: 100%;
 }
 .slider_container_inner_1 {
-	animation:sliderAnim 20s infinite;
 	background-image:url('/couple.jpg');
+	-webkit-animation: sliderAnim 20s ease-in-out infinite;
+       -moz-animation: sliderAnim 20s ease-in-out infinite;
+        -ms-animation: sliderAnim 20s ease-in-out infinite;
+         -o-animation: sliderAnim 20s ease-in-out infinite;
+            animation: sliderAnim 20s ease-in-out infinite;
 }
 .slider_container_inner_2 {
 	background-image:url('/couple2.jpg');
@@ -62,9 +67,36 @@
 @keyframes sliderAnim {
 	0%  {margin-top:0px;}
 	32%  {margin-top:0px;}
-	33% {margin-top:-600px;}
+	38% {margin-top:-600px;}
 	65%  {margin-top:-600px;}
-	66%  {margin-top:-1200px;}
+	72%  {margin-top:-1200px;}
+	99% {margin-top:-1200px;}
+	100% {margin-top:0px;}
+}
+@-webkit-keyframes sliderAnim {
+	0%  {margin-top:0px;}
+	32%  {margin-top:0px;}
+	38% {margin-top:-600px;}
+	65%  {margin-top:-600px;}
+	72%  {margin-top:-1200px;}
+	99% {margin-top:-1200px;}
+	100% {margin-top:0px;}
+}
+@-moz-keyframes sliderAnim {
+	0%  {margin-top:0px;}
+	32%  {margin-top:0px;}
+	38% {margin-top:-600px;}
+	65%  {margin-top:-600px;}
+	72%  {margin-top:-1200px;}
+	99% {margin-top:-1200px;}
+	100% {margin-top:0px;}
+}
+@-o-keyframes sliderAnim {
+	0%  {margin-top:0px;}
+	32%  {margin-top:0px;}
+	38% {margin-top:-600px;}
+	65%  {margin-top:-600px;}
+	72%  {margin-top:-1200px;}
 	99% {margin-top:-1200px;}
 	100% {margin-top:0px;}
 }
