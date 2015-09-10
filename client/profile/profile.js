@@ -79,5 +79,11 @@ Template.user_profile.events({
 				}
 			})
 		}
+	},
+	'click .profile-favorite':function(event){
+		Meteor.call('favoriteUser', Meteor.userId(), $(event.currentTarget).attr('data-userid'), function(err, result){
+			if (!err)
+				alert('User saved!');
+		})
 	}
 })

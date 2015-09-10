@@ -11,7 +11,7 @@
 	height:600px;
 	width:auto;
 	background:orange;
-	background-size: 100%;
+	background-size: cover;
 }
 .slider_container_inner_1 {
 	background-image:url('/couple.jpg');

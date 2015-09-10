@@ -37,11 +37,17 @@ hr {
     padding-right:0;
     padding-left:0;
 }
+input {
+	color:cadetblue;
+	font-weight: bold;
+}
 select{
 	-webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 1px;
     text-overflow: ellipsis;
+    color:cadetblue;
+    font-weight: bold;
 }
 .loading_pic {
 	display:block;
@@ -72,4 +78,40 @@ select{
 @keyframes loaderSpin {
 	from {transform:rotateY(0deg);}
 	to {transform:rotateY(360deg);}
+}
+/*Login Stuff*/
+#login-buttons {
+	font-size:25px;
+}
+.or,
+.login-form {
+	display:none;
+}
+#login-sign-in-link {
+	position:absolute;
+	right:0;
+	cursor:pointer;
+}
+#login-dropdown-list {
+	  position: relative;
+  background: lightgray;
+  border-radius: 5px;
+  padding: 10px;
+}
+.login-close-text {
+	cursor:pointer;
+}
+.sign-in-text-facebook {
+	cursor:pointer;
+}
+
+.main-label {
+	display:block;
+	width:100%;
+}
+
+/*Preferences*/
+.pref-checkbox {
+	display:inline-block;
+	padding-left:15px;
 }

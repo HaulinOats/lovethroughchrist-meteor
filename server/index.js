@@ -130,6 +130,10 @@ Meteor.methods({
 					"politicalParty":politicalParty,
 					"beenMarried":married,
 					"searchable":true,
+					"report":{
+						"from":[],
+						"to":[]
+					},
 					"preferences": {
 						"gender":[0, 1],
 						"searchDistance":100,
@@ -260,6 +264,10 @@ Meteor.methods({
 					"politicalParty":0,
 					"beenMarried":0,
 					"searchable":false,
+					"report":{
+						"from":[],
+						"to":[]
+					},
 					"preferences": {
 						"gender":[prefGender],
 						"searchDistance":100,
@@ -498,7 +506,8 @@ Meteor.methods({
 				"profile.hasKids":{$lte:prefObj.hasKids},
 				"profile.hasPets":{$lte:prefObj.hasPets},
 				"profile.preferences.wantsPets":{$lte:prefObj.wantsPets},
-				"profile.preferences.wantsKids":{$lte:prefObj.wantsKids}
+				"profile.preferences.wantsKids":{$lte:prefObj.wantsKids},
+				"profile.report.from":{$nin:[user._id]}
 			},{sort:{"profile.lastOnline":-1}, skip:skip, limit:20}).fetch();
 
 			//loop through found users and return those within specific distance
@@ -559,6 +568,11 @@ Meteor.methods({
 		})
 		Meteor.users.update(fromUserId, {
 			$addToSet:{'profile.report.to':toUserId}
+		})
+	},
+	favoriteUser:function(userId, favoriteId){
+		Meteor.users.update(userId, {
+			$addToSet:{"profile.favorites":favoriteId}
 		})
 	},
 

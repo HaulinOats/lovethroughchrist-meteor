@@ -41,6 +41,12 @@ Template.activity_page.helpers({
 	getSentMessages:function(){
 		return Session.get('sentMessages');
 	},
+	messagesExist:function(messagesArr){
+		if (messagesArr) {
+			if (messagesArr.length)
+				return true;
+		}
+	},
 	getLastMessage:function(messages){
 		return messages[messages.length - 1].body;
 	},
@@ -62,6 +68,19 @@ Template.activity_page.helpers({
 			}
 		}
 	},
+	setFavoritesData:function(){
+		if (Meteor.user().profile.favorites) {
+			Meteor.call('getNameAndImage', Meteor.user().profile.favorites, function(err, result){
+		      if (!err){
+		      	console.log(result);
+		        Session.set('favoritesData', result.reverse());
+		      }
+		    })
+		}
+	},
+	getFavoritesData:function(){
+		return Session.get('favoritesData');
+	},
 	getSentWinkData:function(){
 		return Session.get('sentWinkData');
 	},
@@ -80,7 +99,7 @@ Template.activity_page.events({
 	'click .messages_single_outer_container':function(event){
 		Router.go('/messages/' + event.currentTarget.attributes.messageid.value);
 	},
-	'click .activity_winks_outer':function(event){
+	'click .activity_winks_outer, click .activity_favorites_outer':function(event){
 		window.open('/search/'+ $(event.currentTarget).attr('data-user-id'), '_blank')
 		// Router.go('/search/'+ $(event.currentTarget).attr('data-user-id'));
 	}

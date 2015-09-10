@@ -4,6 +4,7 @@
 	<ul class="nav nav-tabs">
 		<li class="active"><a data-toggle="tab" href="#messages">Messages</a></li>
 		<li><a data-toggle="tab" href="#winks">Winks</a></li>
+		<li><a data-toggle="tab" href="#favorites">Favorites</a></li>
 	</ul>
 	<div class="tab-content col-xs-12">
 
@@ -16,6 +17,7 @@
 			<div class="tab-content col-xs-12">
 				<!-- INBOX -->
 				<div class="tab-pane fade active in" id="inbox">
+				{{#if messagesExist getInboxMessages}}
 					{{#each getInboxMessages}}
 					<div class="messages_single_outer_container" messageid="{{this._id}}">
 						<div class="col-xs-4 col-sm-2 messages_single_image" style="background-image:url({{imageExists this.userInfo.image}})"></div>
@@ -26,9 +28,13 @@
 					</div>
 					<hr>
 					{{/each}}
+				{{else}}
+					<p class="messages_empty_messages"><i class="fa fa-frown-o"></i>  Inbox Empty</p>
+				{{/if}}
 				</div>
 				<!-- SENT -->
 				<div class="tab-pane fade in" id="sentMessages">
+				{{#if messagesExist getSentMessages}}
 					{{#each getSentMessages}}
 					<div class="messages_single_outer_container" messageid="{{this._id}}">
 						<div class="col-xs-4 col-sm-2 messages_single_image" style="background-image:url({{imageExists this.userInfo.image}})"></div>
@@ -39,6 +45,9 @@
 					</div>
 					<hr>
 					{{/each}}
+				{{else}}
+					<p class="messages_empty_messages">No Messages Sent</p>
+				{{/if}}
 				</div>
 			</div>
 		</div>
@@ -53,7 +62,7 @@
 					{{#each getFromWinkData}}
 						<div class="col-xs-12 col-md-6 activity_winks_outer" data-user-id="{{this._id}}">
 							<div class="col-xs-3 activity_winks_image_container" style="background-image:url({{imageExists this.image}})"></div>
-							<p class="col-xs-9 activity_winks_name">{{this.first}} {{this.last}}</p>
+							<p class="col-xs-9 activity_winks_name">{{this.first}}</p>
 						</div>
 					{{/each}}
 				</div>
@@ -61,11 +70,20 @@
 					{{#each getSentWinkData}}
 						<div class="col-xs-12 col-md-6 activity_winks_outer" data-user-id="{{this._id}}"> 
 							<div class="col-xs-3 activity_winks_image_container" style="background-image:url({{imageExists this.image}})"></div>
-							<p class="col-xs-9 activity_winks_name">{{this.first}} {{this.last}}</p>
+							<p class="col-xs-9 activity_winks_name">{{this.first}}</p>
 						</div>
 					{{/each}}
 				</div>
 			</div>
+		</div>
+		<div class="tab-pane fade in" id="favorites">
+			{{setFavoritesData}}
+			{{#each getFavoritesData}}
+				<div class="col-xs-12 col-md-6 activity_favorites_outer" data-user-id="{{this._id}}">
+					<div class="col-xs-3 activity_favorites_image_container" style="background-image:url({{imageExists this.image}})"></div>
+					<p class="col-xs-9 activity_favorites_name">{{this.first}}</p>
+				</div>
+			{{/each}}
 		</div>
 	</div>
 </template>
