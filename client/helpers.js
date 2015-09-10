@@ -199,3 +199,11 @@ Template.registerHelper("isMale", function(gender){
 	if (!gender)
 		return true;
 });
+Template.registerHelper("videosExist", function(videoArray){
+	if (videoArray.length)
+		return true;
+});
+Template.registerHelper("fieldExists", function(fieldData){
+	if (fieldData && fieldData !== "")
+		return true;
+});
