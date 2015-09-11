@@ -7,11 +7,11 @@ ServiceConfiguration.configurations.upsert(
   {
     $set:{
       // Development
-      // appId: "485852571574726",
-      // secret: "d52ce297e2f71b55b175d9471eb6e9d4"
+      appId: "485852571574726",
+      secret: "d52ce297e2f71b55b175d9471eb6e9d4"
       //Meteor Site
-      appId:"289256867900965",
-      secret:"813b5631116afc377fe572435f7776ad"
+      // appId:"289256867900965",
+      // secret:"813b5631116afc377fe572435f7776ad"
     }
   }
 );
@@ -314,30 +314,30 @@ Meteor.methods({
 		});
 	},
 	setInfoTextField:function(userId, fieldValue, fieldName){
-		var user = Meteor.users.find(userId).fetch()[0];
-		user.profile[fieldName] = fieldValue;
+		var user = Meteor.users.find(userId).fetch()[0].profile;
+		profile[fieldName] = fieldValue;
 		Meteor.users.update(userId, {
-			$set:user
+			$set:{"profile":profile}
 		});
 	},
 	setAgeMinMax:function(userId, fieldValue, fieldName){
-		var user = Meteor.users.find(userId).fetch()[0];
-		user.profile.preferences.age[fieldName] = parseInt(fieldValue);
+		var profile = Meteor.users.find(userId).fetch()[0].profile;
+		profile.preferences.age[fieldName] = parseInt(fieldValue);
 		if (fieldName === "min") {
-			if (user.profile.preferences.age.max <= user.profile.preferences.age.min){
-				if (user.profile.preferences.age.max < 99)
-					user.profile.preferences.age.max = user.profile.preferences.age.min + 1;
+			if (profile.preferences.age.max <= profile.preferences.age.min){
+				if (profile.preferences.age.max < 99)
+					profile.preferences.age.max = profile.preferences.age.min + 1;
 			}
 
 		} else if (fieldName === "max") {
-			if (user.profile.preferences.age.min >= user.profile.preferences.age.max) {
-				if (user.profile.preferences.age.min > 18)
-					user.profile.preferences.age.min = user.profile.preferences.age.max - 1;
+			if (profile.preferences.age.min >= profile.preferences.age.max) {
+				if (profile.preferences.age.min > 18)
+					profile.preferences.age.min = profile.preferences.age.max - 1;
 			}
 		}
 
 		Meteor.users.update(userId, {
-			$set:user
+			$set:{"profile":profile}
 		});
 	},
 	accountInfoChange:function(userId, fieldname, option){
@@ -347,8 +347,9 @@ Meteor.methods({
 				Meteor.users.update(userId, {$set:{"profile.gender":parseInt(option)}})
 				break;
 			default:
-				user.profile[fieldname] = parseInt(option);
-				Meteor.users.update(userId, {$set:user});
+				var profile = user.profile;
+				profile[fieldname] = parseInt(option);
+				Meteor.users.update(userId, {$set:{"profile":profile}});
 				break;
 		}
 	},
@@ -358,13 +359,13 @@ Meteor.methods({
 				Meteor.users.update(userId, {$set:{"profile.preferences.gender":option}})
 				break;
 			default:
-				var user = Meteor.users.find(userId).fetch()[0];
+				var profile = Meteor.users.find(userId).fetch()[0].profile;
 				if (option === "default") {
-					delete user.profile.preferences[fieldname];
-					Meteor.users.update(userId, {$set:user});
+					delete profile.preferences[fieldname];
+					Meteor.users.update(userId, {$set:{"profile":profile}});
 				} else {
-					user.profile.preferences[fieldname] = parseInt(option);
-					Meteor.users.update(userId, {$set:user});
+					profile.preferences[fieldname] = parseInt(option);
+					Meteor.users.update(userId, {$set:{"profile":profile}});
 				}
 				break;
 		}
@@ -403,10 +404,11 @@ Meteor.methods({
 		});
 	}, 
 	infoTextAreaSave:function(userId, fieldName, fieldValue){
-		var user = Meteor.users.find(userId).fetch()[0];
-		user.profile[fieldName] = fieldValue;
+		// console.log(userId, fieldName, fieldValue);
+		var profile = Meteor.users.find(userId).fetch()[0].profile;
+		profile[fieldName] = fieldValue;
 		Meteor.users.update(userId, {
-			$set: user
+			$set: {"profile":profile}
 		});
 	},
 	addProfileImage:function(userId, imageUrl){

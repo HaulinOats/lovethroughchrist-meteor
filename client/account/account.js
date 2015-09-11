@@ -52,7 +52,7 @@ Template.account_page.events({
 	'click .textarea-outer-container button':function(event){
 		var $textArea = $(event.currentTarget).siblings('textarea'),
 			textAreaVal = $textArea.val(),
-			fieldName   = $textArea.attr('fieldname');
+			fieldName   = $(event.currentTarget).attr('data-fieldname');
 		Meteor.call('infoTextAreaSave', Meteor.userId(), fieldName, textAreaVal);
 	},
 	'click .account_page_search_photos':function(event){
