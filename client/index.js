@@ -4,9 +4,9 @@ Messages = new Mongo.Collection("messages");
 window.fbAsyncInit = function() {
 	FB.init({
 	  // Developer
-	  appId		 : '485852571574726',
+	  // appId		 : '485852571574726',
 	  // Meteor
-	  // appId      : '289256867900965',
+	  appId      : '289256867900965',
 	  status     : true,
 	  xfbml      : true,
 	  version    : "v2.3"
@@ -16,7 +16,7 @@ window.fbAsyncInit = function() {
 SEO.config({
 	title: 'LoveThroughChrist',
 	meta: {
-	  'description': 'A free Christian dating site'
+	  'description': 'A free Christian dating website'
 	},
 	og: {
 	  'image': 'http://www.lovethroughchrist.com/users/assets/img/ltc-logo-long.svg' 
