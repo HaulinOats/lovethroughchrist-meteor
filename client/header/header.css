@@ -32,7 +32,7 @@
 
 /*Nav Bar*/
 .nav {
-	margin-top: 8px;
+	margin-top: 10px;
 }
 .ltc-navbar {
   margin-bottom: 0;
@@ -47,7 +47,7 @@
 	height:60px;
 }
 .navigation-list {
-	font-size:18px;
+	font-size:16px;
 	color:#5F9EA0;
 	margin-top:10px;
 }
@@ -55,7 +55,7 @@
 	cursor:pointer;
 }
 .navigation-list i{
-	font-size:20px;
+	font-size:16px;
 }
 .navigation-list a {
 	cursor:pointer;

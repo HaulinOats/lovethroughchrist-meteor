@@ -207,3 +207,13 @@ Template.registerHelper("fieldExists", function(fieldData){
 	if (fieldData && fieldData !== "")
 		return true;
 });
+Template.registerHelper("arrayExists", function(array){
+	if (array) {
+		if (array.length)
+			return true;
+	}
+});
+Template.registerHelper("isCurrentUser", function(userId){
+	if (userId === Meteor.userId())
+		return true;
+});

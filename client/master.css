@@ -26,6 +26,7 @@ hr {
  	border: none;
  	border-radius: 5px;
  	padding: 10px 15px;
+ 	margin-top:10px;
 }
 .ltc_button:hover {
 	color:darkblue;

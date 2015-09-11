@@ -2,10 +2,10 @@
 	{{getUser}}
 	<h2>Account Page <i class="fa fa-cog"></i></h2>
 	<ul class="nav nav-tabs">
-		<li class="active"><a data-toggle="tab" href="#info">Info</a></li>
-		<li><a data-toggle="tab" href="#photos">Photos</a></li>
-		<li><a data-toggle="tab" href="#videos">Videos</a></li>
-		<li><a data-toggle="tab" href="#pref">Preferences</a></li>
+		<li class="active"><a data-toggle="tab" href="#info"><i class="fa fa-info-circle"></i> Info</a></li>
+		<li><a data-toggle="tab" href="#photos"><i class="fa fa-photo"></i> Photos</a></li>
+		<li><a data-toggle="tab" href="#videos"><i class="fa fa-video-camera"></i> Videos</a></li>
+		<li><a data-toggle="tab" href="#pref"><i class="fa fa-thumbs-o-up"></i> Preferences</a></li>
 		<!-- <li class="account_friends_tab"><a data-toggle="tab" href="#friends">Friends</a></li>
 		<li><a data-toggle="tab" href="#test">Testimonials</a></li> -->
 	</ul>
@@ -191,7 +191,7 @@
 				</select>
 			</div>
 			<div class="col-xs-12 info-field">
-				<label class="col-xs-5">Searchable</label>
+				<label class="col-xs-5 ltc_tooltip">Searchable <i class="fa fa-question-circle"></i></label>
 				<div class="col-xs-2 pull-right account-searchable-container" fieldname="searchable">
 					<span class="searchable-switch {{#unless currentUser.profile.searchable}}switch-no{{/unless}}"></span>
 					<span>No</span>

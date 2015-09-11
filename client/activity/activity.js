@@ -41,12 +41,6 @@ Template.activity_page.helpers({
 	getSentMessages:function(){
 		return Session.get('sentMessages');
 	},
-	messagesExist:function(messagesArr){
-		if (messagesArr) {
-			if (messagesArr.length)
-				return true;
-		}
-	},
 	getLastMessage:function(messages){
 		return messages[messages.length - 1].body;
 	},

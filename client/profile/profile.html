@@ -3,7 +3,9 @@
 	{{#with getSearchUser}}
 	<div class="col-xs-12">
 		<h2 class="pull-left">{{this.profile.name.first}}</h2>
-		<button class="ltc_button pull-right report_user" data-userid="{{this._id}}">Report/Block</button>
+		{{#unless isCurrentUser this._id}}
+			<button class="ltc_button pull-right report_user" data-userid="{{this._id}}">Report/Block</button>
+		{{/unless}}
 		<hr class="hr_normal">
 		<div class="col-xs-12 profile-top-container">
 			<div class="col-xs-12 col-sm-6 col-md-4 profile-default-container" data-user-id="{{this._id}}" style="background-image:url({{getDefaultPhoto this}})">
