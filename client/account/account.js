@@ -28,7 +28,7 @@ Template.account_page.events({
 			});
 		}
 	},
-	'keyup .account-skype, keyup .account-city, keyup .account-state':function(event){
+	'keyup .account-city, keyup .account-state':function(event){
 		clearTimeout(accountInputTimeout);
 		accountInputTimeout = setTimeout(function(){
 			Meteor.call('setInfoTextField', Meteor.userId(), event.currentTarget.value, event.currentTarget.attributes.fieldname.value);

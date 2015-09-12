@@ -23,6 +23,14 @@ SEO.config({
 	}
 });
 
+// tooltip object 
+var tooltips = {
+	"searchable":"Allows your profile to be discovered by other users.  You must first set a zipcode before you can become searchable.",
+	"photos":"Click the button below to search through Facebook photos.  Click on a photo and confirm to add to profile.  Once added, click the star icon to make that photo your default.  Click the 'X' icon to remove photo from profile.",
+	"videos":"Click the button below to search through Facebook videos.  Click a video to add it to your profile.  Once added, click the 'X' icon in the upper right to remove video from profile.",
+	"zipcode":"Enter the 5 digit zipcode of where you would like meet users.  We will automatically get your hometown coordinates and populate the 'city' and 'state' fields.  You may change them to be more accurate, if desired."
+}
+
 //Preferences
 var accountInputTimeout;
 Template.preferences.events({
@@ -64,3 +72,15 @@ Template.preferences.events({
 		Meteor.call('prefEthnicityCheckbox', Meteor.userId(), event.currentTarget.attributes.optionindex.value, $(event.currentTarget).find('input')[0].checked);
 	}
 });
+Template.body.events({
+  "mouseenter .ltc_tooltip, mouseleave .ltc_tooltip": function(e, data, tpl) {
+  	switch(e.type){
+  		case "mouseenter":
+  			$('.ltc_tooltip_popup').show().css({"top":e.clientY,"left":e.clientX + 20}).find('p').text(tooltips[$(e.currentTarget).attr('data-tooltip')]);
+  			break;
+  		case "mouseleave":
+  			$('.ltc_tooltip_popup').hide();
+  			break;
+  	}
+  }
+})
