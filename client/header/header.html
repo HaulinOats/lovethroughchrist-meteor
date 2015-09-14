@@ -23,7 +23,7 @@
 
 <template name="navigation_links">
 	{{#if currentUser}}
-		<li class="header_activity_link"><a href="/activity">Activity {{#if newActivity}}<i class="message_wink_count">{{activityCount}}</i>{{else}}<i class="fa fa-envelope"></i>{{/if}}</a></li>
+		<li class="header_activity_link"><a href="/activity">Activity <i class="fa {{#if isNewActivity}}fa-exclamation-circle header_new_activity{{else}}fa-envelope{{/if}}"></i></a></li>
 		<li><a href="/search">Search <i class="glyphicon glyphicon-search"></i></a></li>
 		<li><a href="/search/{{currentUser._id}}">My Profile <i class="glyphicon glyphicon-user"></i></a></li>
 		<li><a href="/my-account">Account <i class="glyphicon glyphicon-cog"></i></a></li>

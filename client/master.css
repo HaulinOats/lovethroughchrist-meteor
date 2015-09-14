@@ -126,3 +126,57 @@ select{
 	display:inline-block;
 	padding-left:15px;
 }
+.ltc_notification_popup_outer {
+  position: fixed;
+  bottom: 0;
+  right: 50px;
+  padding: 0 25px;
+  background: cadetblue;
+  height: 0px;
+  overflow: hidden;
+  color: white;
+  font-size: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  -webkit-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+}
+.ltc_notification_popup_inner p{
+	margin-top:5px;
+}
+.notification_popup_animation {
+  -moz-animation-duration: 8s;
+  -webkit-animation-duration: 8s;
+  animation-duration: 8s;
+  -moz-animation-name: showNotificationPopup;
+  -webkit-animation-name: showNotificationPopup;
+  animation-name: showNotificationPopup;
+  -moz-animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+@-webkit-keyframes showNotificationPopup {
+	0%   {height:0px;}
+	5%   {height:40px;}
+	95%  {height:40px;}
+	100% {height:0px;}
+}
+@-moz-keyframes showNotificationPopup {
+	0%   {height:0px;}
+	5%   {height:40px;}
+	95%  {height:40px;}
+	100% {height:0px;}
+}
+@-o-keyframes showNotificationPopup {
+	0%   {height:0px;}
+	5%   {height:40px;}
+	95%  {height:40px;}
+	100% {height:0px;}
+}
+@keyframes showNotificationPopup {
+	0%   {height:0px;}
+	5%   {height:40px;}
+	95%  {height:40px;}
+	100% {height:0px;}
+}

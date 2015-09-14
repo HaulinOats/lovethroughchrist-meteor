@@ -217,3 +217,6 @@ Template.registerHelper("isCurrentUser", function(userId){
 	if (userId === Meteor.userId())
 		return true;
 });
+Template.registerHelper('isNewActivity', function(){
+	return Session.get('isNewActivity');
+});

@@ -88,10 +88,6 @@ Template.activity_page.helpers({
 			return image;
 		}
 	},
-	newMessages:function(){
-		if (Meteor.user().profile.newActivity.messages > 0)
-			return true;
-	},
 	newWinks:function(){
 		if (Meteor.user().profile.newActivity.winks > 0)
 			return true;
@@ -104,10 +100,13 @@ Template.activity_page.events({
 	'click .activity_winks_outer, click .activity_favorites_outer':function(event){
 		window.open('/search/'+ $(event.currentTarget).attr('data-user-id'), '_blank')
 		// Router.go('/search/'+ $(event.currentTarget).attr('data-user-id'));
+	},
+	'click .activity_winks_tab':function(event){
+		Meteor.call('winksChecked', Meteor.userId());
 	}
 });
 Template.activity_page.rendered = function(){
-	console.log('updated');
+	Session.set('isNewActivity', false);
 }
 
 //Single Message Page

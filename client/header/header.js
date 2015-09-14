@@ -5,10 +5,6 @@ Template.navigation_links.helpers({
 	},
 	activityCount:function(){
 		return Meteor.user().profile.newActivity.messages + Meteor.user().profile.newActivity.winks;
-	},
-	newActivity:function(){
-		if ((Meteor.user().profile.newActivity.messages + Meteor.user().profile.newActivity.winks) > 0)
-			return true;
 	}
 });
 

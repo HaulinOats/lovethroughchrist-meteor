@@ -76,9 +76,18 @@ Router.onBeforeAction(function () {
   	//Check last online
     if (Meteor.user()) {
       	console.log(Meteor.user());
-      	//if more than 15 minutes since time 'lastOnline' was set
+      //when message or wink received
+      if (Meteor.user().profile.newActivity.newNotification)
+        Meteor.call('notificationSent', Meteor.userId())
+
+      //show new activity notification
+      if (Meteor.user().profile.newActivity.winks > 0 || Meteor.user().profile.newActivity.messages > 0) {
+        Session.set('isNewActivity', true);
+      } else
+        Session.set('isNewActivity', false);
+      //if more than 15 minutes since time 'lastOnline' was set
     	if ((Date.now() - Meteor.user().profile.lastOnline) > 900000)
-    		Meteor.call('setLastOnlineAndAge', Meteor.userId());
+    		Meteor.call('setLastOnline', Meteor.userId());
   	}
     this.next();
   }

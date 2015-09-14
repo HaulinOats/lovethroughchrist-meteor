@@ -43,6 +43,11 @@ Meteor.methods({
 			$set:{"profile.newActivity.winks":0}
 		})
 	},
+	notificationSent:function(userId){
+		Meteor.users.update(userId, {
+			$set:{"profile.newActivity.newNotification":false}
+		})
+	},
 	//Admin
 	seedUsers:function(){
 		function randomIntFromInterval(min,max){return Math.floor(Math.random()*(max-min+1)+min);}
@@ -102,7 +107,8 @@ Meteor.methods({
 					"longitude":-81.20092869999999,
 					"newActivity":{
 						"messages":0,
-						"winks":0
+						"winks":0,
+						"newNotification":false
 					},
 					"images": {
 						"all":[],
@@ -205,15 +211,12 @@ Meteor.methods({
 	},
 
 	//Login
-	setLastOnlineAndAge:function(userId){
-		var user = Meteor.users.find(userId).fetch()[0],
-			age = Math.floor((Date.now() - Date.parse((user.profile.birthdate.month + 1) + " " + user.profile.birthdate.day + " " + user.profile.birthdate.year))/31557600000);
+	setLastOnline:function(userId){
+		var user = Meteor.users.find(userId).fetch()[0];
+			// age = Math.floor((Date.now() - Date.parse((user.profile.birthdate.month + 1) + " " + user.profile.birthdate.day + " " + user.profile.birthdate.year))/31557600000);
 		
 		Meteor.users.update(userId, {
-			$set: {
-				"profile.lastOnline":Date.now(),
-				"profile.age":age
-			}
+			$set: {"profile.lastOnline":Date.now()}
 		});
 	},
 	addUserFields:function(userId, fbData){
@@ -243,7 +246,8 @@ Meteor.methods({
 					"fbId":fbData.id,
 					"newActivity":{
 						"messages":0,
-						"winks":0
+						"winks":0,
+						"newNotification":false
 					},
 					"images": {
 						"all":[],
