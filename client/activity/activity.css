@@ -84,3 +84,10 @@
   margin-top:20px;
   font-style:italic; 
 }
+.activity_notification{
+  color:white;
+  background:cadetblue;
+  border-radius: 200px;
+  padding: 3px 7px 2px 7px;
+  margin-right:5px;
+}

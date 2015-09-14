@@ -104,6 +104,15 @@
      -o-animation: newActivity 2s ease-in-out infinite alternate;
         animation: newActivity 2s ease-in-out infinite alternate;
 }
+.message_wink_count {
+	color:white;
+	background:cadetblue;
+	border-radius: 200px;
+    padding: 3px 7px 2px 7px;
+}
+.show_notifications {
+	display:inline;
+}
 @keyframes newActivity {
 	from {color:cadetblue;}
 	to {color:gold;}

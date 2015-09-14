@@ -1,3 +1,17 @@
+Template.navigation_links.helpers({
+	isAdmin:function(){
+		if (Meteor.user() && Meteor.user().profile.email === 'midgitsuu@gmail.com')
+			return true;
+	},
+	activityCount:function(){
+		return Meteor.user().profile.newActivity.messages + Meteor.user().profile.newActivity.winks;
+	},
+	newActivity:function(){
+		if ((Meteor.user().profile.newActivity.messages + Meteor.user().profile.newActivity.winks) > 0)
+			return true;
+	}
+});
+
 Template.header.events({
 	'click .facebook-login':function(event){
 		Meteor.loginWithFacebook({requestPermissions:['user_photos', 'user_videos']},function(err){
@@ -28,19 +42,5 @@ Template.header.events({
 	},
 	'click .navigation-list li':function(event){
 		$('#ltc-small-menu').removeClass('in');
-	},
-	'click .header_activity_link':function(event){
-		Meteor.call('activityChecked', Meteor.userId());
-	}
-});
-
-Template.navigation_links.helpers({
-	isAdmin:function(){
-		if (Meteor.user() && Meteor.user().profile.email === 'midgitsuu@gmail.com')
-			return true;
-	},
-	newActivity:function(){
-		if (Meteor.user().profile.newActivity === true)
-			return "header_new_activity";
 	}
 });

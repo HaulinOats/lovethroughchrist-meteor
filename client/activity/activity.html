@@ -2,8 +2,8 @@
 {{setMessageData}}
 	<h2>Activity</h2>
 	<ul class="nav nav-tabs">
-		<li class="active"><a data-toggle="tab" href="#messages"><i class="glyphicon glyphicon-envelope"></i> Messages</a></li>
-		<li><a data-toggle="tab" href="#winks"><i class="fa fa-smile-o"></i> Winks</a></li>
+		<li class="active"><a data-toggle="tab" href="#messages">{{#if newMessages}}<i class="activity_notification">{{currentUser.profile.newActivity.messages}}</i>{{else}}<i class="glyphicon glyphicon-envelope"></i>{{/if}} Messages </a></li>
+		<li><a data-toggle="tab" href="#winks">{{#if newWinks}}<i class="activity_notification">{{currentUser.profile.newActivity.winks}}</i>{{else}}<i class="fa fa-smile-o"></i>{{/if}} Winks </a></li>
 		<li><a data-toggle="tab" href="#favorites"><i class="fa fa-bookmark"></i> Favorites</a></li>
 	</ul>
 	<div class="tab-content col-xs-12">

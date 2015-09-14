@@ -87,6 +87,14 @@ Template.activity_page.helpers({
 		} else {
 			return image;
 		}
+	},
+	newMessages:function(){
+		if (Meteor.user().profile.newActivity.messages > 0)
+			return true;
+	},
+	newWinks:function(){
+		if (Meteor.user().profile.newActivity.winks > 0)
+			return true;
 	}
 });
 Template.activity_page.events({
@@ -98,6 +106,9 @@ Template.activity_page.events({
 		// Router.go('/search/'+ $(event.currentTarget).attr('data-user-id'));
 	}
 });
+Template.activity_page.rendered = function(){
+	console.log('updated');
+}
 
 //Single Message Page
 Template.message_single_page.helpers({

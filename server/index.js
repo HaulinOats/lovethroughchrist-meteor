@@ -33,9 +33,14 @@ Messages.before.update(function (userId, doc) {
 
 Meteor.methods({
 	//Header
-	activityChecked:function(userId){
+	messagesChecked:function(userId){
 		Meteor.users.update(userId, {
-			$set:{"profile.newActivity":false}
+			$set:{"profile.newActivity.messsages":0}
+		})
+	},
+	winksChecked:function(userId){
+		Meteor.users.update(userId, {
+			$set:{"profile.newActivity.winks":0}
 		})
 	},
 	//Admin
@@ -95,7 +100,10 @@ Meteor.methods({
 					"state":"Florida",
 					"latitude":28.6013431,
 					"longitude":-81.20092869999999,
-					"newActivity":false,
+					"newActivity":{
+						"messages":0,
+						"winks":0
+					},
 					"images": {
 						"all":[],
 						"default":null
@@ -233,7 +241,10 @@ Meteor.methods({
 					"email":fbData.email,
 					"gender":gender,
 					"fbId":fbData.id,
-					"newActivity":false,
+					"newActivity":{
+						"messages":0,
+						"winks":0
+					},
 					"images": {
 						"all":[],
 						"default":null
@@ -553,7 +564,7 @@ Meteor.methods({
 		})
 		//alert user of new message
 		Meteor.users.update(toUserId, {
-			$set:{'profile.newActivity':true}
+			$inc:{'profile.newActivity.messages':1}
 		});
 	},
 	sendWink:function(fromUserId, toUserId){
@@ -565,7 +576,7 @@ Meteor.methods({
 		});
 		//alert user of new wink
 		Meteor.users.update(toUserId, {
-			$set:{'profile.newActivity':true}
+			$inc:{'profile.newActivity.winks':1}
 		});
 	},
 	reportUser:function(fromUserId, toUserId){
@@ -612,7 +623,7 @@ Meteor.methods({
 			$push: {"messages":{"fromUserId":fromUser, "body":messageBody}}
 		})
 		Meteor.users.update(toUserId, {
-			$set:{"profile.newActivity":true}
+			$inc:{"profile.newActivity.messages":1}
 		})
 	}
 	// getAllMessages:function(userId){
