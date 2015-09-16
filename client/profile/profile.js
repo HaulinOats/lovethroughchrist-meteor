@@ -27,13 +27,19 @@ Template.user_profile.events({
 				alert('Wink Sent!');
 		});
 	},
-	'click .profile-message-container button':function(event){
-		var message = $(event.currentTarget).siblings('textarea').val();
-		if (message.length < 1 || message !== "") {
-			Meteor.call("newMessage", Meteor.userId(), event.currentTarget.attributes.userid.value, message, function(err, result){
+	'click .profile-message-container button, keypress .profile-message-container textarea':function(event){
+		var message = null;
+		if (event.type === "click")
+			message = $(event.currentTarget).siblings('textarea').val();
+		else {
+			if (event.which === 13)
+				message = event.currentTarget.value;
+		}
+		if (message && message.length > 0) {
+			Meteor.call("newMessage", Meteor.userId(), $('.profile-message-container').attr('data-user-id'), message, function(err, result){
 				if (!err){
-					alert('Message Sent!')
 					$('.profile-message-container').removeClass('show-message');
+					alert('Message Sent!');
 				}
 			});
 		}
