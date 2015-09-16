@@ -220,3 +220,11 @@ Template.registerHelper("isCurrentUser", function(userId){
 Template.registerHelper('isNewActivity', function(){
 	return Session.get('isNewActivity');
 });
+Template.registerHelper('notificationType', function(){
+	if (Meteor.user().profile.newActivity.type){
+		if (Meteor.user().profile.newActivity.type === "message")
+			return 'Message';
+		else
+			return 'Wink';
+	}
+});

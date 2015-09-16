@@ -7,9 +7,9 @@
 	<div class="ltc_tooltip_popup">
 		<p>Here is some tooltip text to help the user understand how something works</p>
 	</div>
-	<div class="ltc_notification_popup_outer {{#if currentUser.profile.newActivity.newNotification}}notification_popup_animation{{/if}}">
+	<div class="ltc_notification_popup_outer {{#if currentUser.profile.newActivity.type}}notification_popup_animation{{/if}}">
 		<div class="ltc_notification_popup_inner">
-			<p>Here's a notification</p>
+			<p><a class="ltc_notification_popup_link" href="/activity">New {{notificationType}}</a></p>
 		</div>
 	</div>
 </body>

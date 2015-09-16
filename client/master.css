@@ -145,6 +145,10 @@ select{
 .ltc_notification_popup_inner p{
 	margin-top:5px;
 }
+.ltc_notification_popup_link {
+	text-decoration: none;
+	color:white;
+}
 .notification_popup_animation {
   -moz-animation-duration: 8s;
   -webkit-animation-duration: 8s;

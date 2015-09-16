@@ -107,6 +107,9 @@ Template.activity_page.events({
 });
 Template.activity_page.rendered = function(){
 	Session.set('isNewActivity', false);
+	Meteor.call('notificationSent', Meteor.userId())
+}
+Template.message_single_page.rendered = function(){
 	setTimeout(function(){
 		$('.message_single_messages_container')[0].scrollTop = $('.message_single_messages_container')[0].scrollHeight;
 	}, 500);

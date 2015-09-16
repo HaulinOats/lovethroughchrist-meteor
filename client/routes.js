@@ -70,18 +70,13 @@ Router.route('/admin', {
 //Router Pre-Hook
 Router.onBeforeAction(function () {
   if (!Meteor.userId()){
-    Router.go('');
+    Router.go('/');
     this.next();
   } else {
   	//Check last online
     if (Meteor.user()) {
         console.log('Current User:')
       	console.log(Meteor.user());
-        console.log('Rough User Object Size (in bytes):');
-        console.log(roughSizeOfObject(Meteor.user()));
-      //when message or wink received
-      if (Meteor.user().profile.newActivity.newNotification)
-        Meteor.call('notificationSent', Meteor.userId())
 
       //show new activity notification
       if (Meteor.user().profile.newActivity.winks > 0 || Meteor.user().profile.newActivity.messages > 0) {
@@ -95,37 +90,3 @@ Router.onBeforeAction(function () {
     this.next();
   }
 });
-
-function roughSizeOfObject( object ) {
-
-    var objectList = [];
-    var stack = [ object ];
-    var bytes = 0;
-
-    while ( stack.length ) {
-        var value = stack.pop();
-
-        if ( typeof value === 'boolean' ) {
-            bytes += 4;
-        }
-        else if ( typeof value === 'string' ) {
-            bytes += value.length * 2;
-        }
-        else if ( typeof value === 'number' ) {
-            bytes += 8;
-        }
-        else if
-        (
-            typeof value === 'object'
-            && objectList.indexOf( value ) === -1
-        )
-        {
-            objectList.push( value );
-
-            for( var i in value ) {
-                stack.push( value[ i ] );
-            }
-        }
-    }
-    return bytes;
-}

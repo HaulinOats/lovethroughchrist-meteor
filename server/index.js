@@ -45,7 +45,7 @@ Meteor.methods({
 	},
 	notificationSent:function(userId){
 		Meteor.users.update(userId, {
-			$set:{"profile.newActivity.newNotification":false}
+			$set:{"profile.newActivity.type":null}
 		})
 	},
 	//Admin
@@ -108,7 +108,7 @@ Meteor.methods({
 					"newActivity":{
 						"messages":0,
 						"winks":0,
-						"newNotification":false
+						"type":null
 					},
 					"images": {
 						"all":[],
@@ -208,6 +208,9 @@ Meteor.methods({
 				}]
 			});
 		}
+		Meteor.users.update(userId, {
+			$set:{'profile.newActivity.type':"message"}
+		})
 	},
 
 	//Login
@@ -247,7 +250,7 @@ Meteor.methods({
 					"newActivity":{
 						"messages":0,
 						"winks":0,
-						"newNotification":false
+						"type":null
 					},
 					"images": {
 						"all":[],
@@ -568,7 +571,8 @@ Meteor.methods({
 		})
 		//alert user of new message
 		Meteor.users.update(toUserId, {
-			$inc:{'profile.newActivity.messages':1}
+			$inc:{'profile.newActivity.messages':1},
+			$set:{'profile.newActivity.type':"message"}
 		});
 	},
 	sendWink:function(fromUserId, toUserId){
@@ -580,7 +584,8 @@ Meteor.methods({
 		});
 		//alert user of new wink
 		Meteor.users.update(toUserId, {
-			$inc:{'profile.newActivity.winks':1}
+			$inc:{'profile.newActivity.winks':1},
+			$set:{'profile.newActivity.type':"wink"}
 		});
 	},
 	reportUser:function(fromUserId, toUserId){
@@ -627,7 +632,8 @@ Meteor.methods({
 			$push: {"messages":{"fromUserId":fromUser, "body":messageBody}}
 		})
 		Meteor.users.update(toUserId, {
-			$inc:{"profile.newActivity.messages":1}
+			$inc:{"profile.newActivity.messages":1},
+			$set:{'profile.newActivity.type':"message"}
 		})
 	}
 	// getAllMessages:function(userId){
