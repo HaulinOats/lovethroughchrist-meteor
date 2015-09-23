@@ -49,9 +49,8 @@ Template.account_page.events({
 		else
 			alert('Must Set Zipcode');
 	},
-	'click .textarea-outer-container button':function(event){
-		var $textArea = $(event.currentTarget).siblings('textarea'),
-			textAreaVal = $textArea.val(),
+	'blur .textarea-outer-container textarea':function(event){
+		var textAreaVal = $(event.currentTarget).val(),
 			fieldName   = $(event.currentTarget).attr('data-fieldname');
 		Meteor.call('infoTextAreaSave', Meteor.userId(), fieldName, textAreaVal);
 	},

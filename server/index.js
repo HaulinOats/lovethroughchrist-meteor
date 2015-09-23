@@ -48,6 +48,11 @@ Meteor.methods({
 			$set:{"profile.newActivity.type":null}
 		})
 	},
+	unsetFirstLogin:function(userId){
+		Meteor.users.update(userId, {
+			$unset:{'profile.firstLogin':""}
+		})
+	},
 	//Admin
 	seedUsers:function(){
 		function randomIntFromInterval(min,max){return Math.floor(Math.random()*(max-min+1)+min);}
@@ -238,6 +243,7 @@ Meteor.methods({
 		Meteor.users.update(userId, {
 			$set: { 
 				"profile": {
+					"firstLogin":true,
 					"bio":"",
 					"favoriteQuote":"",
 					"biblePassage":"",
@@ -327,7 +333,8 @@ Meteor.methods({
 				'profile.city':result[0].city,
 				'profile.state':result[0].state,
 				'profile.latitude':result[0].latitude,
-				'profile.longitude':result[0].longitude
+				'profile.longitude':result[0].longitude,
+				'profile.searchable':true
 			}
 		});
 	},
@@ -517,6 +524,7 @@ Meteor.methods({
 				myLong = user.profile.longitude,
 				foundUsers = Meteor.users.find({
 				"_id":{$ne:userId},
+				"profile.searchable":true,
 				"profile.gender":{$in:prefObj.gender},
 				"profile.denomination":{$in:prefObj.denomination},
 				"profile.politicalParty":{$in:prefObj.politicalParty},

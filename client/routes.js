@@ -6,6 +6,9 @@ Router.configure({
 Router.route('/', {
   template:'home_page'
 });
+Router.route('/intro', {
+  template:'intro_page'
+});
 Router.route('/my-account', {
   template:'account_page'
 });
@@ -19,8 +22,13 @@ Router.route('/search', {
     if (Meteor.userId()){
       Meteor.call('searchInit', Meteor.userId(), 0, function(err, result){
         if (!err){
-          Session.set('searchUsers', result);
-          Session.set('searchSkip', 20);
+          if (result.length < 20) {
+            $('.search_load_more').hide();
+            $('.search_end').show();
+          } else {
+            Session.set('searchUsers', result);
+            Session.set('searchSkip', 20);
+          }
         }
       })
     }
@@ -86,6 +94,9 @@ Router.onBeforeAction(function () {
       //if more than 15 minutes since time 'lastOnline' was set
     	if ((Date.now() - Meteor.user().profile.lastOnline) > 900000)
     		Meteor.call('setLastOnline', Meteor.userId());
+      //if first time logging in, take user to tutorial page
+      if (Meteor.user().profile.firstLogin)
+        Router.go('/intro')
   	}
     this.next();
   }

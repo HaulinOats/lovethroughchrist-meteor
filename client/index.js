@@ -30,6 +30,33 @@ var tooltips = {
 	"videos":"Click the button below to search through Facebook videos.  Click a video to add it to your profile.  Once added, click the 'X' icon in the upper right to remove video from profile.",
 	"zipcode":"Enter the 5 digit zipcode of where you would like meet users.  We will automatically get your hometown coordinates and populate the 'city' and 'state' fields.  You may change them to be more accurate, if desired."
 }
+var introSlides = {
+	"1": {
+		"header":"Account Page",
+		"text":"All the information on your profile is saved on the fly.  Simply enter a valid 5-digit zipcode to begin searching.  You may add images and videos from Facebook by cliking on the 'photos' or 'videos' tabs and clicking the 'search' button.",
+		"imageUrl":"/intro_page_1.jpg"
+	},
+	"2": {
+		"header":"Search Page",
+		"text":"You will see all users within your specified search distance whom match your preferences.  Update the information in the 'Preferences' tab if you have specific traits you are looking for.",
+		"imageUrl":"/intro_page_2.jpg"
+	},
+	"3": {
+		"header":"Profile Page",
+		"text":"Clicking a user's profile on the Search page or clicking 'My Profile' will take you to the Profile page.  You can message, wink at, or add users to your favorites list as well as click on their picture to see more images (if they have more).",
+		"imageUrl":"/intro_page_3.jpg"
+	},
+	"4": {
+		"header":"Activity Page",
+		"text":"This is where you can find all your messages, winks, and saved favorite profiles.  New activity will show a popup in the bottom right corner of the screen as well as change the icon next to the 'Activity' link in the top menu.",
+		"imageUrl":"/intro_page_4.jpg"
+	},
+	"5": {
+		"header":"Happy Dating!",
+		"text":"Please be courteous and respectful.  Enjoy the site!",
+		"imageUrl":"/intro_page_5.jpg"
+	}
+}
 
 //Preferences
 var accountInputTimeout;
@@ -72,6 +99,32 @@ Template.preferences.events({
 		Meteor.call('prefEthnicityCheckbox', Meteor.userId(), event.currentTarget.attributes.optionindex.value, $(event.currentTarget).find('input')[0].checked);
 	}
 });
+
+//intro page
+Template.intro_page.helpers({
+	unsetFirstLogin:function(){
+		Meteor.call('unsetFirstLogin', Meteor.userId());
+	}
+})
+Template.intro_page.events({
+	'click .ltc_intro_next':function(event){
+		var slideIndex = parseInt($(event.currentTarget).attr('data-slide-index'));
+		if (slideIndex < 6) {
+			$('.intro_page_features_outer').addClass('intro_page_fadeOut');
+			setTimeout(function(){
+				$('.intro_page_features_outer').css('background-image', 'url('+ introSlides[slideIndex].imageUrl +')');
+				$('.intro_page_outer h2').text(introSlides[slideIndex].header);
+				$('.intro_pointers_top').text(introSlides[slideIndex].text);
+				$(event.currentTarget).attr('data-slide-index', slideIndex + 1)
+				$('.intro_page_features_outer').removeClass('intro_page_fadeOut');
+			}, 1000)
+		} else {
+			$(event.currentTarget).html('').append('<a href="/my-account">Go To Profile</a>');
+		}
+	}
+});
+
+//Body
 Template.body.events({
   "mouseenter .ltc_tooltip, mouseleave .ltc_tooltip": function(e, data, tpl) {
   	switch(e.type){
@@ -83,4 +136,4 @@ Template.body.events({
   			break;
   	}
   }
-})
+});

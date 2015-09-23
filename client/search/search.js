@@ -14,8 +14,13 @@ Template.search_page.events({
 	  $('.search_end').hide();
       Meteor.call('searchInit', Meteor.userId(), 0, function(err, result){
         if (!err){
-          Session.set('searchUsers', result);
-          Session.set('searchSkip', 20);
+          if(result.length < 20) {
+          	$('.search_load_more').hide();
+			$('.search_end').show();
+          } else {
+	        Session.set('searchUsers', result);
+	        Session.set('searchSkip', 20);
+	      }
         }
       })
 	},
