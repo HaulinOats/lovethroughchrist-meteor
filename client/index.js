@@ -33,7 +33,7 @@ var tooltips = {
 var introSlides = {
 	"1": {
 		"header":"Account Page",
-		"text":"All the information on your profile is saved on the fly.  Simply enter a valid 5-digit zipcode to begin searching.  You may add images and videos from Facebook by cliking on the 'photos' or 'videos' tabs and clicking the 'search' button.",
+		"text":"All the information on your profile is saved on the fly.  Simply enter a valid 5-digit zipcode to begin searching.  You may add images and videos from Facebook by clicking on the 'photos' or 'videos' tabs and clicking the 'search' button.",
 		"imageUrl":"/intro_page_1.jpg"
 	},
 	"2": {
@@ -117,9 +117,9 @@ Template.intro_page.events({
 				$('.intro_pointers_top').text(introSlides[slideIndex].text);
 				$(event.currentTarget).attr('data-slide-index', slideIndex + 1)
 				$('.intro_page_features_outer').removeClass('intro_page_fadeOut');
+				if (slideIndex === 5)
+					$(event.currentTarget).html('').append('<a href="/my-account">Go To Profile</a>');
 			}, 1000)
-		} else {
-			$(event.currentTarget).html('').append('<a href="/my-account">Go To Profile</a>');
 		}
 	}
 });
