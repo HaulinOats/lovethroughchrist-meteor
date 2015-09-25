@@ -278,7 +278,7 @@ Meteor.methods({
 					"birthdate":{
 						"month":0,
 						"day":1,
-						"year":1915
+						"year":1920
 					},
 					"language":0,
 					"bodyType":0,

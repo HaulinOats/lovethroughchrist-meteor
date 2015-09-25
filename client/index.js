@@ -28,7 +28,8 @@ var tooltips = {
 	"searchable":"Allows your profile to be discovered by other users.  You must first set a zipcode before you can become searchable.",
 	"photos":"Click the button below to search through Facebook photos.  Click on a photo and confirm to add to profile.  Once added, click the star icon to make that photo your default.  Click the 'X' icon to remove photo from profile.",
 	"videos":"Click the button below to search through Facebook videos.  Click a video to add it to your profile.  Once added, click the 'X' icon in the upper right to remove video from profile.",
-	"zipcode":"Enter the 5 digit zipcode of where you would like meet users.  We will automatically get your hometown coordinates and populate the 'city' and 'state' fields.  You may change them to be more accurate, if desired."
+	"zipcode":"Enter the 5 digit zipcode of where you would like meet users.  We will automatically get your hometown coordinates and populate the 'city' and 'state' fields.  You may change them to be more accurate, if desired.",
+	"testimonial":"Select a friend and leave a testimonial to help them out.  Talk about a time when they helped you out when you were in a bind, or just embelish on the positive aspects of their character.  Pass on the some good karma."
 }
 var introSlides = {
 	"1": {

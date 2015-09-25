@@ -164,8 +164,29 @@ Template.account_page.events({
 			Meteor.call('makeDefaultImage', Meteor.userId(),$(event.currentTarget).attr('data-image-url'));
 	},
 	'click .account_friends_tab':function(event){
+		$('.testimonial_container_outer').html('');
+		var friends = [];
 		FB.api("/me/friends", function(friendData){
-			console.log(friendData);
+			for (var i = 0; i < friendData.data.length;i++)
+				$('.testimonial_container_outer').append("<a class='testimonial_friend_link' data-fbid='"+ friendData.data[i].id +"'>"+ friendData.data[i].name +"</a>")
+			if (friendData.data.length > 19)
+				$('.testimonial_container_outer').append('<button class="ltc_button testimonial_load_more_friends" data-paging="'+ friendData.paging.next +'">Load More</button>')
+			else
+				$('.testimonial_load_more_friends').hide();
 		})
+	},
+	'click .testimonial_load_more_friends':function(event){
+		$.ajax({
+		  url: $('.testimonial_container_outer').attr('data-paging'),
+		  method:"GET"
+		}).done(function(json) {
+			console.log(json);
+			if (json.paging.next)
+		  		$('.testimonial_load_more_friends').attr('data-paging', json.paging.next);
+		  	else
+		  		$('.testimonial_load_more_friends').hide();
+			for (var i = 0; i < json.data.length; i++)
+		  		$('.testimonial_load_more_friends').before("<a data-fbid='"+ json.data[i].id +"'>"+ json.data[i].name +"</a>")
+		});
 	}
 });
