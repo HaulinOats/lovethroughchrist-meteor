@@ -111,7 +111,7 @@ Template.activity_page.rendered = function(){
 }
 Template.message_single_page.rendered = function(){
 	setTimeout(function(){
-		$('.message_single_messages_container')[0].scrollTop = $('.message_single_messages_container')[0].scrollHeight;
+		$('.message_single_messages_container')[0].scrollTop = $('.message_single_messages_container')[0].scrollHeight + 1000;
 	}, 500);
 }
 
@@ -149,7 +149,7 @@ Template.message_single_page.events({
 				Meteor.call('singleMessageReply', Session.get('singleMessageId'), Meteor.userId(),strip($('.message_single_reply_container_inner').html()), otherUser._id, function(err, result){
 					if (!err){
 						$('.message_single_reply_container_inner').html('');
-						setTimeout(function(){$('.message_single_messages_container')[0].scrollTop = $('.message_single_messages_container')[0].scrollHeight;}, 250)
+						setTimeout(function(){$('.message_single_messages_container')[0].scrollTop = $('.message_single_messages_container')[0].scrollHeight + 1000;}, 250)
 					}
 				});
 			}

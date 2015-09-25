@@ -19,15 +19,17 @@ Router.route('/search', {
   template:'search_page',
   onBeforeAction:function(){
     delete Session.keys['searchUsers','searchSkip'];
-    if (Meteor.userId()){
+    if (Meteor.user()){
       Meteor.call('searchInit', Meteor.userId(), 0, function(err, result){
         if (!err){
-          if (result.length < 20) {
-            $('.search_load_more').hide();
-            $('.search_end').show();
-          } else {
-            Session.set('searchUsers', result);
-            Session.set('searchSkip', 20);
+          if (result){
+            if (result.length < 20) {
+              $('.search_load_more').hide();
+              $('.search_end').show();
+            } else {
+              Session.set('searchUsers', result);
+              Session.set('searchSkip', 20);
+            }
           }
         }
       })

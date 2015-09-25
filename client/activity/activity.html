@@ -105,6 +105,7 @@
 	<div class="message_single_messages_container">
 	{{setOtherUser this}}
 		{{#each this.messages}}
+			<div class="message_single_profile_pic" style="background-image:url({{#if isCurrentUser this.fromUserId}}{{getDefaultImage currentUser.profile.images}}{{else}}{{#with getOtherUser}}{{getDefaultImage this.profile.images}}{{/with}}{{/if}})"></div>
 			<h3>{{#if isCurrentUser this.fromUserId}}Me{{else}}{{#with getOtherUser}}<a href="/search/{{this._id}}" target="_blank">{{this.profile.name.first}}</a>{{/with}}{{/if}}</h3>
 			<p>{{this.body}}</p>
 		{{/each}}

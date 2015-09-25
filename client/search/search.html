@@ -1,35 +1,39 @@
 <template name="search_page">
 	<h2>Search</h2>
-	<ul class="nav nav-tabs">
-		<li class="active search_tab"><a data-toggle="tab" href="#search"><i class="fa fa-search"></i> Search</a></li>
-		<li><a data-toggle="tab" href="#pref"><i class="fa fa-thumbs-o-up"></i> Preferences</a></li>
-	</ul>
-	<div class="tab-content col-xs-12">
-		<!-- INFO -->
-		<div class="tab-pane fade active in" id="search">
-			{{#each getSearchUsers}}
-				<div class="search_page_single_user_outer col-xs-12" userid="{{this._id}}">
-					<div class="search_page_single_user_inner_left col-xs-4 col-sm-3" style="background-image:url('{{getDefaultImage this.profile.images}}')">
-					</div>
-					<div class="search_page_single_user_inner_right col-xs-8 col-sm-9">
-						<div class="search_page_title_bar">
-							<h2>{{#if isMale this.profile.gender}}<i class="fa fa-mars"></i>{{else}}<i class="fa fa-venus"></i>{{/if}} {{this.profile.name.first}} <!-- {{this.profile.name.last}}  -->- {{calculateAge this.profile.birthdate}}</h2>
-							<p class="search_page_cityState"><i>{{this.profile.city}}, {{this.profile.state}}</i></p>
+	{{#if currentUser.profile.zipcode}}
+		<ul class="nav nav-tabs">
+			<li class="active search_tab"><a data-toggle="tab" href="#search"><i class="fa fa-search"></i> Search</a></li>
+			<li><a data-toggle="tab" href="#pref"><i class="fa fa-thumbs-o-up"></i> Preferences</a></li>
+		</ul>
+		<div class="tab-content col-xs-12">
+			<!-- INFO -->
+			<div class="tab-pane fade active in" id="search">
+				{{#each getSearchUsers}}
+					<div class="search_page_single_user_outer col-xs-12" userid="{{this._id}}">
+						<div class="search_page_single_user_inner_left col-xs-4 col-sm-3" style="background-image:url('{{getDefaultImage this.profile.images}}')">
 						</div>
-						<p class="search_page_lastOnline"><b>Last Online: </b>{{daysSinceLastOnline this.profile.lastOnline}}</p>
-						<p class="search_page_quote"><i>{{this.profile.favoriteQuote}}</i></p>
-						<p class="search_page_bio">{{this.profile.bio}}</p>
+						<div class="search_page_single_user_inner_right col-xs-8 col-sm-9">
+							<div class="search_page_title_bar">
+								<h2>{{#if isMale this.profile.gender}}<i class="fa fa-mars"></i>{{else}}<i class="fa fa-venus"></i>{{/if}} {{this.profile.name.first}} <!-- {{this.profile.name.last}}  -->- {{calculateAge this.profile.birthdate}}</h2>
+								<p class="search_page_cityState"><i>{{this.profile.city}}, {{this.profile.state}}</i></p>
+							</div>
+							<p class="search_page_lastOnline"><b>Last Online: </b>{{daysSinceLastOnline this.profile.lastOnline}}</p>
+							<p class="search_page_quote"><i>{{this.profile.favoriteQuote}}</i></p>
+							<p class="search_page_bio">{{this.profile.bio}}</p>
+						</div>
+					<div class="clearfix"></div>
 					</div>
-				<div class="clearfix"></div>
-				</div>
-				<hr>
-			{{/each}}
-			<div class="col-xs-12 search_load_more pull-right"><p>Load More</p><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
-			<p class="search_end">End of Search</p>
+					<hr>
+				{{/each}}
+				<div class="col-xs-12 search_load_more pull-right"><p>Load More</p><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+				<p class="search_end">End of Search</p>
+			</div>
+			<!-- PREFERENCES -->
+			<div class="tab-pane fade" id="pref">
+				{{>preferences}}
+			</div>
 		</div>
-		<!-- PREFERENCES -->
-		<div class="tab-pane fade" id="pref">
-			{{>preferences}}
-		</div>
-	</div>
+	{{else}}
+		<p class="search_page_denied"><i>Must enter a valid zipcode on <a href="/my-account">Account page</a> to begin searching</i></p>
+	{{/if}}
 </template>
