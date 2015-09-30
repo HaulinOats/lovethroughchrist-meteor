@@ -167,3 +167,41 @@
   font-size:22px;
   cursor:pointer;
 }
+.testimonial_popup_outer {
+  display:none;
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.5);
+}
+.testimonial_popup_inner {
+  position: absolute;
+  width:70%;
+  height:80%;
+  background: white;
+  border-radius: 10px;
+  left:15%;
+  top:10%;
+  padding:1%;
+}
+.close_testimonial_popup {
+  float:right;
+  font-size:30px;
+}
+.testimonial_popup_name {
+  font-size:24px;
+}
+.testimonial_popup_textarea {
+  height:80%;
+  width:100%;
+}
+.testimonial_friend_link {
+      padding: 10px;
+    background: cadetblue;
+    color: white;
+    float: left;
+    margin: 10px;
+    border-radius: 5px;
+}

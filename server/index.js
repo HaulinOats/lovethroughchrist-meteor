@@ -153,6 +153,7 @@ Meteor.methods({
 					"politicalParty":politicalParty,
 					"beenMarried":married,
 					"searchable":true,
+					"testimonials":[],
 					"report":{
 						"from":[],
 						"to":[]
@@ -296,6 +297,7 @@ Meteor.methods({
 					"politicalParty":0,
 					"beenMarried":0,
 					"searchable":false,
+					"testimonials":[],
 					"report":{
 						"from":[],
 						"to":[]
@@ -464,6 +466,39 @@ Meteor.methods({
 		Meteor.users.update(userId,{
 			$set:{ "profile.images.default":imageUrl}
 		})
+	},
+	getUserByFbId:function(fbId){
+		return Meteor.users.find({'profile.fbId':fbId}).fetch()[0];
+	},
+	submitTestimonial:function(fromId, toId, testimonial){
+		var user = Meteor.users.find(toId).fetch()[0].profile,
+			testExists = false;
+
+		//check if user already left testimonial, update it if so
+		for (var i = 0; i < user.testimonials.length; i++) {
+			if (user.testimonials[i].from === fromId){
+				testExists = true;
+				user.testimonials[i].body = testimonial;
+				user.testimonials[i].approved = false;
+			}
+		}
+
+		switch (testExists){
+			case true:
+				Meteor.users.update(toId, {
+					$set:{'profile.testimonials':user.testimonials}
+				})
+				break;
+			case false:
+				Meteor.users.update(toId, {
+					$push:{'profile.testimonials':{
+						'from':fromId,
+						'body':testimonial,
+						'approved':false
+					}}
+				})
+				break;
+		}
 	},
 
 	//Preference Search Page

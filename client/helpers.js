@@ -221,7 +221,7 @@ Template.registerHelper('isNewActivity', function(){
 	return Session.get('isNewActivity');
 });
 Template.registerHelper('notificationType', function(){
-	if (Meteor.user().profile.newActivity.type){
+	if (Meteor.user() && Meteor.user().profile.newActivity.type){
 		if (Meteor.user().profile.newActivity.type === "message")
 			return 'Message';
 		else

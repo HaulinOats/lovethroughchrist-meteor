@@ -17,6 +17,9 @@ Template.account_page.helpers({
 	        Session.set('allMessages', messages);
 	      }
 	    })
+	},
+	getTestimonialUser:function(){
+		return Session.get('testimonialUser');
 	}
 });
 
@@ -180,7 +183,6 @@ Template.account_page.events({
 		  url: $('.testimonial_container_outer').attr('data-paging'),
 		  method:"GET"
 		}).done(function(json) {
-			console.log(json);
 			if (json.paging.next)
 		  		$('.testimonial_load_more_friends').attr('data-paging', json.paging.next);
 		  	else
@@ -188,5 +190,26 @@ Template.account_page.events({
 			for (var i = 0; i < json.data.length; i++)
 		  		$('.testimonial_load_more_friends').before("<a data-fbid='"+ json.data[i].id +"'>"+ json.data[i].name +"</a>")
 		});
+	},
+	'click .testimonial_friend_link':function(event){
+		var fbId = $(event.currentTarget).attr('data-fbid');
+		$('.testimonial_popup_outer').show();
+		Meteor.call('getUserByFbId', fbId, function(err, result){
+			if (!err){
+				console.log(result);
+				Session.set('testimonialUser', result);
+			}
+		});
+	},
+	'click .testimonial_popup_inner':function(event){
+		event.stopPropagation();
+	},
+	'click .testimonial_popup_outer, click .close_testimonial_popup':function(event){
+		$('.testimonial_popup_outer').hide();
+	},
+	'click .submit_testimonial':function(event){
+		if (confirm("Submit Testimonial?")) {
+			Meteor.call('submitTestimonial', Meteor.userId(), $(event.currentTarget).attr('data-id'), $('.testimonial_popup_textarea').val());
+		}
 	}
 });
