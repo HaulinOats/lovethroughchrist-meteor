@@ -29,7 +29,7 @@ hr {
  	margin-top:10px;
 }
 .ltc_button:hover {
-	color:darkblue;
+	color:khaki;
 }
 .modal_showing {
 	display:block;
@@ -79,6 +79,9 @@ select{
 @keyframes loaderSpin {
 	from {transform:rotateY(0deg);}
 	to {transform:rotateY(360deg);}
+}
+.tab-content {
+	padding-top:10px;
 }
 /*Login Stuff*/
 #login-buttons {

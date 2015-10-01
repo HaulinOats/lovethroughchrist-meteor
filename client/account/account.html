@@ -271,29 +271,37 @@
 				<li class="active"><a data-toggle="tab" href="#sendTest"> Send</a></li>
 				<li><a data-toggle="tab" href="#fromTest"> From</a></li>
 			</ul>
-			<div class="tab-pane fade active in" id="sendTest">
-				<div class="testimonial_container_outer">
-				
-				</div>
-				<div class="testimonial_popup_outer">
-					<div class="testimonial_popup_inner">
-						<i class="glyphicon glyphicon-remove close_testimonial_popup"></i>
-						{{#with getTestimonialUser}}
-							<p class="testimonial_popup_name">{{this.profile.name.first}} {{this.profile.name.last}}</p>
-							<p>Explain why you think {{this.profile.name.first}} is awesome</p>
-							<textarea class="testimonial_popup_textarea"></textarea>
-							<button class="pull-right ltc_button submit_testimonial" data-id="{{this._id}}">Submit</button>
-						{{/with}}
+			<div class="tab-content col-xs-12">
+				<div class="tab-pane fade active in" id="sendTest">
+					<div class="testimonial_container_outer">
+					
+					</div>
+					<div class="testimonial_popup_outer">
+						<div class="testimonial_popup_inner">
+							<i class="glyphicon glyphicon-remove close_testimonial_popup"></i>
+							{{#with getTestimonialUser}}
+								<p class="testimonial_popup_name">{{this.profile.name.first}} {{this.profile.name.last}}</p>
+								<p>Explain why you think {{this.profile.name.first}} is awesome</p>
+								<textarea class="testimonial_popup_textarea"></textarea>
+								<button class="pull-right ltc_button submit_testimonial" data-id="{{this._id}}">Submit</button>
+							{{/with}}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="tab-pane fade" id="fromTest">
-				{{#each currentUser.profile.testimonials}}
-					<div class="from_testimonial_single">
-						<p>{{this.from}}</p>
-						<p>{{this.body}}</p>
-					</div>
-				{{/each}}
+				<div class="tab-pane fade" id="fromTest">
+					{{#each currentUser.profile.testimonials}}
+						<div class="col-xs-12 from_testimonial_single">
+							<div class="testimonial_approval_container">
+								{{#if this.approved}}<p class="testimonial_approved">Approved</p>{{else}}<p class="testimonial_pending">Pending Approval</p>{{/if}}
+								<span>Approve?</span>
+								<button class="ltc_button testimonial_approve" data-choice="yes" data-testIdx="{{@index}}">Yes</button>
+								<button class="ltc_button testimonial_approve" data-choice="no" data-testIdx="{{@index}}">No</button>
+							</div>
+							<p class="from_testimonial_single_name">{{this.name.first}} {{this.name.last}}</p>
+							<p class="from_testimonial_single_body">"{{this.body}}"</p>
+						</div>
+					{{/each}}
+				</div>
 			</div>
 		</div>
 	</div>

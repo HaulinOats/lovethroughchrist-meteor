@@ -157,6 +157,15 @@
 				{{/each}}
 			</div>
 		{{/if}}
+		{{#if arrayIsEmpty this.profile.testimonials}}
+			<h3>Testimonials <i class="fa fa-newspaper-o" aria-hidden="true"></i></h3>
+			{{#each this.profile.testimonials}}
+				<div class="col-xs-11 profile_testimonial_single_outer">
+					<p class="profile_testimonial_name">{{this.name.first}}</p>
+					<i class="profile_testimonial_body">"{{this.body}}"</i>
+				</div>
+			{{/each}}
+		{{/if}}
 	</div>
 	{{/with}}
 	</div>

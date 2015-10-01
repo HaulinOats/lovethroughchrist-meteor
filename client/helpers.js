@@ -213,6 +213,10 @@ Template.registerHelper("arrayExists", function(array){
 			return true;
 	}
 });
+Template.registerHelper("arrayIsEmpty", function(array){
+	if (array.length > 0)
+		return true;
+});
 Template.registerHelper("isCurrentUser", function(userId){
 	if (userId === Meteor.userId())
 		return true;

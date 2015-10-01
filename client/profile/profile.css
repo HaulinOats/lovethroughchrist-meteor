@@ -156,3 +156,17 @@
   margin-bottom: 10px;
   margin-right: 10px;
 }
+.profile_testimonial_single_outer {
+  background:cadetblue;
+  color:white;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  max-height: 250px;
+  overflow-y:scroll;
+}
+.profile_testimonial_name {
+  font-size:22px;
+}
+.profile_testimonial_body {
+  font-size:16px;
+}

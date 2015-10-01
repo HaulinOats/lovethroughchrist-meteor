@@ -470,7 +470,7 @@ Meteor.methods({
 	getUserByFbId:function(fbId){
 		return Meteor.users.find({'profile.fbId':fbId}).fetch()[0];
 	},
-	submitTestimonial:function(fromId, toId, testimonial){
+	submitTestimonial:function(fromId, fromName, toId, testimonial){
 		var user = Meteor.users.find(toId).fetch()[0].profile,
 			testExists = false;
 
@@ -493,12 +493,27 @@ Meteor.methods({
 				Meteor.users.update(toId, {
 					$push:{'profile.testimonials':{
 						'from':fromId,
+						'name':fromName,
 						'body':testimonial,
 						'approved':false
 					}}
 				})
 				break;
 		}
+	},
+	testimonialApproval:function(userId, choice, testIdx){
+		var profile = Meteor.users.find(userId).fetch()[0].profile;
+		switch(choice){
+			case "yes":
+				profile.testimonials[testIdx].approved = true;
+				break;
+			case "no":
+				profile.testimonials.splice(testIdx, 1);
+				break;
+		}
+		Meteor.users.update(userId, {
+			$set:{'profile.testimonials':profile.testimonials}
+		});
 	},
 
 	//Preference Search Page

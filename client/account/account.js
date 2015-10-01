@@ -209,7 +209,10 @@ Template.account_page.events({
 	},
 	'click .submit_testimonial':function(event){
 		if (confirm("Submit Testimonial?")) {
-			Meteor.call('submitTestimonial', Meteor.userId(), $(event.currentTarget).attr('data-id'), $('.testimonial_popup_textarea').val());
+			Meteor.call('submitTestimonial', Meteor.userId(), Meteor.user().profile.name, $(event.currentTarget).attr('data-id'), $('.testimonial_popup_textarea').val());
 		}
+	},
+	'click .testimonial_approve':function(event){
+		Meteor.call('testimonialApproval', Meteor.userId(), $(event.currentTarget).attr('data-choice'), $(event.currentTarget).attr('data-testIdx'));
 	}
 });
