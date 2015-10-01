@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 752 107.1" enable-background="new 0 0 752 107.1" xml:space="preserve">
+	 <style>
+	 	.ltc_text{font-family:'Oswald', sans-serif;fill:#E8BC4B}
+	 	tspan{fill:cadetblue}
+	 </style>
 <polygon fill="#5F9EA0" points="68.1,24.6 68.1,94.8 108.4,56.5 119.5,39.3 114.1,19.7 101.7,12 88.7,12 75.3,19.7 "/>
 <polygon fill="#E8BC4B" points="68.1,24.6 68.1,94.8 27.8,56.5 16.8,39.3 22.2,19.7 34.5,12 47.6,12 61,19.7 "/>
 <g>
@@ -26,5 +28,5 @@
 	</g>
 </g>
 <rect x="143" y="24.7" fill="none" width="610" height="66.5"/>
-<text transform="matrix(1 0 0 1 143 74.7611)" font-family="'Comfortaa'" font-size="64">LoveThroughChrist</text>
+<text transform="matrix(1 0 0 1 143 74.7611)" class="ltc_text" font-size="64">Love<tspan>Through</tspan>Christ</text>
 </svg>

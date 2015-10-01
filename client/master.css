@@ -1,5 +1,9 @@
 body {
 	padding-top:60px;
+	font-family: 'Open Sans', sans-serif !important;
+}
+h2, h3, h4, h5, h6 {
+	font-family: 'Oswald', sans-serif !important;
 }
 .spacer {
 	height:30px;

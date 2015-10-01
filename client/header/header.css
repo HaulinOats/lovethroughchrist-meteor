@@ -29,7 +29,13 @@
 #login-buttons-logout {
 	width:165px;
 }
-
+.main_logo_link:hover {
+	text-decoration: none;
+}
+.ltc_main_logo {
+	height: 48px;
+    margin-top: 7px;
+}
 /*Nav Bar*/
 .nav {
 	margin-top: 10px;
