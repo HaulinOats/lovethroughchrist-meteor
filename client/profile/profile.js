@@ -16,6 +16,7 @@ Template.user_profile.helpers({
 
 Template.user_profile.events({
 	'click .profile-message':function(event){
+		$('.testimonial_container').removeClass('show-testimonial')
 		if ($('.profile-message-container').hasClass('show-message'))
 			$('.profile-message-container').removeClass('show-message')
 		else
@@ -91,5 +92,30 @@ Template.user_profile.events({
 			if (!err)
 				alert('User saved!');
 		})
-	}
+	},
+	'click .testimonial_button':function(event){
+		$('.profile-message-container').removeClass('show-message')
+		if ($('.testimonial_container').hasClass('show-testimonial'))
+			$('.testimonial_container').removeClass('show-testimonial');
+		else
+			$('.testimonial_container').addClass('show-testimonial');
+	},
+	'click .testimonial_popup_inner':function(event){
+		event.stopPropagation();
+	},
+	'click .testimonial_popup_outer, click .close_testimonial_popup':function(event){
+		$('.testimonial_popup_outer').hide();
+	},
+	'click .submit_testimonial':function(event){
+		if ($('.testimonial_textarea').val() !== "") {
+			if (confirm("Submit Testimonial?")) {
+				Meteor.call('submitTestimonial', Meteor.userId(), Meteor.user().profile.name, $(event.currentTarget).attr('data-id'), $('.testimonial_textarea').val(), function(err, result){
+					if (!err){
+						$('.testimonial_container').removeClass('show-testimonial');
+						alert('testimonial sent!');
+					}
+				});
+			}
+		}
+	},
 })

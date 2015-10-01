@@ -1,6 +1,7 @@
 // Global router config
 Router.configure({
-  loadingTemplate: 'loading'
+  loadingTemplate:'loading',
+  trackPageView:true
 });
 
 Router.route('/', {
@@ -85,6 +86,19 @@ Router.onBeforeAction(function () {
   } else {
   	//Check last online
     if (Meteor.user()) {
+        //get Facebook login data
+        if (!Meteor.user().profile.fbId) {
+          FB.api("/me", function(fbData){
+            console.log(fbData);
+            Meteor.call('addUserFields', Meteor.userId(), fbData, function(err, result){
+              if (!err)
+                console.log('facebook info saved');
+              else
+                console.log('server error saving facebook info');
+            });
+          });
+        }
+
         console.log('Current User:')
       	console.log(Meteor.user());
 

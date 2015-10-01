@@ -232,3 +232,7 @@ Template.registerHelper('notificationType', function(){
 			return 'Wink';
 	}
 });
+Template.registerHelper('sameUser', function(checkId, currentUserId){
+	if (checkId === currentUserId)
+		return true;
+});

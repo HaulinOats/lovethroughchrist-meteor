@@ -1,6 +1,9 @@
 //Collections
 Messages = new Mongo.Collection("messages");
 
+//Init Google Analytics
+process.env.METEOR_SETTINGS = {"public":{"ga":{"id":"UA-32825440-2"}}};
+
 //Facebook SDK
 ServiceConfiguration.configurations.upsert(
   { service: "facebook" },

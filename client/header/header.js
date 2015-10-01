@@ -13,19 +13,6 @@ Template.header.events({
 		Meteor.loginWithFacebook({requestPermissions:['user_photos', 'user_videos']},function(err){
 			if (err)
 				throw new Meteor.Error("Facebook Login Failed");
-			else {
-				if (!Meteor.user().profile.email) {
-					FB.api("/me", function(fbData){
-						console.log(fbData);
-						Meteor.call('addUserFields', Meteor.userId(), fbData, function(err, result){
-							if (!err)
-								console.log('facebook info saved');
-							else
-								console.log('server error saving facebook info');
-						});
-		            });
-				}
-			}
 		});
 	},
 	'click .facebook-logout':function(event){

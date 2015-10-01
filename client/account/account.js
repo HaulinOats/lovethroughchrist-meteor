@@ -166,18 +166,18 @@ Template.account_page.events({
 		if (confirm("Make Default Photo?"))
 			Meteor.call('makeDefaultImage', Meteor.userId(),$(event.currentTarget).attr('data-image-url'));
 	},
-	'click .account_friends_tab':function(event){
-		$('.testimonial_container_outer').html('');
-		var friends = [];
-		FB.api("/me/friends", function(friendData){
-			for (var i = 0; i < friendData.data.length;i++)
-				$('.testimonial_container_outer').append("<a class='testimonial_friend_link' data-fbid='"+ friendData.data[i].id +"'>"+ friendData.data[i].name +"</a>")
-			if (friendData.data.length > 19)
-				$('.testimonial_container_outer').append('<button class="ltc_button testimonial_load_more_friends" data-paging="'+ friendData.paging.next +'">Load More</button>')
-			else
-				$('.testimonial_load_more_friends').hide();
-		})
-	},
+	// 'click .account_friends_tab':function(event){
+	// 	$('.testimonial_container_outer').html('');
+	// 	var friends = [];
+	// 	FB.api("/me/friends", function(friendData){
+	// 		for (var i = 0; i < friendData.data.length;i++)
+	// 			$('.testimonial_container_outer').append("<a class='testimonial_friend_link' data-fbid='"+ friendData.data[i].id +"'>"+ friendData.data[i].name +"</a>")
+	// 		if (friendData.data.length > 19)
+	// 			$('.testimonial_container_outer').append('<button class="ltc_button testimonial_load_more_friends" data-paging="'+ friendData.paging.next +'">Load More</button>')
+	// 		else
+	// 			$('.testimonial_load_more_friends').hide();
+	// 	})
+	// },
 	'click .testimonial_load_more_friends':function(event){
 		$.ajax({
 		  url: $('.testimonial_container_outer').attr('data-paging'),
@@ -191,28 +191,7 @@ Template.account_page.events({
 		  		$('.testimonial_load_more_friends').before("<a data-fbid='"+ json.data[i].id +"'>"+ json.data[i].name +"</a>")
 		});
 	},
-	'click .testimonial_friend_link':function(event){
-		var fbId = $(event.currentTarget).attr('data-fbid');
-		$('.testimonial_popup_outer').show();
-		Meteor.call('getUserByFbId', fbId, function(err, result){
-			if (!err){
-				console.log(result);
-				Session.set('testimonialUser', result);
-			}
-		});
-	},
-	'click .testimonial_popup_inner':function(event){
-		event.stopPropagation();
-	},
-	'click .testimonial_popup_outer, click .close_testimonial_popup':function(event){
-		$('.testimonial_popup_outer').hide();
-	},
-	'click .submit_testimonial':function(event){
-		if (confirm("Submit Testimonial?")) {
-			Meteor.call('submitTestimonial', Meteor.userId(), Meteor.user().profile.name, $(event.currentTarget).attr('data-id'), $('.testimonial_popup_textarea').val());
-		}
-	},
-	'click .testimonial_approve':function(event){
+	'click .testimonial_approve, click .testimonial_delete':function(event){
 		Meteor.call('testimonialApproval', Meteor.userId(), $(event.currentTarget).attr('data-choice'), $(event.currentTarget).attr('data-testIdx'));
 	}
 });
