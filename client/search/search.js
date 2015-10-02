@@ -9,18 +9,16 @@ Template.search_page.events({
 		window.open('/search/' + event.currentTarget.attributes.userid.value);
 	},
 	'click .search_tab':function(){
-	  delete Session.keys['searchUsers','searchSkip'];
 	  $('.search_load_more').show();
 	  $('.search_end').hide();
       Meteor.call('searchInit', Meteor.userId(), 0, function(err, result){
         if (!err){
+	      Session.set('searchUsers', result);
+	      Session.set('searchSkip', 20);
           if(result.length < 20) {
           	$('.search_load_more').hide();
 			$('.search_end').show();
-          } else {
-	        Session.set('searchUsers', result);
-	        Session.set('searchSkip', 20);
-	      }
+          }
         }
       })
 	},

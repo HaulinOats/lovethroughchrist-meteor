@@ -21,7 +21,9 @@
 			<div class="col-xs-12 col-sm-6 profile-top-right-container">
 				<p class="profile-location">{{this.profile.city}}, {{this.profile.state}}</p>
 				<p class="profile-lastOnline"><b>Last Online: </b>{{daysSinceLastOnline this.profile.lastOnline}}</p>
-				<p class="profile-quote"><i>"{{this.profile.favoriteQuote}}"</i></p>
+				{{#unless isEmptyString this.profile.favoriteQuote}}
+					<p class="profile-quote"><i>"{{this.profile.favoriteQuote}}"</i></p>
+				{{/unless}}
 				<div class="profile-message-wink-cont">
 					<button class="profile-message ltc_button"><i class="glyphicon glyphicon-envelope"></i>Message</button>
 					<button class="profile-wink ltc_button" userid="{{this._id}}"><i class="fa fa-smile-o"></i>Wink</button>
@@ -154,7 +156,7 @@
 		<hr class="hr_normal">
 		{{#if videosExist this.profile.videos}}
 			<h3>My Videos <span class="glyphicon glyphicon-film" aria-hidden="true"></span></h3>
-			<div class="col-xs-12 profile-videos">
+			<div class="profile-videos">
 				{{#each this.profile.videos}}
 				<div class="col-xs-12 col-sm-6 col-md-3 account_page_profile_video_outer">
 					<video class="account_page_profile_video" preload="metadata" controls>
@@ -164,6 +166,7 @@
 				{{/each}}
 			</div>
 		{{/if}}
+		<hr class="hr_normal">
 		{{#if arrayIsEmpty this.profile.testimonials}}
 			<h3>Testimonials <i class="fa fa-newspaper-o" aria-hidden="true"></i></h3>
 			{{#each this.profile.testimonials}}

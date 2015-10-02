@@ -167,6 +167,11 @@
 .profile_testimonial_body {
   font-size:16px;
 }
+.profile-videos {
+  float:left;
+  margin:10px 0px;
+  width:100%;
+}
 .testimonial_container {
   -webkit-transition: .5s;
   -o-transition: .5s;

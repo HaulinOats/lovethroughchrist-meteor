@@ -10,11 +10,11 @@ ServiceConfiguration.configurations.upsert(
   {
     $set:{
       // Development
-      // appId: "485852571574726",
-      // secret: "d52ce297e2f71b55b175d9471eb6e9d4"
+      appId: "485852571574726",
+      secret: "d52ce297e2f71b55b175d9471eb6e9d4"
       //Meteor Site
-      appId:"289256867900965",
-      secret:"813b5631116afc377fe572435f7776ad"
+      // appId:"289256867900965",
+      // secret:"813b5631116afc377fe572435f7776ad"
     }
   }
 );
@@ -602,8 +602,9 @@ Meteor.methods({
 			//loop through found users and return those within specific distance
 			for (var i = 0, len = foundUsers.length; i < len; i++) {
 				if (foundUsers[i].profile.latitude){
-					if (user.profile.preferences.searchDistance >= distance(myLat, myLong, foundUsers[i].profile.latitude, foundUsers[i].profile.longitude))
+					if (user.profile.preferences.searchDistance >= distance(myLat, myLong, foundUsers[i].profile.latitude, foundUsers[i].profile.longitude)){
 						users.push(foundUsers[i]);
+					}
 				}
 			}
 

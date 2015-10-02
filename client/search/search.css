@@ -27,9 +27,11 @@
 	margin: 0;
     font-size: 26px;
     display: inline;
+    color:cadetblue;
 }
 .search_page_title_bar b {
 	font-size:22px;
+	color:#E8BC4B;
 }
 .search_page_title_bar i {
 	font-size:24px;

@@ -236,3 +236,7 @@ Template.registerHelper('sameUser', function(checkId, currentUserId){
 	if (checkId === currentUserId)
 		return true;
 });
+Template.registerHelper('isEmptyString', function(string){
+	if (string === "")
+		return true;
+});

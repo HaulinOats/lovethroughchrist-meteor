@@ -14,7 +14,7 @@
 						</div>
 						<div class="search_page_single_user_inner_right col-xs-8 col-sm-9">
 							<div class="search_page_title_bar">
-								<h2>{{#if isMale this.profile.gender}}<i class="fa fa-mars"></i>{{else}}<i class="fa fa-venus"></i>{{/if}} {{this.profile.name.first}} <!-- {{this.profile.name.last}}  -->- {{calculateAge this.profile.birthdate}}</h2>
+								<h2>{{#if isMale this.profile.gender}}<i class="fa fa-mars"></i>{{else}}<i class="fa fa-venus"></i>{{/if}} {{this.profile.name.first}} - <b>{{calculateAge this.profile.birthdate}}</b></h2>
 								<p class="search_page_cityState"><i>{{this.profile.city}}, {{this.profile.state}}</i></p>
 							</div>
 							<p class="search_page_lastOnline"><b>Last Online: </b>{{daysSinceLastOnline this.profile.lastOnline}}</p>
