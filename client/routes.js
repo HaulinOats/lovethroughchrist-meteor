@@ -5,7 +5,11 @@ Router.configure({
 });
 
 Router.route('/', {
-  template:'home_page'
+  template:'home_page',
+  onBeforeAction:function(){
+    analytics.page('Home');
+    this.next();
+  }
 });
 Router.route('/intro', {
   template:'intro_page',
@@ -15,14 +19,23 @@ Router.route('/intro', {
   }
 });
 Router.route('/my-account', {
-  template:'account_page'
+  template:'account_page',
+  onBeforeAction:function(){
+    analytics.page('Account');
+    this.next();
+  }
 });
 Router.route('/my-profile', {
-  template:'my_profile_page'
+  template:'my_profile_page',
+  onBeforeAction:function(){
+    analytics.page('Profile');
+    this.next();
+  }
 });
 Router.route('/search', {
   template:'search_page',
   onBeforeAction:function(){
+    analytics.page('Search');
     if (Meteor.user()){
       Meteor.call('searchInit', Meteor.userId(), 0, function(err, result){
         if (!err){
@@ -41,6 +54,7 @@ Router.route('/search', {
 Router.route('/search/:_id', {
   template:'user_profile',
   onBeforeAction:function(){
+    analytics.page('Search');
     if (Meteor.userId()){
       delete Session.keys['currentSearchUser'];
       Meteor.call('getSearchUser', this.params._id, function(err, result){
@@ -54,6 +68,10 @@ Router.route('/search/:_id', {
 });
 Router.route('/activity', {
   template:'activity_page',
+  onBeforeAction:function(){
+    analytics.page('Activity');
+    this.next();
+  },
   waitOn:function(){
     return [Meteor.subscribe("allUserMessages")];
   }
@@ -61,6 +79,7 @@ Router.route('/activity', {
 Router.route('/messages/:_id', {
   template:"message_single_page",
   onBeforeAction:function(){
+    analytics.page('Message');
     Session.set('singleMessageId', this.params._id);
     setTimeout(function(){$('.message_single_messages_container')[0].scrollTop = $('.message_single_messages_container')[0].scrollHeight;},1000);
     this.next();

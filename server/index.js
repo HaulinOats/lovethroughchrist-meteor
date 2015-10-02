@@ -1,8 +1,12 @@
 //Collections
 Messages = new Mongo.Collection("messages");
-
-//Init Google Analytics
-process.env.METEOR_SETTINGS = {"public":{"ga":{"id":"UA-32825440-2"}}};
+	
+//deny user updates from console
+Meteor.users.deny({
+  update: function() {
+    return true;
+  }
+});
 
 //Facebook SDK
 ServiceConfiguration.configurations.upsert(
@@ -10,11 +14,11 @@ ServiceConfiguration.configurations.upsert(
   {
     $set:{
       // Development
-      appId: "485852571574726",
-      secret: "d52ce297e2f71b55b175d9471eb6e9d4"
+      // appId: "485852571574726",
+      // secret: "d52ce297e2f71b55b175d9471eb6e9d4"
       //Meteor Site
-      // appId:"289256867900965",
-      // secret:"813b5631116afc377fe572435f7776ad"
+      appId:"289256867900965",
+      secret:"813b5631116afc377fe572435f7776ad"
     }
   }
 );
