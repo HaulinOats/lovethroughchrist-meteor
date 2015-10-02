@@ -25,7 +25,7 @@ Template.user_profile.events({
 	'click .profile-wink':function(event){
 		Meteor.call('sendWink', Meteor.userId(), event.currentTarget.attributes.userid.value, function(err, result){
 			if (!err)
-				alert('Wink Sent!');
+				$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('Wink Sent');
 		});
 	},
 	'click .profile-message-container button, keypress .profile-message-container textarea':function(event){
@@ -40,7 +40,7 @@ Template.user_profile.events({
 			Meteor.call("newMessage", Meteor.userId(), $('.profile-message-container').attr('data-user-id'), message, function(err, result){
 				if (!err){
 					$('.profile-message-container').removeClass('show-message');
-					alert('Message Sent!');
+					$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('Message Sent');
 				}
 			});
 		}
@@ -82,7 +82,7 @@ Template.user_profile.events({
 		if(confirm("This user will be blocked from you.  Is that okay?")){
 			Meteor.call('reportUser', Meteor.userId(), $(event.currentTarget).attr('data-userid'), function(err, result){
 				if (!err) {
-					alert('User reported.  Thank you!');
+					$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('User blocked and reported.  Thank you!');
 				}
 			})
 		}
@@ -90,7 +90,7 @@ Template.user_profile.events({
 	'click .profile-favorite':function(event){
 		Meteor.call('favoriteUser', Meteor.userId(), $(event.currentTarget).attr('data-userid'), function(err, result){
 			if (!err)
-				alert('User saved!');
+				$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('User Saved');
 		})
 	},
 	'click .testimonial_button':function(event){
@@ -112,7 +112,7 @@ Template.user_profile.events({
 				Meteor.call('submitTestimonial', Meteor.userId(), Meteor.user().profile.name, $(event.currentTarget).attr('data-id'), $('.testimonial_textarea').val(), function(err, result){
 					if (!err){
 						$('.testimonial_container').removeClass('show-testimonial');
-						alert('testimonial sent!');
+						$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('Testimonial Sent');
 					}
 				});
 			}

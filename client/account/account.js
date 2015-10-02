@@ -50,7 +50,7 @@ Template.account_page.events({
 		if (Meteor.user().profile.latitude && Meteor.user().profile.longitude)
 			Meteor.call('searchableSwitch', Meteor.userId());
 		else
-			alert('Must Set Zipcode');
+			$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('Must set a zipcode');
 	},
 	'blur .textarea-outer-container textarea':function(event){
 		var textAreaVal = $(event.currentTarget).val(),
@@ -141,7 +141,7 @@ Template.account_page.events({
 				Meteor.call('addProfileImage', Meteor.userId(), $(event.currentTarget).attr('data-image-url'));
 			}
 		} else
-		alert("12 Photo Maximum!");
+		$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('12 photo maximum');
 	},
 	'click .account_page_video_search_thumbnail':function(event){
 		if (Meteor.user().profile.videos.length < 11){
@@ -150,7 +150,7 @@ Template.account_page.events({
 			// }
 
 		} else
-			alert("12 Video Maximum!");
+			$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('12 video maximum');
 	},
 	'click .account_page_photos_current_single_remove':function(event){
 		if (confirm("Remove Profile Image?")){

@@ -130,5 +130,8 @@ Template.body.events({
   			$('.ltc_tooltip_popup').hide();
   			break;
   	}
+  },
+  'click .global_confirmation_modal_outer, click .global_confirmation_modal_confirm':function(events){
+  	$('.global_confirmation_modal_outer').removeClass('modal_showing');
   }
 });
