@@ -8,7 +8,11 @@ Router.route('/', {
   template:'home_page'
 });
 Router.route('/intro', {
-  template:'intro_page'
+  template:'intro_page',
+  onBeforeAction:function(){
+    Meteor.call('unsetFirstLogin', Meteor.userId());
+    this.next();
+  }
 });
 Router.route('/my-account', {
   template:'account_page'
@@ -78,7 +82,6 @@ Router.route('/admin', {
 Router.onBeforeAction(function () {
   if (!Meteor.userId()){
     Router.go('/');
-    this.next();
   } else {
   	//Check last online
     if (Meteor.user()) {
@@ -110,6 +113,6 @@ Router.onBeforeAction(function () {
       if (Meteor.user().profile.firstLogin)
         Router.go('/intro')
   	}
-    this.next();
   }
+  this.next();
 });
