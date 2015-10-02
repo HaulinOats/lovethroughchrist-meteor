@@ -4,9 +4,9 @@ Messages = new Mongo.Collection("messages");
 window.fbAsyncInit = function() {
 	FB.init({
 	  // Developer
-	  // appId		 : '485852571574726',
+	  appId		 : '485852571574726',
 	  // Meteor
-	  appId      : '289256867900965',
+	  // appId      : '289256867900965',
 	  status     : true,
 	  xfbml      : true,
 	  version    : "v2.3"
@@ -29,7 +29,7 @@ var tooltips = {
 	"photos":"Click the button below to search through Facebook photos.  Click on a photo and confirm to add to profile.  Once added, click the star icon to make that photo your default.  Click the 'X' icon to remove photo from profile.  Reload page if there is a problem with photos loading.",
 	"videos":"Click the button below to search through Facebook videos.  Click a video to add it to your profile.  Once added, click the 'X' icon in the upper right to remove video from profile.  Reload page if there is a problem with videos loading",
 	"zipcode":"Enter the 5 digit zipcode of where you would like meet users.  We will automatically get your hometown coordinates and populate the 'city' and 'state' fields.  You may change them to be more accurate, if desired.",
-	"testimonial":"Select a friend and leave a testimonial to help them out.  Talk about a time when they helped you out when you were in a bind, or just embelish on the positive aspects of their character.  Pass on the some good karma."
+	"testimonial":"This is where you'll find testimonials other users have left about you.  Approving will allow that testimonial to display on your profile."
 }
 var introSlides = {
 	"1": {
@@ -101,12 +101,6 @@ Template.preferences.events({
 	}
 });
 
-//intro page
-Template.intro_page.helpers({
-	unsetFirstLogin:function(){
-		Meteor.call('unsetFirstLogin', Meteor.userId());
-	}
-})
 Template.intro_page.events({
 	'click .ltc_intro_next':function(event){
 		var slideIndex = parseInt($(event.currentTarget).attr('data-slide-index'));
