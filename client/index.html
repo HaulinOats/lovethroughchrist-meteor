@@ -14,13 +14,19 @@
 			<p><a class="ltc_notification_popup_link" href="/activity">New {{notificationType}}</a></p>
 		</div>
 	</div>
+	{{> global_modal}}
+</body>
+
+<!-- Global Modal -->
+<template name="global_modal">
 	<div class="global_confirmation_modal_outer">
-		<div class="global_confirmation_modal_inner">
+		<div class="global_confirmation_modal_inner col-xs-10">
+			<i class="glyphicon glyphicon-remove close-global-modal"></i>
 			<p class="global_confirmation_modal_message">Default Message</p>
-			<button class="ltc_button global_confirmation_modal_confirm">OK</button>
+			<button class="ltc_button global_confirmation_modal_confirm" data-modal-type="default">OK</button>
 		</div>
 	</div>
-</body>
+</template>
 
 <!-- General Templates -->
 <template name="preferences">

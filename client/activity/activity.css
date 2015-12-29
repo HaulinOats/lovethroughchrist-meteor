@@ -53,6 +53,7 @@
   border-radius: 5px;
   box-shadow: inset 0px 0px 15px -3px;
   padding:10px;
+  background:rgba(173, 170, 77, 0.23) !important;
 }
 .single_message_send_reply {
 	    position: absolute;

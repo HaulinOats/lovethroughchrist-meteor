@@ -4,9 +4,9 @@ Messages = new Mongo.Collection("messages");
 window.fbAsyncInit = function() {
 	FB.init({
 	  // Developer
-	  appId		 : '485852571574726',
-	  // Meteor
-	  // appId      : '289256867900965',
+	  // appId		 : '485852571574726',
+	  // Production
+	  appId      : '289256867900965',
 	  status     : true,
 	  xfbml      : true,
 	  version    : "v2.3"
@@ -58,6 +58,43 @@ var introSlides = {
 		"imageUrl":"/intro_page_5.jpg"
 	}
 }
+
+modalHandler = {
+	"report": {
+		"message":"Report and block user?",
+		"confirm":"Confirm",
+		"response":"User has been reported and blocked.  They will no longer show up in search nor will they be able to message you.  Thank you!"
+	}
+}
+
+// Global Modal
+Template.global_modal.events({
+	'click .global_confirmation_modal_outer':function(event){
+		$(event.currentTarget).hide();
+	},
+	'click .close-global-modal':function(event){
+		$('.global_confirmation_modal_outer').hide();
+	},
+	'click .global_confirmation_modal_inner':function(event){
+		event.stopPropagation();
+	},
+	'click .global_confirmation_modal_confirm':function(event){
+		var modalType = $(event.currentTarget).data('modal-type');
+		switch(modalType){
+			case "report":
+				Meteor.call('reportUser', Meteor.userId(), $(event.currentTarget).attr('data-userid'), function(err, result){
+					if (!err) {
+						$('.global_confirmation_modal_message').text(modalHandler[modalType].response);
+						$('.global_confirmation_modal_confirm').html('OK').data('modal-type', 'default');
+					}
+				})
+				break;
+			case "default":
+				$('.global_confirmation_modal_outer').hide();
+				break;
+		}
+	}
+});
 
 //Preferences
 var accountInputTimeout;

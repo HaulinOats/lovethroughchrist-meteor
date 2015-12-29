@@ -14,6 +14,9 @@ hr {
     height: 1px;
     background-image: linear-gradient(to right, rgba(95, 158, 160, 0), rgba(95, 158, 160, 0.75), rgba(95, 158, 160, 0));
 }
+textarea {
+	background:rgba(173, 170, 77, 0.23) !important;
+}
 .fa-venus {
 	color:deeppink !important;
 }
@@ -240,7 +243,7 @@ select{
 .global_confirmation_modal_inner {
 	position: absolute;
     width: 30%;
-    height: 20%;
+    height: auto;
     left: 35%;
     top: 40%;
     background-color: ghostwhite;
@@ -253,8 +256,13 @@ select{
 	font-size:24px;
 }
 .global_confirmation_modal_confirm {
-	position: absolute;
     bottom: 15px;
-    width: 36%;
-    left: 32%;
+    left: 30%;
+    display:block;
+    margin:0 auto;
+    clear:both;
+}
+.close-global-modal {
+	float:right;
+	font-size:25px;
 }

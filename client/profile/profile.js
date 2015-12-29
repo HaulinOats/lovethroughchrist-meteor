@@ -24,8 +24,11 @@ Template.user_profile.events({
 	},
 	'click .profile-wink':function(event){
 		Meteor.call('sendWink', Meteor.userId(), event.currentTarget.attributes.userid.value, function(err, result){
-			if (!err)
-				$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('Wink Sent');
+			if (!err){
+				$('.global_confirmation_modal_message').text("Wink sent!");
+				$('.global_confirmation_modal_confirm').html("OK").data('modal-type', 'default');
+				$('.global_confirmation_modal_outer').show();
+			}
 		});
 	},
 	'click .profile-message-container button, keypress .profile-message-container textarea':function(event){
@@ -39,8 +42,10 @@ Template.user_profile.events({
 		if (message && message.length > 0) {
 			Meteor.call("newMessage", Meteor.userId(), $('.profile-message-container').attr('data-user-id'), message, function(err, result){
 				if (!err){
+					$('.global_confirmation_modal_message').text("Message sent!");
+					$('.global_confirmation_modal_confirm').html("OK").data('modal-type', 'default');
+					$('.global_confirmation_modal_outer').show();
 					$('.profile-message-container').removeClass('show-message');
-					$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('Message Sent');
 				}
 			});
 		}
@@ -79,18 +84,17 @@ Template.user_profile.events({
 		$('.profile_photos_modal_outer').removeClass('modal_showing');
 	},
 	'click .report_user':function(event){
-		if(confirm("This user will be blocked from you.  Is that okay?")){
-			Meteor.call('reportUser', Meteor.userId(), $(event.currentTarget).attr('data-userid'), function(err, result){
-				if (!err) {
-					$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('User blocked and reported.  Thank you!');
-				}
-			})
-		}
+		$('.global_confirmation_modal_message').text(modalHandler['report'].message);
+		$('.global_confirmation_modal_confirm').html(modalHandler['report'].confirm).data('modal-type', 'report');
+		$('.global_confirmation_modal_outer').show();
 	},
 	'click .profile-favorite':function(event){
 		Meteor.call('favoriteUser', Meteor.userId(), $(event.currentTarget).attr('data-userid'), function(err, result){
-			if (!err)
-				$('.global_confirmation_modal_outer').addClass('modal_showing').find('p').text('User Saved');
+			if (!err){
+				$('.global_confirmation_modal_message').text("User added to Favorites!");
+				$('.global_confirmation_modal_confirm').html("OK").data('modal-type', 'default');
+				$('.global_confirmation_modal_outer').show();
+			}
 		})
 	},
 	'click .testimonial_button':function(event){
