@@ -19,6 +19,7 @@ SEO.config({
 	  'description': 'A free Christian dating website'
 	},
 	og: {
+	  'title':"christian, dating, free, christ, love, couple, couples, date",
 	  'image': 'http://www.lovethroughchrist.com/users/assets/img/ltc-logo-long.svg' 
 	}
 });

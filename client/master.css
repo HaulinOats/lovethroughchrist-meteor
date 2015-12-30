@@ -1,5 +1,6 @@
 body {
 	padding-top:60px;
+	padding-bottom:65px;
 	font-family: 'Open Sans', sans-serif !important;
 }
 h2, h3, h4, h5, h6 {
@@ -138,7 +139,7 @@ select{
 }
 .ltc_notification_popup_outer {
   position: fixed;
-  bottom: 0;
+  bottom: 50px;
   right: 50px;
   padding: 0 25px;
   background: cadetblue;

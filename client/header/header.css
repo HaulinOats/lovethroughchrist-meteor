@@ -35,6 +35,19 @@
 .ltc_main_logo {
 	height: 48px;
     margin-top: 7px;
+    float:left;
+}
+.ltc_main_header {
+	font-family: 'Oswald', sans-serif;
+	display:inline-block;
+	margin-top:10px;
+	font-size:29px;
+	color:#E8BC4C;
+	margin-left:5px;
+}
+.ltc_main_header em {
+	color:cadetblue;
+	font-style: normal;
 }
 /*Nav Bar*/
 .nav {
