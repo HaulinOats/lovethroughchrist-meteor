@@ -4,9 +4,9 @@ Messages = new Mongo.Collection("messages");
 window.fbAsyncInit = function() {
 	FB.init({
 	  // Developer
-	  // appId		 : '485852571574726',
+	  appId		 : '485852571574726',
 	  // Production
-	  appId      : '289256867900965',
+	  // appId      : '289256867900965',
 	  status     : true,
 	  xfbml      : true,
 	  version    : "v2.3"

@@ -16,7 +16,7 @@ hr {
     background-image: linear-gradient(to right, rgba(95, 158, 160, 0), rgba(95, 158, 160, 0.75), rgba(95, 158, 160, 0));
 }
 textarea {
-	background:rgba(173, 170, 77, 0.23) !important;
+	background:rgba(77, 133, 173, 0.23) !important;
 }
 .fa-venus {
 	color:deeppink !important;
@@ -246,7 +246,7 @@ select{
     width: 30%;
     height: auto;
     left: 35%;
-    top: 40%;
+    top: 35%;
     background-color: ghostwhite;
     border-radius: 5px;
     border: solid 5px cadetblue;
@@ -255,6 +255,11 @@ select{
 }
 .global_confirmation_modal_message {
 	font-size:24px;
+}
+.global_confirmation_modal_textarea {
+	display:none;
+	width:100%;
+	min-height: 250px;
 }
 .global_confirmation_modal_confirm {
     bottom: 15px;
