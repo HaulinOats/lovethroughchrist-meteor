@@ -14,11 +14,11 @@ ServiceConfiguration.configurations.upsert(
   {
     $set:{
       // Development
-      appId: "485852571574726",
-      secret: "d52ce297e2f71b55b175d9471eb6e9d4"
+      // appId: "485852571574726",
+      // secret: "d52ce297e2f71b55b175d9471eb6e9d4"
       //Production
-      // appId:"289256867900965",
-      // secret:"813b5631116afc377fe572435f7776ad"
+      appId:"289256867900965",
+      secret:"813b5631116afc377fe572435f7776ad"
     }
   }
 );
