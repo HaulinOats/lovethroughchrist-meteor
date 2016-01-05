@@ -199,3 +199,7 @@
   height:250px;
   margin:1% 0%;
 }
+.no-message {
+  background:gray !important;
+  cursor:not-allowed !important;
+}

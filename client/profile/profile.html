@@ -25,8 +25,8 @@
 					<p class="profile-quote"><i>"{{this.profile.favoriteQuote}}"</i></p>
 				{{/unless}}
 				<div class="profile-message-wink-cont">
-					<button class="profile-message ltc_button"><i class="glyphicon glyphicon-envelope"></i>Message</button>
 					<button class="profile-wink ltc_button" userid="{{this._id}}"><i class="fa fa-smile-o"></i>Wink</button>
+					<button class="profile-message ltc_button {{#unless hasSentWink this.profile.winks.to currentUser._id}}no-message{{/unless}}"><i class="glyphicon glyphicon-envelope"></i>Message</button>
 					<button class="profile-favorite ltc_button" data-userid="{{this._id}}"><i class="fa fa-bookmark"></i>Add to Favorites</button>
 					{{#unless sameUser this._id currentUser._id}}<button class="testimonial_button ltc_button" data-userid="{{this._id}}"><i class="fa fa-newspaper-o"></i>Leave Testimonial</button>{{/unless}}
 				</div>

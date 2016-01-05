@@ -14,7 +14,8 @@ Router.route('/', {
 Router.route('/intro', {
   template:'intro_page',
   onBeforeAction:function(){
-    Meteor.call('unsetFirstLogin', Meteor.userId());
+    if(Meteor.userId())
+      Meteor.call('unsetFirstLogin', Meteor.userId());
     this.next();
   }
 });
@@ -93,6 +94,12 @@ Router.route('/admin', {
   onBeforeAction:function(){
     if (Meteor.user() && Meteor.user().profile.email !== 'midgitsuu@gmail.com')
       Router.go('/');
+    this.next();
+  }
+});
+Router.route('/thankyou', {
+  template:'thankyou',
+  onBeforeAction:function(){
     this.next();
   }
 });

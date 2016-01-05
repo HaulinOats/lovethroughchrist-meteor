@@ -45,7 +45,7 @@ var introSlides = {
 	},
 	"3": {
 		"header":"Profile Page",
-		"text":"Clicking a user's profile on the Search page or clicking 'My Profile' will take you to the Profile page.  You can message, wink at, or add users to your favorites list as well as click on their picture to see more images (if they have more).",
+		"text":"Clicking a user's profile on the Search page or clicking 'My Profile' will take you to the Profile page.  You can wink at, or add users to your favorites list as well as click on their picture to see more images (if they have more).  Both users must have mutually winked at each other before either can send a message.",
 		"imageUrl":"/intro_page_3.jpg"
 	},
 	"4": {

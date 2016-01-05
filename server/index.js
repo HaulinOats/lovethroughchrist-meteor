@@ -39,11 +39,6 @@ Messages.before.update(function (userId, doc) {
 });
 
 Meteor.methods({
-	//Feedback
-	postFeedback:function(){
-
-	},
-
 	//Header
 	messagesChecked:function(userId){
 		Meteor.users.update(userId, {
@@ -167,8 +162,12 @@ Meteor.methods({
 					"searchable":true,
 					"testimonials":[],
 					"report":{
-						"from":[],
-						"to":[]
+						"to":[],
+						"from":[]
+					},
+					"winks":{
+						"to":[],
+						"from":[]
 					},
 					"preferences": {
 						"gender":[0, 1],
@@ -311,8 +310,12 @@ Meteor.methods({
 					"searchable":false,
 					"testimonials":[],
 					"report":{
-						"from":[],
-						"to":[]
+						"to":[],
+						"from":[]
+					},
+					"winks":{
+						"to":[],
+						"from":[]
 					},
 					"preferences": {
 						"gender":[prefGender],

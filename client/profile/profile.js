@@ -11,16 +11,27 @@ Template.user_profile.helpers({
 		} else {
 			return userObj.profile.images.default;
 		}
+	},
+	hasSentWink:function(toWinks, fromUserId){
+		var userMatch = toWinks.indexOf(fromUserId);
+		if (userMatch > -1)
+			return true;
 	}
 })
 
 Template.user_profile.events({
 	'click .profile-message':function(event){
-		$('.testimonial_container').removeClass('show-testimonial')
-		if ($('.profile-message-container').hasClass('show-message'))
-			$('.profile-message-container').removeClass('show-message')
-		else
-			$('.profile-message-container').addClass('show-message');
+		if (!$(event.currentTarget).hasClass('no-message')) {
+			$('.testimonial_container').removeClass('show-testimonial')
+			if ($('.profile-message-container').hasClass('show-message'))
+				$('.profile-message-container').removeClass('show-message')
+			else
+				$('.profile-message-container').addClass('show-message');
+		} else {
+			$('.global_confirmation_modal_message').text("Both users must wink in order to message");
+			$('.global_confirmation_modal_confirm').html("OK").data('modal-type', 'default');
+			$('.global_confirmation_modal_outer').show();
+		}
 	},
 	'click .profile-wink':function(event){
 		Meteor.call('sendWink', Meteor.userId(), event.currentTarget.attributes.userid.value, function(err, result){
