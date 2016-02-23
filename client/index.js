@@ -20,7 +20,7 @@ SEO.config({
 	},
 	og: {
 	  'title':"christian, dating, free, christ, love, couple, couples, date",
-	  'image': 'http://www.lovethroughchrist.com/users/assets/img/ltc-logo-long.jpg' 
+	  'image': 'http://www.lovethroughchrist.com/ltc-logo-long.jpg' 
 	}
 });
 
