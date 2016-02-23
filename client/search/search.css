@@ -24,7 +24,6 @@
 	margin-bottom:15px;
 }
 .search_page_title_bar h2{
-	margin: 0;
     font-size: 26px;
     display: inline;
     color:cadetblue;
@@ -68,4 +67,10 @@
 }
 .search_page_denied {
 	font-size:22px;
+}
+.search_end_facebook p{
+	display:inline-block;
+}
+.fb_iframe_widget {
+	top:-3px;
 }

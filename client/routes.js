@@ -47,7 +47,7 @@ Router.route('/search', {
             $('.search_end').show();
           }
         }
-      })
+      });
     }
     this.next();
   }
@@ -62,7 +62,7 @@ Router.route('/search/:_id', {
         if (!err) {
           Session.set('currentSearchUser', result);
         }
-      })
+      });
     }
     this.next();
   }
@@ -124,8 +124,8 @@ Router.onBeforeAction(function () {
           });
         }
 
-        console.log('Current User:')
-      	console.log(Meteor.user());
+       //  console.log('Current User:')
+      	// console.log(Meteor.user());
 
       //show new activity notification
       if (Meteor.user().profile.newActivity.winks > 0 || Meteor.user().profile.newActivity.messages > 0) {
