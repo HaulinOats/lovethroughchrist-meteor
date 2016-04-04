@@ -9,7 +9,7 @@ Meteor.users.deny({
 });
 
 //Facebook SDK
-ServiceConfiguration.configurations.upsert(
+ServiceConfiguration.configurations.update(
   { service: "facebook" },
   {
     $set:{

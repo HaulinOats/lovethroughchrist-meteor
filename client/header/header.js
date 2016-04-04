@@ -10,9 +10,9 @@ Template.navigation_links.helpers({
 
 Template.header.events({
 	'click .facebook-login':function(event){
-		Meteor.loginWithFacebook({requestPermissions:['user_photos', 'user_videos']},function(err){
+		Meteor.loginWithFacebook({requestPermissions:['user_photos', 'user_videos'], loginStyle:"popup"},function(err){
 			if (err)
-				throw new Meteor.Error("Facebook Login Failed");
+				throw new Meteor.Error(err, "Facebook Login Failed");
 		});
 	},
 	'click .facebook-logout':function(event){

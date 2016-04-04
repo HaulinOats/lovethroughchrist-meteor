@@ -18,7 +18,6 @@ matb33:collection-hooks
 fortawesome:fontawesome
 gwendall:body-events
 gadicohen:robots-txt
-standard-minifiers
 meteor-base
 mobile-experience
 mongo
@@ -34,3 +33,5 @@ spacebars
 check
 okgrow:analytics
 spiderable
+standard-minifier-css
+standard-minifier-js
