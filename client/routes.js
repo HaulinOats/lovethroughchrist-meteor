@@ -5,6 +5,7 @@ Router.configure({
 });
 
 Router.route('/', {
+  name: 'home',
   template:'home_page',
   onBeforeAction:function(){
     analytics.page('Home');
