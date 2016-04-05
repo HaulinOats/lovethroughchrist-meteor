@@ -1,17 +1,41 @@
 //Collections
 Messages = new Mongo.Collection("messages");
 
-window.fbAsyncInit = function() {
-	FB.init({
-	  // Developer
-	  // appId		 : '485852571574726',
-	  // Production
-	  appId      : '289256867900965',
-	  status     : true,
-	  xfbml      : true,
-	  version    : "v2.2"
-	});
-};
+Meteor.startup(function(){
+	window.fbAsyncInit = function() {
+		Meteor.call('getEnvironment', function(err, res){
+			if (!err) {
+				if (res === "development") {
+					console.log('development');
+					FB.init({
+					  // Developer
+					  appId		 : '485852571574726',
+					  xfbml      : true,
+					  version    : "v2.5"
+					});
+				} else {
+					console.log('production');
+					FB.init({
+					  // Production
+					  appId      : '289256867900965',
+					  xfbml      : true,
+					  version    : "v2.5"
+					});	
+				}
+			}
+		});
+	};
+});
+
+Meteor.settings.public = {
+	"analyticsSettings": {
+		"Google Analytics" : {
+			"trackingId": "UA-32825440-2"
+		}
+	}
+}
+
+// console.log(process.env.NODE_ENV);
 
 SEO.config({
 	title: 'LoveThroughChrist',

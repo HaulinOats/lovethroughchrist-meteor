@@ -112,33 +112,19 @@ Router.onBeforeAction(function () {
   } else {
   	//Check last online
     if (Meteor.user()) {
-        //get Facebook login data
-        if (!Meteor.user().profile.fbId) {
-          FB.api("/me", function(fbData){
-            console.log(fbData);
-            Meteor.call('addUserFields', Meteor.userId(), fbData, function(err, result){
-              if (!err)
-                console.log('facebook info saved');
-              else
-                console.log('server error saving facebook info');
-            });
-          });
-        }
-
        //  console.log('Current User:')
-      	// console.log(Meteor.user());
+      	console.log(Meteor.user());
 
       //show new activity notification
-      if (Meteor.user().profile.newActivity.winks > 0 || Meteor.user().profile.newActivity.messages > 0) {
-        Session.set('isNewActivity', true);
-      } else
-        Session.set('isNewActivity', false);
+      if (Meteor.user().profile.newActivity) {
+        if (Meteor.user().profile.newActivity.winks > 0 || Meteor.user().profile.newActivity.messages > 0)
+          Session.set('isNewActivity', true);
+        else
+          Session.set('isNewActivity', false);
+      }
       //if more than 15 minutes since time 'lastOnline' was set
     	if ((Date.now() - Meteor.user().profile.lastOnline) > 900000)
     		Meteor.call('setLastOnline', Meteor.userId());
-      //if first time logging in, take user to tutorial page
-      if (Meteor.user().profile.firstLogin)
-        Router.go('/intro')
   	}
   }
   this.next();

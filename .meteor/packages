@@ -6,8 +6,6 @@
 
 insecure
 accounts-password
-accounts-facebook
-service-configuration
 twbs:bootstrap
 accounts-ui-unstyled
 iron:router
@@ -35,3 +33,5 @@ okgrow:analytics
 spiderable
 standard-minifier-css
 standard-minifier-js
+accounts-facebook
+service-configuration

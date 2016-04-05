@@ -27,7 +27,10 @@ Template.account_page.events({
 	'keyup .account-zipcode':function(event){
 		if(event.currentTarget.value.length === 5) {
 			Meteor.call('setZipcode', Meteor.userId(), event.currentTarget.value, function(err, result){
-				console.log(result);
+				if (err) {
+					console.log("error setting zipcode");
+					console.log(err);
+				}
 			});
 		}
 	},

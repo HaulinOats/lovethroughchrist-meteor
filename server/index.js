@@ -9,19 +9,37 @@ Meteor.users.deny({
 });
 
 //Facebook SDK
-ServiceConfiguration.configurations.update(
-  { service: "facebook" },
-  {
-    $set:{
-      // Development
-      // appId: "485852571574726",
-      // secret: "d52ce297e2f71b55b175d9471eb6e9d4"
-      //Production
-      appId:"289256867900965",
-      secret:"813b5631116afc377fe572435f7776ad"
-    }
-  }
-);
+if (process.env.NODE_ENV === "development") {
+	ServiceConfiguration.configurations.upsert(
+	  { service: "facebook" },
+	  {
+	    $set:{
+	      // Development
+	      appId: "485852571574726",
+	      secret: "d52ce297e2f71b55b175d9471eb6e9d4"
+	    }
+	  }
+	);
+} else {
+	ServiceConfiguration.configurations.upsert(
+	  { service: "facebook" },
+	  {
+	    $set:{
+	      //Production
+	      appId:"289256867900965",
+	      secret:"813b5631116afc377fe572435f7776ad"
+	    }
+	  }
+	);
+}
+
+Meteor.settings.public = {
+	"analyticsSettings": {
+		"Google Analytics" : {
+			"trackingId": "UA-32825440-2"
+		}
+	}
+}
 
 Meteor.publish('allUserMessages', function publishFunction() {
 	return Messages.find({$or:[{"from":this.userId},{"to":this.userId}]},{sort:{"updatedAt":-1}});
@@ -39,6 +57,10 @@ Messages.before.update(function (userId, doc) {
 });
 
 Meteor.methods({
+	//Get Environment 
+	getEnvironment:function(){
+		return process.env.NODE_ENV;
+	},
 	//Header
 	messagesChecked:function(userId){
 		Meteor.users.update(userId, {
@@ -57,7 +79,7 @@ Meteor.methods({
 	},
 	unsetFirstLogin:function(userId){
 		Meteor.users.update(userId, {
-			$unset:{'profile.firstLogin':""}
+			$set:{'profile.firstLogin':false}
 		})
 	},
 	//Admin
