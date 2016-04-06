@@ -4,6 +4,23 @@ Router.configure({
   trackPageView:true
 });
 
+Router.plugin('seo', {
+  defaults: {
+    "title":"LoveThroughChrist",
+    "suffix": "LoveThroughChrist",
+    "separator": ".",
+    "description": "A free dating website for Christians from all areas and walks of life",
+    "image":"http://www.lovethroughchrist.com/ltc-logo-long.jpg",
+    "meta": {
+      "keywords":["free", "christian", "dating", "love", "through", "christ", "christianity", "religion", "religious", "church", "marriage"]
+    },
+    "og":{
+      "site_name": "LoveThroughChrist",
+      "image": "http://www.lovethroughchrist.com/ltc-logo-long.jpg"
+    }
+  }
+});
+
 Router.route('/', {
   name: 'home',
   template:'home_page',

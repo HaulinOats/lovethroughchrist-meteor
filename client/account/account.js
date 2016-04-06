@@ -61,60 +61,91 @@ Template.account_page.events({
 		Meteor.call('infoTextAreaSave', Meteor.userId(), fieldName, textAreaVal);
 	},
 	'click .account_page_search_photos':function(event){
-		//set all photos
-		FB.api("/me/photos", function(photoData){
-		  $('.account_page_photos_select').show();
-		  $('.account_page_search_photos').hide();
-		  $('.account_page_photos_current').css('min-height', "250px");
-		  $('.account_load_more').attr('data-next-url-all', photoData.paging.next);
-          for (var i = 0; i < photoData.data.length; i++)
-          	$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ photoData.data[i].picture +'" data-image-url="'+ photoData.data[i].source +'" />');
-        });
-        //set profile photos
-        FB.api("/me/albums", function(photoData){
-        	for (var i = 0; i < photoData.data.length; i++){
-        		if (photoData.data[i].name === "Profile Pictures") {
-        			FB.api("/"+ photoData.data[i].id + "/photos", function(photoData2){
-        				$('.account_load_more_photos').attr('data-next-url-profile', photoData2.paging.next);
-        				for (var i = 0; i < photoData2.data.length;i++)
-        					$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ photoData2.data[i].picture +'" data-image-url="'+ photoData2.data[i].source +'" />');
-        			});
-        			break;
-        		} 
-        	}
+        FB.getLoginStatus(function(response){
+        	//get access token on each call to load images
+        	Session.set('accessToken', response.authResponse.accessToken);
+			
+			// show photos box
+			$('.account_page_photos_select').show();
+			$('.account_page_search_photos').hide();
+			$('.account_page_photos_current').css('min-height', "250px");
+
+			//set all photos
+			// FB.api("/me/photos", {access_token: Session.get('accessToken')}, function(photoData){
+			//   $('.account_load_more').attr('data-next-url-all', photoData.paging.next);
+	  //         for (var i = 0; i < photoData.data.length; i++) {
+	  //         	FB.api("/" + photoData.data[i].id, {fields: "images"}, function(photo){
+	  //         		$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ photo.images[0].source +'" data-image-url="'+ photo.images[0].source +'" />');
+	  //         	});
+	  //         }
+	  //       });
+	        	
+	        //set profile photos
+	        console.log('authToken:' + Session.get('accessToken'));
+	        FB.api("/me/albums", {access_token: Session.get('accessToken')}, function(photoData){
+	        	for (var i = 0; i < photoData.data.length; i++){
+	        		if (photoData.data[i].name === "Profile Pictures") {
+	        			FB.api("/"+ photoData.data[i].id + "/photos",{access_token: Session.get('accessToken')}, function(photoData2){
+	        				$('.account_load_more_photos').attr('data-next-url-profile', photoData2.paging.next);
+	        				for (var i = 0; i < photoData2.data.length;i++) {
+	        					FB.api("/" + photoData2.data[i].id, {fields: "images"}, function(photo){
+	        						$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ photo.images[0].source +'" data-image-url="'+ photo.images[0].source +'" />');
+	        					});
+	        				}
+	        			});
+	        			break;
+	        		} 
+	        	}
+	        });
         });
 	},
 	'click .account_page_search_videos':function(event){
-		//set all photos
-		$('.account_load_more_photos').show();
-		FB.api("/me/videos", function(videoData){
-			console.log(videoData);
-		  $('.account_page_videos_select').show();
-		  $('.account_page_search_videos').hide();
-		  $('.account_page_videos_current').css('min-height', "250px");
-		  $('.account_load_more_videos').attr('data-next-url-all', videoData.paging.next);
-          for (var i = 0; i < videoData.data.length; i++)
-          	$(".account_load_more_videos").before('<img class="account_page_video_search_thumbnail" src="'+ videoData.data[i].picture +'" data-video-url="'+ videoData.data[i].source +'" />');
-        });
+		FB.getLoginStatus(function(response){
+			//get access token on each call to load images
+			Session.set('accessToken', response.authResponse.accessToken);
+			
+			//set all videos
+			$('.account_load_more_photos').show();
+			FB.api("/me/videos", {access_token: Session.get('accessToken')}, function(videoData){
+				console.log(videoData);
+			  $('.account_page_videos_select').show();
+			  $('.account_page_search_videos').hide();
+			  $('.account_page_videos_current').css('min-height', "250px");
+			  $('.account_load_more_videos').attr('data-next-url-all', videoData.paging.next);
+	          for (var i = 0; i < videoData.data.length; i++) {
+	          	FB.api("/" + videoData.data[i].id, {fields: "source, picture"}, function(video){
+	          		$(".account_load_more_videos").before('<img class="account_page_video_search_thumbnail" src="'+ video.picture +'" data-video-url="'+ video.source +'" />');
+	          	});
+	          }
+	        });
+		});
 	},
 	'click .account_load_more_photos':function(event){
 		//get all photos
-		$.ajax({
-		  url: $('.account_load_more_photos').attr('data-next-url-all'),
-		  method:"GET"
-		}).done(function(json) {
-		  $('.account_load_more_photos').attr('data-next-url-all', json.paging.next);
-		  for (var i = 0; i < json.data.length; i++)
-		  	$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ json.data[i].picture +'" data-image-url="'+ json.data[i].source +'" />')
-		});
+		// $.ajax({
+		//   url: $('.account_load_more_photos').attr('data-next-url-all'),
+		//   dataType:"json",
+		//   method:"GET"
+		// }).done(function(json) {
+		//   console.log('load more tagged photos:');
+		//   console.log(json.paging.next);
+		//   $('.account_load_more_photos').attr('data-next-url-all', json.paging.next);
+		//   for (var i = 0; i < json.data.length; i++)
+		//   	$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ json.data[i].picture +'" data-image-url="'+ json.data[i].source +'" />')
+		// });
+
 		//get profile photos
 		$.ajax({
 		  url: $('.account_load_more_photos').attr('data-next-url-profile'),
+		  dataType:"json",
 		  method:"GET"
-		}).done(function(json) {
-		  $('.account_load_more_photos').attr('data-next-url-profile', json.paging.next);
-		  for (var i = 0; i < json.data.length; i++)
-		  	$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ json.data[i].picture +'" data-image-url="'+ json.data[i].source +'" />')
+		}).done(function(response) {
+		  $('.account_load_more_photos').attr('data-next-url-profile', response.paging.next);
+		  for (var i = 0; i < response.data.length; i++) {
+		  	FB.api("/" + response.data[i].id, {fields: "images"}, function(photo){
+		  		$(".account_load_more_photos").before('<img class="account_page_photo_search_thumbnail" src="'+ photo.images[0].source +'" data-image-url="'+ photo.images[0].source +'" />')
+		  	});
+		  }
 		});
 	},
 	'click .account_load_more_videos':function(event){
@@ -122,13 +153,16 @@ Template.account_page.events({
 		$.ajax({
 		  url: $('.account_load_more_videos').attr('data-next-url-all'),
 		  method:"GET"
-		}).done(function(json) {
-			if (json.paging.next)
-		  		$('.account_load_more_videos').attr('data-next-url-all', json.paging.next);
+		}).done(function(response) {
+			if (response.paging.next)
+		  		$('.account_load_more_videos').attr('data-next-url-all', response.paging.next);
 		  	else
 		  		$('.account_load_more_videos').hide();
-			for (var i = 0; i < json.data.length; i++)
-		  		$(".account_load_more_videos").before('<img class="account_page_video_search_thumbnail" src="'+ json.data[i].picture +'" data-video-url="'+ json.data[i].source +'" />')
+			for (var i = 0; i < response.data.length; i++) {
+				FB.api("/" + response.data[i].id, {fields: "source, picture"}, function(video){
+		  			$(".account_load_more_videos").before('<img class="account_page_video_search_thumbnail" src="'+ video.picture +'" data-video-url="'+ video.source +'" />')
+				});
+			}
 		});
 	},
 	'mouseover .account_page_photo_search_thumbnail, mouseout .account_page_photo_search_thumbnail':function(event){

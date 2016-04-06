@@ -116,6 +116,8 @@
   margin-right:10px;
   margin-top:10px;
   box-shadow: 1px 1px 3px;
+  max-height: 200px;
+  height:auto;
 }
 .account_page_photo_search_thumbnail:hover ,
 .account_page_video_search_thumbnail:hover {

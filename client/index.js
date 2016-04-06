@@ -2,11 +2,11 @@
 Messages = new Mongo.Collection("messages");
 
 Meteor.startup(function(){
+	//setup Facebook SDK
 	window.fbAsyncInit = function() {
 		Meteor.call('getEnvironment', function(err, res){
 			if (!err) {
 				if (res === "development") {
-					console.log('development');
 					FB.init({
 					  // Developer
 					  appId		 : '485852571574726',
@@ -14,7 +14,9 @@ Meteor.startup(function(){
 					  version    : "v2.5"
 					});
 				} else {
-					console.log('production');
+					// Redirect to 'www' if not 'www'
+					if (location.host.indexOf('www') === -1)
+						location = 'http://www.lovethroughchrist.com';
 					FB.init({
 					  // Production
 					  appId      : '289256867900965',
@@ -34,19 +36,6 @@ Meteor.settings.public = {
 		}
 	}
 }
-
-// console.log(process.env.NODE_ENV);
-
-SEO.config({
-	title: 'LoveThroughChrist',
-	meta: {
-	  'description': 'A free Christian dating website'
-	},
-	og: {
-	  'title':"christian, dating, free, christ, love, couple, couples, date",
-	  'image': 'http://www.lovethroughchrist.com/ltc-logo-long.jpg' 
-	}
-});
 
 // tooltip object 
 var tooltips = {

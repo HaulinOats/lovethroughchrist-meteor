@@ -10,7 +10,6 @@ twbs:bootstrap
 accounts-ui-unstyled
 iron:router
 aldeed:geocoder
-manuelschoebel:ms-seo
 biasport:facebook-sdk
 matb33:collection-hooks
 fortawesome:fontawesome
@@ -35,3 +34,4 @@ standard-minifier-css
 standard-minifier-js
 accounts-facebook
 service-configuration
+lookback:seo
